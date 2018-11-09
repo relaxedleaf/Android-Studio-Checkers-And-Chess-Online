@@ -4,4 +4,5 @@
     <string name="login">Login</string>
     <string name="play_checkers">Play Checkers</string>
     <string name="play_chess">Play Chess</string>
+
 </resources>
