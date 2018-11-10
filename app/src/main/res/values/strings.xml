@@ -6,5 +6,6 @@
     <string name="play_chess">Play Chess</string>
     <string name="username">Username:</string>
     <string name="room_id">Room ID:</string>
+    <string name="sign_out">Sign Out</string>
 
 </resources>

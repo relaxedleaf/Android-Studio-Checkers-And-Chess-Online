@@ -3,12 +3,18 @@ package com.example.guanghuili.checkesandchess.Checkers;
 public class Player extends RoomManager {
     private String username;
     private String email;
-    private String password;
+    private int win;
+    private int loss;
+    private double winningRate;
 
-    public Player(String email, String password, String username){
+    public Player(){
+
+    }
+    public Player(String username, String email){
         this.username = username;
-        this.password = password;
         this.email = email;
+        this.win = 0;
+        this.loss = 0;
     }
 
     public String getUsername() {
@@ -19,19 +25,37 @@ public class Player extends RoomManager {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getWin() {
+        return win;
+    }
+
+    public void updateWin() {
+        this.win++;
+    }
+
+    public int getLoss() {
+        return loss;
+    }
+
+    public void updateLoss() {
+        this.loss++;
+    }
+
+    public void updateWinningRate(){
+        if((win + loss) != 0){
+            this.winningRate = (double)Math.round((win/(win+loss))*100)/100;
+        }
+    }
+
+    public double getWinningRate() {
+        return winningRate;
     }
 }

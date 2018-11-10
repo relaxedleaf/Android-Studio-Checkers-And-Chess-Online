@@ -22,6 +22,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.017">
 
+        <TextView
+            android:id="@+id/tvGreetingID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
         <Button
             android:id="@+id/btnSignUpID"
             android:layout_width="wrap_content"
@@ -35,6 +43,15 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:text="@string/login" />
+
+        <Button
+            android:id="@+id/btnSignOutID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/sign_out"
+            android:visibility="invisible" />
+
     </RelativeLayout>
 
     <ImageButton
