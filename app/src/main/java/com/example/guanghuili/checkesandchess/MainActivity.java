@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.guanghuili.checkesandchess.Checkers.Player;
 import com.example.guanghuili.checkesandchess.Checkers.PlayerManager;
+import com.example.guanghuili.checkesandchess.Checkers.RoomManager;
 import com.google.android.gms.internal.firebase_auth.zzao;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,6 +29,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.FirebaseUserMetadata;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +40,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private PlayerManager playerManager = new PlayerManager();
+    private RoomManager roomManager = new RoomManager();
+    private Player player;
+
     //***Login Page***
     private EditText etEmailLogin;
     private EditText etPasswordLogin;
@@ -63,10 +68,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvGreeting;
     //*******************
 
-
+    private FirebaseUser user;
     private FirebaseDatabase database;
-    private DatabaseReference ref;
-    private DatabaseReference databaseReference;
+    private DatabaseReference refSignUpPlayers;
+    private DatabaseReference refUsername;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
@@ -107,28 +112,42 @@ public class MainActivity extends AppCompatActivity {
         ibtnCheckers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, CheckerActivity.class);
+                Intent intent = new Intent(MainActivity.this, CheckerRoomActivity.class);
+                intent.putExtra("player",player);
                 startActivity(intent);
             }
         });
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        ref = database.getReference("Sign Up Players");
+        refSignUpPlayers = database.getReference("Signed Up Players");
+        refUsername = database.getReference("username");
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
+                Log.d("Step","Step1");
+                user = mAuth.getCurrentUser();
                 if(user != null){
-                    //user is signed in
-                    Log.d(TAG,"user signed in");
-                    btnLogin.setVisibility(View.GONE);
-                    btnSignOut.setVisibility(View.VISIBLE);
-                    btnSignup.setVisibility(View.GONE);
-                    tvGreeting.setText("Hello " + user.getDisplayName());
-                    tvGreeting.setVisibility(View.VISIBLE);
-                    ibtnCheckers.setEnabled(true);
+                    if(user.getDisplayName()!= null) {
+                        //user is signed in
+                        Log.d(TAG, "user signed in");
+                        btnLogin.setVisibility(View.GONE);
+                        btnSignOut.setVisibility(View.VISIBLE);
+                        btnSignup.setVisibility(View.GONE);
+                        tvGreeting.setText("Hello " + user.getDisplayName());
+                        tvGreeting.setVisibility(View.VISIBLE);
+                        ibtnCheckers.setEnabled(true);
+                    }
+                    else{
+                        //User is signed out
+                        Log.d(TAG,"user signed out");
+                        btnLogin.setVisibility(View.VISIBLE);
+                        btnSignOut.setVisibility(View.GONE);
+                        btnSignup.setVisibility(View.VISIBLE);
+                        tvGreeting.setVisibility(View.GONE);
+                        ibtnCheckers.setEnabled(false);
+                    }
 
                 }
                 else{
@@ -142,6 +161,20 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
+        refUsername.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot username : dataSnapshot.getChildren()){
+                    playerManager.getUsernameList().add(username.getValue(String.class));
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
 
@@ -209,8 +242,12 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 final String username = etNameSignUp.getText().toString();
                 final String email = etEmailSignUp.getText().toString();
-                String password = etPasswordSignUp.getText().toString();
-                if (!email.equals("") && !password.equals("") && !username.equals("")){
+                final String password = etPasswordSignUp.getText().toString();
+                boolean duplicateCopy = playerManager.getDuplicateUsername(username);
+                if(duplicateCopy == true) {
+                    Toast.makeText(MainActivity.this, "Username Taken", Toast.LENGTH_LONG).show();
+                }
+                if (!email.equals("") && !password.equals("") && !username.equals("") && duplicateCopy == false){
                     mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -218,17 +255,34 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this, "Failed Sign Up", Toast.LENGTH_LONG).show();
                             } else {
                                 Toast.makeText(MainActivity.this, "Signed Up!", Toast.LENGTH_LONG).show();
-                                /*
-                                Player player = playerManager.createPlayer(username,email);
-                                databaseReference = ref.child(username);
-                                databaseReference.push().setValue(player);
-                                */
-                                FirebaseUser user = mAuth.getCurrentUser();
+                                //***store the sign up user info to the database***//
+                                player = playerManager.createPlayer(username,email);
+                                refSignUpPlayers.child(username).setValue(player);
+
+                                refUsername.child(username).setValue(username);
+
+                                user = mAuth.getCurrentUser();
                                 UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                     .setDisplayName(username).build();
 
                                 user.updateProfile(profileUpdates);
+                                mAuth.signOut();
+                                Log.d("Step","Step2");
                                 alertDialog.dismiss();
+
+                                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (!task.isSuccessful()) {
+                                            Toast.makeText(MainActivity.this, "Failed Sign in", Toast.LENGTH_LONG).show();
+                                        } else {
+                                            FirebaseUser user = mAuth.getCurrentUser();
+                                            Toast.makeText(MainActivity.this, "Signed In!", Toast.LENGTH_LONG).show();
+                                            alertDialog.dismiss();
+                                            Log.d("Step","Step3");
+                                        }
+                                    }
+                                });
                             }
                         }
                     });

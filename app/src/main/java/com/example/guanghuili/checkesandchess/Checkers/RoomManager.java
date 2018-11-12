@@ -10,9 +10,10 @@ public class RoomManager {
 
     }
 
-    public void createRoom(Player player1) {
+    public Room createRoom(Player player1) {
         int id = idGenerator();
         Room room = new Room(id, player1);
+        return room;
     }
 
     public void joinRoom(int id, Player player2){

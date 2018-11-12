@@ -1,8 +1,11 @@
 package com.example.guanghuili.checkesandchess.Checkers;
 
-public class Player extends RoomManager {
+import java.io.Serializable;
+
+public class Player extends RoomManager implements Serializable {
     private String username;
     private String email;
+    private String id;
     private int win;
     private int loss;
     private double winningRate;
@@ -57,5 +60,13 @@ public class Player extends RoomManager {
 
     public double getWinningRate() {
         return winningRate;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

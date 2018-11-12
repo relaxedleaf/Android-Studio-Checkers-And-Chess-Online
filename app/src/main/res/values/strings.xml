@@ -7,5 +7,7 @@
     <string name="username">Username:</string>
     <string name="room_id">Room ID:</string>
     <string name="sign_out">Sign Out</string>
+    <string name="create_room">Create Room</string>
+    <string name="join">Join</string>
 
 </resources>

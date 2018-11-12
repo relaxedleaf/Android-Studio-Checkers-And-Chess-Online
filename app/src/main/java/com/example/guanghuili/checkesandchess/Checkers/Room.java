@@ -2,6 +2,7 @@ package com.example.guanghuili.checkesandchess.Checkers;
 
 public class Room {
     private int id;
+    private String databaseId;
     private Player player1;
     private Player player2;
 
@@ -35,5 +36,13 @@ public class Room {
 
     public void setPlayer2(Player player2) {
         this.player2 = player2;
+    }
+
+    public String getDatabaseId() {
+        return databaseId;
+    }
+
+    public void setDatabaseId(String databaseId) {
+        this.databaseId = databaseId;
     }
 }
