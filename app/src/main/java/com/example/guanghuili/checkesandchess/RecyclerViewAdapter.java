@@ -34,8 +34,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder viewHolder, int position) {
         Room room = roomList.get(position);
-
-
+        viewHolder.tvUsername.setText(room.getPlayer1().getUsername());
+        viewHolder.tvRoom.setText(String.valueOf(room.getId()));
     }
 
     @Override
@@ -45,14 +45,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvUsername;
-        public TextView tvRoomID;
+        public TextView tvRoom;
 
         public ViewHolder(View view, Context ctx) {
             super(view);
 
             context = ctx;
             tvUsername = view.findViewById(R.id.tvUsernameID);
-            tvRoomID = view.findViewById(R.id.tvRoomID);
+            tvRoom = view.findViewById(R.id.tvRoomID);
+
+
 
         }
     }

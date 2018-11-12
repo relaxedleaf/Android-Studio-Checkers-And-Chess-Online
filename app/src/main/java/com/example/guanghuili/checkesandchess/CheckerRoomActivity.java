@@ -1,5 +1,6 @@
 package com.example.guanghuili.checkesandchess;
 
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,11 +16,13 @@ import com.example.guanghuili.checkesandchess.Checkers.Player;
 import com.example.guanghuili.checkesandchess.Checkers.Room;
 import com.example.guanghuili.checkesandchess.Checkers.RoomManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -39,7 +42,7 @@ public class CheckerRoomActivity extends AppCompatActivity {
     private Button btnJoin;
     private Player player;
     private Room room;
-    private ArrayList<Room> roomList = new ArrayList<>();
+    private FirebaseUser user;
     private RoomManager roomManager = new RoomManager();
 
 
@@ -47,6 +50,11 @@ public class CheckerRoomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checker_room);
+//**********RecyclerView***********
+        recyclerView = (RecyclerView) findViewById(R.id.RecyclerViewID);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//**********************************
 
         btnCreate = findViewById(R.id.btnCreateRoomID);
         etRoom = findViewById(R.id.etRoomID);
@@ -54,29 +62,65 @@ public class CheckerRoomActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        refSignUpPlayers = database.getReference("Sign Up Players");
+        refSignUpPlayers = database.getReference("Signed Up Players");
         refRoom = database.getReference("Room");
 
-        player = (Player)getIntent().getSerializableExtra("player");
-        Log.d("Player info",player.getEmail());
+        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = mAuth.getCurrentUser();
+            }
+        });
 
+        refSignUpPlayers.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("DataCalled","Hello");
+                user = mAuth.getCurrentUser();
+                Log.d("DataCalled",user.getDisplayName());
+                Log.d("DataCalled",String.valueOf(dataSnapshot.getChildrenCount()));
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    Log.d("DataCalled",dataSnapshot1.getValue(Player.class).getUsername());
+                    if(dataSnapshot1.getValue(Player.class).getUsername().equals(user.getDisplayName())){
+                        player = dataSnapshot1.getValue(Player.class);
+                        Log.d("DataCalled","Hello");
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        refRoom.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                roomManager.getRoomList().clear();
+                roomManager.getIdList().clear();
+                for(DataSnapshot roomSnapshot : dataSnapshot.getChildren()){
+                    roomManager.getRoomList().add(roomSnapshot.getValue(Room.class));
+                    roomManager.getIdList().add(roomSnapshot.getValue(Room.class).getId());
+                }
+                recyclerViewAdapter = new RecyclerViewAdapter(CheckerRoomActivity.this, roomManager.getRoomList());
+                recyclerView.setAdapter(recyclerViewAdapter);
+                recyclerViewAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 room = roomManager.createRoom(player);
-                room.setDatabaseId(refRoom.push().getKey());
-                refRoom.child(room.getDatabaseId()).setValue(room);
+                refRoom.child(String.valueOf(room.getId())).setValue(room);
             }
         });
 
-        recyclerView = (RecyclerView) findViewById(R.id.RecyclerViewID);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        recyclerViewAdapter = new RecyclerViewAdapter(this, roomList);
-        recyclerView.setAdapter(recyclerViewAdapter);
-        recyclerViewAdapter.notifyDataSetChanged();
 
 
     }

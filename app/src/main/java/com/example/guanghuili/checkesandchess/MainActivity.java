@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, CheckerRoomActivity.class);
-                intent.putExtra("player",player);
                 startActivity(intent);
             }
         });
@@ -145,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
                         btnLogin.setVisibility(View.VISIBLE);
                         btnSignOut.setVisibility(View.GONE);
                         btnSignup.setVisibility(View.VISIBLE);
+                        tvGreeting.setVisibility(View.GONE);
                         tvGreeting.setVisibility(View.GONE);
                         ibtnCheckers.setEnabled(false);
                     }
@@ -215,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 Toast.makeText(MainActivity.this, "Failed Sign in", Toast.LENGTH_LONG).show();
                             } else {
-                                FirebaseUser user = mAuth.getCurrentUser();
+                                user = mAuth.getCurrentUser();
                                 Toast.makeText(MainActivity.this, "Signed In!", Toast.LENGTH_LONG).show();
                                 alertDialog.dismiss();
                             }
@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
                                         if (!task.isSuccessful()) {
                                             Toast.makeText(MainActivity.this, "Failed Sign in", Toast.LENGTH_LONG).show();
                                         } else {
-                                            FirebaseUser user = mAuth.getCurrentUser();
+                                            user = mAuth.getCurrentUser();
                                             Toast.makeText(MainActivity.this, "Signed In!", Toast.LENGTH_LONG).show();
                                             alertDialog.dismiss();
                                             Log.d("Step","Step3");

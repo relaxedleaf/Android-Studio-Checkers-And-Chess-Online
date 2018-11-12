@@ -1,5 +1,7 @@
 package com.example.guanghuili.checkesandchess.Checkers;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 public class RoomManager {
@@ -12,7 +14,9 @@ public class RoomManager {
 
     public Room createRoom(Player player1) {
         int id = idGenerator();
+        idList.add(id);
         Room room = new Room(id, player1);
+        roomList.add(room);
         return room;
     }
 
@@ -32,13 +36,36 @@ public class RoomManager {
         int range = (5000 - 1) + 1;
         int random = (int) (Math.random() * range) + min;
         while (generating){
-            for (int i = 0; i < roomList.size(); i++) {
-                if (random == roomList.get(i).getId()) {
-                    random = (int) (Math.random() * range) + min;
-                    break;
+            if(roomList.size() < 0) {
+                for (int i = 0; i < roomList.size(); i++) {
+                    if (random == roomList.get(i).getId()) {
+                        random = (int) (Math.random() * range) + min;
+                        generating = false;
+                        break;
+                    }
                 }
+            }
+            else{
+                generating = false;
             }
         }
         return random;
     }
+
+    public static ArrayList<Room> getRoomList() {
+        return roomList;
+    }
+
+    public static void setRoomList(ArrayList<Room> roomList) {
+        RoomManager.roomList = roomList;
+    }
+
+    public static ArrayList<Integer> getIdList() {
+        return idList;
+    }
+
+    public static void setIdList(ArrayList<Integer> idList) {
+        RoomManager.idList = idList;
+    }
+
 }
