@@ -1,11 +1,17 @@
 package com.example.guanghuili.checkesandchess.Checkers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Checker {
+public class Checker implements Serializable {
     private int row;
     private int column;
     private boolean crownStatus;
+
+    public Checker(){
+
+    }
 
     public Checker(int row, int column){
         this.row = row;
@@ -43,11 +49,11 @@ public class Checker {
         this.crownStatus = crownStatus;
     }
 
-    public ArrayList<int[]> getMove(Checker[][] checkerList) {
+    public ArrayList<int[]> getMove(List<List<Checker>> checkerList) {
         return null;
     }
 
-    public ArrayList<int[]> getMove2(Checker[][] checkerList) {
+    public ArrayList<int[]> getMove2(List<List<Checker>> checkerList) {
         return null;
     }
 

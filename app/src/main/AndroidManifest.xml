@@ -16,8 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CheckerActivity" />
-        <activity android:name=".CheckerRoomActivity"></activity>
+        <activity android:name=".CheckerRoomActivity" />
+        <activity android:name=".BlackCheckerActivity" />
+        <activity android:name=".RedCheckerActivity"></activity>
     </application>
 
 </manifest>

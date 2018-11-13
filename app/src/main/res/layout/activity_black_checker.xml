@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CheckerActivity">
+    tools:context=".BlackCheckerActivity">
 
     <android.support.v7.widget.GridLayout
         android:layout_width="0dp"

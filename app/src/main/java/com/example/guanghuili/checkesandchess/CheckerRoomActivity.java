@@ -1,5 +1,6 @@
 package com.example.guanghuili.checkesandchess;
 
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -75,15 +76,10 @@ public class CheckerRoomActivity extends AppCompatActivity {
         refSignUpPlayers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("DataCalled","Hello");
                 user = mAuth.getCurrentUser();
-                Log.d("DataCalled",user.getDisplayName());
-                Log.d("DataCalled",String.valueOf(dataSnapshot.getChildrenCount()));
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    Log.d("DataCalled",dataSnapshot1.getValue(Player.class).getUsername());
                     if(dataSnapshot1.getValue(Player.class).getUsername().equals(user.getDisplayName())){
                         player = dataSnapshot1.getValue(Player.class);
-                        Log.d("DataCalled","Hello");
                     }
                 }
             }
@@ -118,6 +114,9 @@ public class CheckerRoomActivity extends AppCompatActivity {
             public void onClick(View view) {
                 room = roomManager.createRoom(player);
                 refRoom.child(String.valueOf(room.getId())).setValue(room);
+                Intent intent = new Intent(CheckerRoomActivity.this,BlackCheckerActivity.class);
+                intent.putExtra("room",room);
+                startActivity(intent);
             }
         });
 
