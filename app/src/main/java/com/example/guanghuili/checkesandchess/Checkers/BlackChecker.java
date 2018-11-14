@@ -2,16 +2,19 @@ package com.example.guanghuili.checkesandchess.Checkers;
 
 import android.util.Log;
 
+import com.google.firebase.database.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlackChecker extends Checker implements Serializable {
+public class BlackChecker extends Checker implements Serializable{
     private ArrayList <int[]> possibleMove;
     private ArrayList <int[]> killList;
+    private static String type = "BlackChecker";
 
     public BlackChecker(int row, int column){
-        super(row,column);
+        super(row,column,type);
     }
 
     public BlackChecker (Checker blackChecker){

@@ -267,6 +267,7 @@ public class RedCheckerActivity extends AppCompatActivity {
                 if(dataSnapshot.getValue(Room.class).getPlayer1() != null){
                     turn = dataSnapshot.getValue(Room.class).getTurn();
                     checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
+                    processCheckerList();
                     updateAllButtons();
                     disableButtons();
                 }
@@ -559,5 +560,26 @@ public class RedCheckerActivity extends AppCompatActivity {
             }
         }
         return location;
+    }
+
+    public void processCheckerList() {
+        Boolean status;
+        for (int r = 0; r < checkerList.size(); r++) {
+            for (int c = 0; c < checkerList.get(r).size(); c++) {
+                if (checkerList.get(r).get(c).getType().equals("BlackChecker")) {//if the checker is black
+                    status = checkerList.get(r).get(c).isCrownStatus();
+                    checkerList.get(r).set(c, (new BlackChecker(checkerList.get(r).get(c).getRow(), checkerList.get(r).get(c).getColumn())));
+                    checkerList.get(r).get(c).setCrownStatus(status);
+                }
+                if (checkerList.get(r).get(c).getType().equals("RedChecker")) {//if the checker is red
+                    status = checkerList.get(r).get(c).isCrownStatus();
+                    checkerList.get(r).set(c, (new RedChecker(checkerList.get(r).get(c).getRow(), checkerList.get(r).get(c).getColumn())));
+                    checkerList.get(r).get(c).setCrownStatus(status);
+                }
+                if (checkerList.get(r).get(c).getType().equals("NullChecker")) {//if the checker is red
+                    checkerList.get(r).set(c, (new NullChecker()));
+                }
+            }
+        }
     }
 }

@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.guanghuili.checkesandchess.Checkers.BlackChecker;
 import com.example.guanghuili.checkesandchess.Checkers.Player;
 import com.example.guanghuili.checkesandchess.Checkers.PlayerManager;
 import com.example.guanghuili.checkesandchess.Checkers.RoomManager;
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference refUsername;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+
 
     private static final String TAG = "DebugMainActivity";
 
@@ -137,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
                         tvGreeting.setText("Hello " + user.getDisplayName());
                         tvGreeting.setVisibility(View.VISIBLE);
                         ibtnCheckers.setEnabled(true);
+
                     }
                     else{
                         //User is signed out

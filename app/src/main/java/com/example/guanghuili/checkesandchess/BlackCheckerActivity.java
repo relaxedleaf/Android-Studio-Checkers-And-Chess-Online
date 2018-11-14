@@ -265,17 +265,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
                 if(dataSnapshot.getValue(Room.class).getPlayer2() != null){
                     turn = dataSnapshot.getValue(Room.class).getTurn();
                     checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
-
-                    for(int r = 0; r < checkerList.size(); r++){
-                        Log.d("checkerList", "row" + String.valueOf(r));
-                        Log.d("checkerList", "rowSize" + String.valueOf(checkerList.size()));
-                        for(int c = 0; c < checkerList.get(r).size(); c++){
-                            Log.d("checkerList", "Column" + String.valueOf(c));
-                            Log.d("checkerList", "ColumnSize" + String.valueOf(checkerList.get(r).size()));
-                            Log.d("checkerList","hello: "+checkerList.get(r).get(c).getClass().getSimpleName());
-                        }
-
-                    }
+                    processCheckerList();
                     Toast.makeText(BlackCheckerActivity.this,"Player Entered",Toast.LENGTH_LONG).show();
                     updateAllButtons();
                     disableButtons();
@@ -565,5 +555,26 @@ public class BlackCheckerActivity extends AppCompatActivity {
             }
         }
         return location;
+    }
+
+    public void processCheckerList() {
+        Boolean status;
+        for (int r = 0; r < checkerList.size(); r++) {
+            for (int c = 0; c < checkerList.get(r).size(); c++) {
+                if (checkerList.get(r).get(c).getType().equals("BlackChecker")) {//if the checker is black
+                    status = checkerList.get(r).get(c).isCrownStatus();
+                    checkerList.get(r).set(c, (new BlackChecker(checkerList.get(r).get(c).getRow(), checkerList.get(r).get(c).getColumn())));
+                    checkerList.get(r).get(c).setCrownStatus(status);
+                }
+                if (checkerList.get(r).get(c).getType().equals("RedChecker")) {//if the checker is red
+                    status = checkerList.get(r).get(c).isCrownStatus();
+                    checkerList.get(r).set(c, (new RedChecker(checkerList.get(r).get(c).getRow(), checkerList.get(r).get(c).getColumn())));
+                    checkerList.get(r).get(c).setCrownStatus(status);
+                }
+                if (checkerList.get(r).get(c).getType().equals("NullChecker")) {//if the checker is red
+                    checkerList.get(r).set(c, (new NullChecker()));
+                }
+            }
+        }
     }
 }

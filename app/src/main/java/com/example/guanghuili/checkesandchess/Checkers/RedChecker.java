@@ -6,12 +6,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RedChecker extends Checker implements Serializable {
+public class RedChecker extends Checker{
     private ArrayList <int[]> possibleMove;
     private ArrayList <int[]> killList;
+    private static String type = "RedChecker";
 
     public RedChecker(int row, int column){
-        super(row,column);
+        super(row,column,type);
     }
 
     public RedChecker (Checker redChecker){
