@@ -1,6 +1,8 @@
 package com.example.guanghuili.checkesandchess.Checkers;
 
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,20 +22,21 @@ public class Room implements Serializable {
         this.id = id;
         this.player1 = player1;
         this.checkerList = new ArrayList<List<Checker>>();
+        Checker nullc = new NullChecker();
         Checker [][] checkerArray = new Checker[][]
-                        {{null, new RedChecker(0,1), null, new RedChecker(0,3), null, new RedChecker(0,5), null, new RedChecker(0,7)},
-                        {new RedChecker(1,0), null, new RedChecker(1,2),null, new RedChecker(1,4), null, new RedChecker(1,6), null},
-                        {null, new RedChecker(2,1), null, new RedChecker(2,3), null, new RedChecker(2,5), null, new RedChecker(2,7)},
-                        {null, null, null, null,null, null,null, null},
-                        {null, null, null, null,null, null,null, null},
-                        {new BlackChecker(5,0), null, new BlackChecker(5,2),null, new BlackChecker(5,4), null, new BlackChecker(5,6), null},
-                        {null, new BlackChecker(6,1), null, new BlackChecker(6,3), null, new BlackChecker(6,5), null, new BlackChecker(6,7)},
-                        {new BlackChecker(7,0), null, new BlackChecker(7,2),null, new BlackChecker(7,4), null, new BlackChecker(7,6), null}
+                        {{nullc, new RedChecker(0,1), nullc, new RedChecker(0,3), nullc, new RedChecker(0,5), nullc, new RedChecker(0,7)},
+                        {new RedChecker(1,0), nullc, new RedChecker(1,2),nullc, new RedChecker(1,4), nullc, new RedChecker(1,6), nullc},
+                        {nullc, new RedChecker(2,1), nullc, new RedChecker(2,3), nullc, new RedChecker(2,5), nullc, new RedChecker(2,7)},
+                        {nullc, nullc, nullc, nullc,nullc, nullc,nullc, nullc},
+                        {nullc, nullc, nullc, nullc,nullc, nullc,nullc, nullc},
+                        {new BlackChecker(5,0), nullc, new BlackChecker(5,2),nullc, new BlackChecker(5,4), nullc, new BlackChecker(5,6), nullc},
+                        {nullc, new BlackChecker(6,1), nullc, new BlackChecker(6,3), nullc, new BlackChecker(6,5), nullc, new BlackChecker(6,7)},
+                        {new BlackChecker(7,0), nullc, new BlackChecker(7,2),nullc, new BlackChecker(7,4), nullc, new BlackChecker(7,6), nullc}
                         };
 
-        for(int r = 0; r < checkerArray.length; r++){
-            List <Checker> row = new ArrayList <Checker>();
-            for(int c = 0; c < checkerArray[r].length; c++){
+        for(int r = 0; r < checkerArray.length; r++) {
+            List<Checker> row = new ArrayList<>();
+            for (int c = 0; c < checkerArray[r].length; c++) {
                 row.add(checkerArray[r][c]);
             }
             this.checkerList.add(row);

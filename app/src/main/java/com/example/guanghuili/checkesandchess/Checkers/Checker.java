@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Checker implements Serializable {
+public class Checker implements Serializable{
     private int row;
     private int column;
     private boolean crownStatus;
 
-    public Checker(){
 
+    public Checker(){
     }
 
     public Checker(int row, int column){

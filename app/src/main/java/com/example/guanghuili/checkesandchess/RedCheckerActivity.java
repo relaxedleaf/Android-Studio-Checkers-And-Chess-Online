@@ -16,6 +16,7 @@ import java.util.List;
 
 import com.example.guanghuili.checkesandchess.Checkers.BlackChecker;
 import com.example.guanghuili.checkesandchess.Checkers.Checker;
+import com.example.guanghuili.checkesandchess.Checkers.NullChecker;
 import com.example.guanghuili.checkesandchess.Checkers.Player;
 import com.example.guanghuili.checkesandchess.Checkers.RedChecker;
 import com.example.guanghuili.checkesandchess.Checkers.Room;
@@ -44,6 +45,7 @@ public class RedCheckerActivity extends AppCompatActivity {
     private int row;
     private int column;
     private boolean disableAllButOneButton = false;
+    private Checker nullc = new NullChecker();
 
     private FirebaseDatabase database;
     private DatabaseReference refSignUpPlayers;
@@ -218,6 +220,17 @@ public class RedCheckerActivity extends AppCompatActivity {
         ibtn_7_6 = findViewById(R.id.ibtn_7_6);
         ibtn_7_7 = findViewById(R.id.ibtn_7_7);
 
+        imageButtonList = new ImageButton[][]
+                {{null, ibtn_0_1, null, ibtn_0_3, null, ibtn_0_5, null, ibtn_0_7},
+                        {ibtn_1_0, null, ibtn_1_2, null, ibtn_1_4, null, ibtn_1_6, null},
+                        {null, ibtn_2_1, null, ibtn_2_3, null, ibtn_2_5, null, ibtn_2_7},
+                        {ibtn_3_0, null, ibtn_3_2, null, ibtn_3_4, null, ibtn_3_6, null},
+                        {null, ibtn_4_1, null, ibtn_4_3, null, ibtn_4_5, null, ibtn_4_7},
+                        {ibtn_5_0, null, ibtn_5_2, null, ibtn_5_4, null, ibtn_5_6, null},
+                        {null, ibtn_6_1, null, ibtn_6_3, null, ibtn_6_5, null, ibtn_6_7},
+                        {ibtn_7_0, null, ibtn_7_2, null, ibtn_7_4, null, ibtn_7_6, null}};
+
+
         room = (Room)getIntent().getSerializableExtra("room");
 
         mAuth = FirebaseAuth.getInstance();
@@ -254,8 +267,8 @@ public class RedCheckerActivity extends AppCompatActivity {
                 if(dataSnapshot.getValue(Room.class).getPlayer1() != null){
                     turn = dataSnapshot.getValue(Room.class).getTurn();
                     checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
-                    //updateAllButtons();
-                    //disableButtons();
+                    updateAllButtons();
+                    disableButtons();
                 }
                 else{
                     Toast.makeText(RedCheckerActivity.this,"User exited",Toast.LENGTH_LONG).show();
@@ -269,17 +282,6 @@ public class RedCheckerActivity extends AppCompatActivity {
             }
         });
 
-        imageButtonList = new ImageButton[][]
-                {{null, ibtn_0_1, null, ibtn_0_3, null, ibtn_0_5, null, ibtn_0_7},
-                        {ibtn_1_0, null, ibtn_1_2, null, ibtn_1_4, null, ibtn_1_6, null},
-                        {null, ibtn_2_1, null, ibtn_2_3, null, ibtn_2_5, null, ibtn_2_7},
-                        {ibtn_3_0, null, ibtn_3_2, null, ibtn_3_4, null, ibtn_3_6, null},
-                        {null, ibtn_4_1, null, ibtn_4_3, null, ibtn_4_5, null, ibtn_4_7},
-                        {ibtn_5_0, null, ibtn_5_2, null, ibtn_5_4, null, ibtn_5_6, null},
-                        {null, ibtn_6_1, null, ibtn_6_3, null, ibtn_6_5, null, ibtn_6_7},
-                        {ibtn_7_0, null, ibtn_7_2, null, ibtn_7_4, null, ibtn_7_6, null}};
-
-
     }
 
 
@@ -291,7 +293,7 @@ public class RedCheckerActivity extends AppCompatActivity {
                     for (int c = 0; c < imageButtonList[r].length; c++) {
                         if (imageButtonList[r][c] != null) {//if imageButtonList[r][c] is not null
                             if (view.getId() == imageButtonList[r][c].getId()) {//get the r and c of the ibtn clicked
-                                if (checkerList.get(r).get(c) != null) {//if the corresponding location in the checkerList has a checker
+                                if (!(checkerList.get(r).get(c) instanceof NullChecker)) {//if the corresponding location in the checkerList has a checker
                                     Log.d("Type", checkerList.get(r).get(c).getClass().toString());
                                     if (checkerList.get(r).get(c) instanceof RedChecker) {//if clicked checker is a blackChecker
                                         row = r;
@@ -346,17 +348,17 @@ public class RedCheckerActivity extends AppCompatActivity {
                         if (imageButtonList[r][c] != null) {//if imageButtonList[r][c] is not null
                             if (!(checkerList.get(r).get(c) instanceof BlackChecker)) {
                                 if (view.getId() == imageButtonList[r][c].getId()) {//get the r and c of the ibtn clicked
-                                    if(checkerList.get(r).get(c) == null) {
+                                    if(checkerList.get(r).get(c) instanceof NullChecker) {
                                         checkerList.get(r).set(c, new RedChecker(checkerList.get(row).get(column)));//row and column are the position of the new position, copy the checker to the new position
                                         checkerList.get(r).get(c).setRow(r);
                                         checkerList.get(r).get(c).setColumn(c);
                                         if(checkerList.get(r).get(c).getRow() == 7){
                                             checkerList.get(r).get(c).setCrownStatus(true);
                                         }
-                                        checkerList.get(row).set(column, null);//delete the check in the old location
+                                        checkerList.get(row).set(column, nullc);//delete the check in the old location
                                         killLocation = getKillCheckerLocation(r,c);
                                         if(killLocation != null) {
-                                            checkerList.get(killLocation[0]).set(killLocation[1], null);
+                                            checkerList.get(killLocation[0]).set(killLocation[1], nullc);
                                             destroyed = true;
                                             secondClick = false;
                                             updateAllButtons();
@@ -401,6 +403,7 @@ public class RedCheckerActivity extends AppCompatActivity {
     }
 
     public void disableButtons(){//disable unmovable checkers
+        Log.d("DisableCalled","Turn " + String.valueOf(turn));
         if(turn) {//if it is black checkers turn
             for (int r = 0; r < checkerList.size(); r++) {
                 for (int c = 0; c < checkerList.get(r).size(); c++) {
@@ -516,13 +519,14 @@ public class RedCheckerActivity extends AppCompatActivity {
     }
 
     public void updateAllButtons(){//update the whole layout based on the contents in checkerList, also make all the imageButtons clickable
+        Log.d("UpdateCalled","Turn " + String.valueOf(turn));
         for(int r = 0; r < imageButtonList.length; r++) {
             for (int c = 0; c < imageButtonList[r].length; c++) {
                 if (imageButtonList[r][c] != null) {//if the imageButton is not null
                     imageButtonList[r][c].setClickable(true);//make all the imageButtons clickable
                     imageButtonList[r][c].setImageDrawable(null);//Erase all the drawables and background color
 
-                    if (checkerList.get(r).get(c) != null) {//in the movable location if the checker in the checkerList is not null
+                    if (!(checkerList.get(r).get(c) instanceof NullChecker)) {//in the movable location if the checker in the checkerList is not null
                         if (checkerList.get(r).get(c) instanceof BlackChecker) {//if its a BlackChecker
                             if(checkerList.get(r).get(c).isCrownStatus() == false) {
                                 imageButtonList[r][c].setImageResource(R.drawable.black_dot);//change the image to black dot
