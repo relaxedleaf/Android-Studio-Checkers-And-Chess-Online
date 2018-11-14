@@ -6,7 +6,67 @@
     android:layout_height="match_parent"
     tools:context=".RedCheckerActivity">
 
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvPlayer2ID"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/btnSurrenderID"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/tvPlayer1ID"
+            android:fontFamily="casual"
+            android:text="@string/player2"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnSurrenderID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="casual"
+            android:text="@string/surrender"
+            tools:layout_editor_absoluteX="266dp"
+            tools:layout_editor_absoluteY="12dp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tvPlayer1ID"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="100dp"
+            android:layout_marginLeft="25dp"
+            android:layout_toRightOf="@+id/tvRoomIdID"
+            android:fontFamily="casual"
+            android:text="@string/player1"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvRoomIdID"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="casual"
+            android:text="@string/room_id"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
     <android.support.v7.widget.GridLayout
+        android:id="@+id/gridLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -18,8 +78,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
         app:rowCount="8">
 
         <!-- Row 1-->
@@ -659,4 +718,5 @@
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
     </android.support.v7.widget.GridLayout>
+
 </android.support.constraint.ConstraintLayout>

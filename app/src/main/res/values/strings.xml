@@ -5,9 +5,12 @@
     <string name="play_checkers">Play Checkers</string>
     <string name="play_chess">Play Chess</string>
     <string name="username">Username:</string>
-    <string name="room_id">Room ID:</string>
+    <string name="room_id">Room ID: </string>
     <string name="sign_out">Sign Out</string>
     <string name="create_room">Create Room</string>
     <string name="join">Join</string>
+    <string name="player1">You: </string>
+    <string name="player2">Op:</string>
+    <string name="surrender">Surrender</string>
 
 </resources>
