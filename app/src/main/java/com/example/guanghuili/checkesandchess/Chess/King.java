@@ -148,7 +148,7 @@ public class King extends Piece {
         }
 
         //*************************************************************************
-        //knights and pawns
+        //still needs to check knights and pawns
         //*************************************************************************
 
         int columnPos[] = {column + 1, column + 1, column + 2, column + 2, column - 1, column - 1, column - 2, column - 2};
@@ -162,5 +162,7 @@ public class King extends Piece {
         }
         return false;
     }
+
+
 
 }
