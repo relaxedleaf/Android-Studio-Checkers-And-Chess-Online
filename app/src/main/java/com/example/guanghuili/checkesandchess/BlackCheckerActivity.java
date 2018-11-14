@@ -46,6 +46,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
     private int column;
     private boolean disableAllButOneButton = false;
     private NullChecker nullc = new NullChecker();
+    private Boolean playerEnterMessage = false;
 
     private FirebaseDatabase database;
     private DatabaseReference refSignUpPlayers;
@@ -266,7 +267,10 @@ public class BlackCheckerActivity extends AppCompatActivity {
                     turn = dataSnapshot.getValue(Room.class).getTurn();
                     checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
                     processCheckerList();
-                    Toast.makeText(BlackCheckerActivity.this,"Player Entered",Toast.LENGTH_LONG).show();
+                    if(playerEnterMessage == false) {
+                        Toast.makeText(BlackCheckerActivity.this, "Player Entered", Toast.LENGTH_LONG).show();
+                        playerEnterMessage = true;
+                    }
                     updateAllButtons();
                     disableButtons();
                 }
@@ -329,6 +333,8 @@ public class BlackCheckerActivity extends AppCompatActivity {
                                                 updateAllButtons();
                                                 disableAllButOneButton(r, c);
                                                 disableAllButOneButton = true;
+                                                refThisRoom.child("checkerList").setValue(checkerList);
+                                                refThisRoom.child("turn").setValue(turn);
                                             }
                                         }
                                     }
@@ -348,28 +354,25 @@ public class BlackCheckerActivity extends AppCompatActivity {
                                         checkerList.get(r).set(c,new BlackChecker(checkerList.get(row).get(column)));//row and column are the position of the new position, copy the checker to the new position
                                         checkerList.get(r).get(c).setRow(r);
                                         checkerList.get(r).get(c).setColumn(c);
+                                        checkerList.get(r).get(c).setType("BlackChecker");
                                         if (checkerList.get(r).get(c).getRow() == 0) {
                                             checkerList.get(r).get(c).setCrownStatus(true);
                                         }
                                         checkerList.get(row).set(column, nullc);//delete the checker in the old location
                                         killLocation = getKillCheckerLocation(r, c);
-                                        Log.d("NoteKillRow", String.valueOf(r));
-                                        Log.d("NoteKillColumn", String.valueOf(c));
                                         if (killLocation != null) {
-                                            Log.d("Note", String.valueOf(killLocation.length));
                                             checkerList.get(killLocation[0]).set(killLocation[1],nullc);
-                                            Log.d("NoteRow", String.valueOf(killLocation[0]));
-                                            Log.d("NoteColumn", String.valueOf(killLocation[1]));
                                             destroyed = true;
                                             secondClick = false;
                                             updateAllButtons();
                                             possibleMove = checkerList.get(r).get(c).getMove2(checkerList);
-                                            Log.d("NotePossible", String.valueOf(possibleMove.size()));
                                             if (possibleMove.size() == 0) {
                                                 disableAllButOneButton = false;
                                                 destroyed = false;
                                                 turn = false;
                                                 disableButtons();
+                                                refThisRoom.child("checkerList").setValue(checkerList);
+                                                refThisRoom.child("turn").setValue(turn);
                                             } else {
                                                 turn = true;
                                                 disableAllButOneButton(r, c);
@@ -382,6 +385,8 @@ public class BlackCheckerActivity extends AppCompatActivity {
                                             turn = false;
                                             updateAllButtons();
                                             disableButtons();
+                                            refThisRoom.child("checkerList").setValue(checkerList);
+                                            refThisRoom.child("turn").setValue(turn);
                                         }
                                         break;
                                     } else {//**for the user who wants to change his/her moves
@@ -559,20 +564,27 @@ public class BlackCheckerActivity extends AppCompatActivity {
 
     public void processCheckerList() {
         Boolean status;
+        String type;
         for (int r = 0; r < checkerList.size(); r++) {
             for (int c = 0; c < checkerList.get(r).size(); c++) {
                 if (checkerList.get(r).get(c).getType().equals("BlackChecker")) {//if the checker is black
+                    type = checkerList.get(r).get(c).getType();
                     status = checkerList.get(r).get(c).isCrownStatus();
                     checkerList.get(r).set(c, (new BlackChecker(checkerList.get(r).get(c).getRow(), checkerList.get(r).get(c).getColumn())));
                     checkerList.get(r).get(c).setCrownStatus(status);
+                    checkerList.get(r).get(c).setType(type);
                 }
                 if (checkerList.get(r).get(c).getType().equals("RedChecker")) {//if the checker is red
+                    type = checkerList.get(r).get(c).getType();
                     status = checkerList.get(r).get(c).isCrownStatus();
                     checkerList.get(r).set(c, (new RedChecker(checkerList.get(r).get(c).getRow(), checkerList.get(r).get(c).getColumn())));
                     checkerList.get(r).get(c).setCrownStatus(status);
+                    checkerList.get(r).get(c).setType(type);
                 }
                 if (checkerList.get(r).get(c).getType().equals("NullChecker")) {//if the checker is red
+                    type = checkerList.get(r).get(c).getType();
                     checkerList.get(r).set(c, (new NullChecker()));
+                    checkerList.get(r).get(c).setType(type);
                 }
             }
         }

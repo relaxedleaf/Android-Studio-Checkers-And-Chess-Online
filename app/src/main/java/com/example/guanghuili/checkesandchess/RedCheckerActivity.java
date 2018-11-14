@@ -333,6 +333,8 @@ public class RedCheckerActivity extends AppCompatActivity {
                                                 updateAllButtons();
                                                 disableAllButOneButton(r, c);
                                                 disableAllButOneButton = true;
+                                                refThisRoom.child("checkerList").setValue(checkerList);
+                                                refThisRoom.child("turn").setValue(turn);
                                             }
                                         }
                                     }
@@ -353,6 +355,7 @@ public class RedCheckerActivity extends AppCompatActivity {
                                         checkerList.get(r).set(c, new RedChecker(checkerList.get(row).get(column)));//row and column are the position of the new position, copy the checker to the new position
                                         checkerList.get(r).get(c).setRow(r);
                                         checkerList.get(r).get(c).setColumn(c);
+                                        checkerList.get(r).get(c).setType("RedChecker");
                                         if(checkerList.get(r).get(c).getRow() == 7){
                                             checkerList.get(r).get(c).setCrownStatus(true);
                                         }
@@ -370,6 +373,8 @@ public class RedCheckerActivity extends AppCompatActivity {
                                                 secondClick = false;
                                                 turn = true;
                                                 disableButtons();
+                                                refThisRoom.child("checkerList").setValue(checkerList);
+                                                refThisRoom.child("turn").setValue(turn);
                                             }
                                             else{
                                                 disableAllButOneButton(r, c);
@@ -383,6 +388,8 @@ public class RedCheckerActivity extends AppCompatActivity {
                                             turn = true;
                                             updateAllButtons();
                                             disableButtons();
+                                            refThisRoom.child("checkerList").setValue(checkerList);
+                                            refThisRoom.child("turn").setValue(turn);
                                         }
                                         break;
                                     }
@@ -567,17 +574,23 @@ public class RedCheckerActivity extends AppCompatActivity {
         for (int r = 0; r < checkerList.size(); r++) {
             for (int c = 0; c < checkerList.get(r).size(); c++) {
                 if (checkerList.get(r).get(c).getType().equals("BlackChecker")) {//if the checker is black
+                    checkerList.get(r).get(c).getType();
                     status = checkerList.get(r).get(c).isCrownStatus();
                     checkerList.get(r).set(c, (new BlackChecker(checkerList.get(r).get(c).getRow(), checkerList.get(r).get(c).getColumn())));
                     checkerList.get(r).get(c).setCrownStatus(status);
+                    checkerList.get(r).get(c).setType("BlackChecker");
                 }
                 if (checkerList.get(r).get(c).getType().equals("RedChecker")) {//if the checker is red
+                    checkerList.get(r).get(c).getType();
                     status = checkerList.get(r).get(c).isCrownStatus();
                     checkerList.get(r).set(c, (new RedChecker(checkerList.get(r).get(c).getRow(), checkerList.get(r).get(c).getColumn())));
                     checkerList.get(r).get(c).setCrownStatus(status);
+                    checkerList.get(r).get(c).setType("RedChecker");
                 }
                 if (checkerList.get(r).get(c).getType().equals("NullChecker")) {//if the checker is red
+                    checkerList.get(r).get(c).getType();
                     checkerList.get(r).set(c, (new NullChecker()));
+                    checkerList.get(r).get(c).setType("NullChecker");
                 }
             }
         }
