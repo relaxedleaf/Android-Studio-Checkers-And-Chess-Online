@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -143,10 +144,14 @@ public class RedCheckerActivity extends AppCompatActivity {
     private ImageButton ibtn_7_6;
     private ImageButton ibtn_7_7;
 
+    private Button btnSurrender;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_red_checker);
+
+        btnSurrender = findViewById(R.id.btnSurrenderID);
 //row 1
         ibtn_0_0 = findViewById(R.id.ibtn_0_0);
         ibtn_0_1 = findViewById(R.id.ibtn_0_1);
@@ -305,6 +310,31 @@ public class RedCheckerActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        btnSurrender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(RedCheckerActivity.this);
+                builder.setTitle("Surrender");
+                builder.setMessage("Are you sure you want to surrender?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        backPressed = true;
+                        refThisRoom.child("player2").removeValue();
+                        player.updateLoss();
+                        refSignUpPlayers.child(player.getUsername()).setValue(player);
+                        RedCheckerActivity.super.onBackPressed();
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
             }
         });
 

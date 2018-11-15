@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -144,10 +145,15 @@ public class BlackCheckerActivity extends AppCompatActivity {
     private ImageButton ibtn_7_6;
     private ImageButton ibtn_7_7;
 
+    private Button btnSurrender;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_black_checker);
+
+        btnSurrender = findViewById(R.id.btnSurrenderID);
+
 //row 1
         ibtn_0_0 = findViewById(R.id.ibtn_0_0);
         ibtn_0_1 = findViewById(R.id.ibtn_0_1);
