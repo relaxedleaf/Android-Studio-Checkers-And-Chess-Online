@@ -57,7 +57,7 @@ public class Player extends RoomManager implements Serializable {
 
     public void updateWinningRate(){
         if((win + loss) != 0){
-            this.winningRate = (double)Math.round((win/(win+loss))*100)/100;
+            this.winningRate = (double)Math.round(((double)win/(double)(win+loss))*100)/100;
         }
     }
 

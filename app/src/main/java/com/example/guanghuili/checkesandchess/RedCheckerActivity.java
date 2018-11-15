@@ -64,6 +64,7 @@ public class RedCheckerActivity extends AppCompatActivity {
     private Room room;
     private boolean player1Exited = false;
     private boolean backPressed = false;
+    private Boolean paused = false;
 
     //row 1
     private ImageButton ibtn_0_0;
@@ -270,29 +271,31 @@ public class RedCheckerActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(backPressed == false) {
-                    if (player1Exited == false) {
-                        if (dataSnapshot.getValue(Room.class).getPlayer1() != null) {
-                            turn = dataSnapshot.getValue(Room.class).getTurn();
-                            checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
-                            processCheckerList();
-                            updateAllButtons();
-                            disableButtons();
-                        } else {
-                            Toast.makeText(RedCheckerActivity.this, "User exited", Toast.LENGTH_LONG).show();
-                            player1Exited = true;
-                            AlertDialog.Builder builder = new AlertDialog.Builder(RedCheckerActivity.this);
-                            builder.setTitle("Room Update");
-                            builder.setMessage("Player left the room! You win");
-                            builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    player.updateWin();
-                                    refSignUpPlayers.child(player.getUsername()).setValue(player);
-                                    refThisRoom.removeValue();
-                                    RedCheckerActivity.super.onBackPressed();
-                                    finish();
-                                }
-                            });
-                            builder.show();
+                    if(paused == false) {
+                        if (player1Exited == false) {
+                            if (dataSnapshot.getValue(Room.class).getPlayer1() != null) {
+                                turn = dataSnapshot.getValue(Room.class).getTurn();
+                                checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
+                                processCheckerList();
+                                updateAllButtons();
+                                disableButtons();
+                            } else {
+                                Toast.makeText(RedCheckerActivity.this, "User exited", Toast.LENGTH_LONG).show();
+                                player1Exited = true;
+                                AlertDialog.Builder builder = new AlertDialog.Builder(RedCheckerActivity.this);
+                                builder.setTitle("Room Update");
+                                builder.setMessage("Player left the room! You win");
+                                builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        player.updateWin();
+                                        refSignUpPlayers.child(player.getUsername()).setValue(player);
+                                        refThisRoom.removeValue();
+                                        RedCheckerActivity.super.onBackPressed();
+                                        finish();
+                                    }
+                                });
+                                builder.show();
+                            }
                         }
                     }
                 }
@@ -307,6 +310,20 @@ public class RedCheckerActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("pausedCalled", "called");
+        if(backPressed == false) {
+            if (player1Exited == false) {
+                paused = true;
+                refThisRoom.child("player2").removeValue();
+                player.updateLoss();
+                refSignUpPlayers.child(player.getUsername()).setValue(player);
+                finish();
+            }
+        }
+    }
 
     public void myOnClick(View view) {
 

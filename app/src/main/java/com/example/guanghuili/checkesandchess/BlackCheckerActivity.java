@@ -52,6 +52,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
     private Boolean player2Enter = false;
     private Boolean player2Left = false;
     private Boolean backPressed = false;
+    private Boolean paused = false;
     private Boolean waitingMessage = false;
 
     private FirebaseDatabase database;
@@ -270,37 +271,39 @@ public class BlackCheckerActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(backPressed == false) {
-                    if(player2Left == false) {
-                        if (dataSnapshot.getValue(Room.class).getPlayer2() != null) {
-                            turn = dataSnapshot.getValue(Room.class).getTurn();
-                            checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
-                            processCheckerList();
-                            if (player2Enter == false) {
-                                Toast.makeText(BlackCheckerActivity.this, "Player Entered", Toast.LENGTH_LONG).show();
-                                player2Enter = true;
-                            }
-                            updateAllButtons();
-                            disableButtons();
-                        } else {//player2 is null
-                            if (waitingMessage == false) {
-                                Toast.makeText(BlackCheckerActivity.this, "Waiting for another player", Toast.LENGTH_LONG).show();
-                                waitingMessage = true;
-                            } else {
-                                player2Left = true;
-                                Toast.makeText(BlackCheckerActivity.this, "User exited", Toast.LENGTH_LONG).show();
-                                AlertDialog.Builder builder = new AlertDialog.Builder(BlackCheckerActivity.this);
-                                builder.setTitle("Room Update");
-                                builder.setMessage("Player left the room! You win");
-                                builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        player.updateWin();
-                                        refSignUpPlayers.child(player.getUsername()).setValue(player);
-                                        refThisRoom.removeValue();
-                                        BlackCheckerActivity.super.onBackPressed();
-                                        finish();
-                                    }
-                                });
-                                builder.show();
+                    if(paused == false) {
+                        if (player2Left == false) {
+                            if (dataSnapshot.getValue(Room.class).getPlayer2() != null) {
+                                turn = dataSnapshot.getValue(Room.class).getTurn();
+                                checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
+                                processCheckerList();
+                                if (player2Enter == false) {
+                                    Toast.makeText(BlackCheckerActivity.this, "Player Entered", Toast.LENGTH_LONG).show();
+                                    player2Enter = true;
+                                }
+                                updateAllButtons();
+                                disableButtons();
+                            } else {//player2 is null
+                                if (waitingMessage == false) {
+                                    Toast.makeText(BlackCheckerActivity.this, "Waiting for another player", Toast.LENGTH_LONG).show();
+                                    waitingMessage = true;
+                                } else {
+                                    player2Left = true;
+                                    Toast.makeText(BlackCheckerActivity.this, "User exited", Toast.LENGTH_LONG).show();
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(BlackCheckerActivity.this);
+                                    builder.setTitle("Room Update");
+                                    builder.setMessage("Player left the room! You win");
+                                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            player.updateWin();
+                                            refSignUpPlayers.child(player.getUsername()).setValue(player);
+                                            refThisRoom.removeValue();
+                                            BlackCheckerActivity.super.onBackPressed();
+                                            finish();
+                                        }
+                                    });
+                                    builder.show();
+                                }
                             }
                         }
                     }
@@ -316,6 +319,20 @@ public class BlackCheckerActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("pausedCalled", "called");
+        if(backPressed == false) {
+            if(player2Left == false) {
+                paused = true;
+                refThisRoom.child("player1").removeValue();
+                player.updateLoss();
+                refSignUpPlayers.child(player.getUsername()).setValue(player);
+                finish();
+            }
+        }
+    }
 
     public void myOnClick(View view) {
         if (turn) {//BlackChecker's turn
