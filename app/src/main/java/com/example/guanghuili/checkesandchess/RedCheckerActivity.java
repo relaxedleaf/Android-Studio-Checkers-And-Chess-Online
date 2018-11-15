@@ -1,7 +1,10 @@
 package com.example.guanghuili.checkesandchess;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,6 +62,8 @@ public class RedCheckerActivity extends AppCompatActivity {
     private RoomManager roomManager = new RoomManager();
     private Player player;
     private Room room;
+    private boolean player1Exited = false;
+    private boolean backPressed = false;
 
     //row 1
     private ImageButton ibtn_0_0;
@@ -264,15 +269,32 @@ public class RedCheckerActivity extends AppCompatActivity {
         refThisRoom.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue(Room.class).getPlayer1() != null){
-                    turn = dataSnapshot.getValue(Room.class).getTurn();
-                    checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
-                    processCheckerList();
-                    updateAllButtons();
-                    disableButtons();
-                }
-                else{
-                    Toast.makeText(RedCheckerActivity.this,"User exited",Toast.LENGTH_LONG).show();
+                if(backPressed == false) {
+                    if (player1Exited == false) {
+                        if (dataSnapshot.getValue(Room.class).getPlayer1() != null) {
+                            turn = dataSnapshot.getValue(Room.class).getTurn();
+                            checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
+                            processCheckerList();
+                            updateAllButtons();
+                            disableButtons();
+                        } else {
+                            Toast.makeText(RedCheckerActivity.this, "User exited", Toast.LENGTH_LONG).show();
+                            player1Exited = true;
+                            AlertDialog.Builder builder = new AlertDialog.Builder(RedCheckerActivity.this);
+                            builder.setTitle("Room Update");
+                            builder.setMessage("Player left the room! You win");
+                            builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    player.updateWin();
+                                    refSignUpPlayers.child(player.getUsername()).setValue(player);
+                                    refThisRoom.removeValue();
+                                    RedCheckerActivity.super.onBackPressed();
+                                    finish();
+                                }
+                            });
+                            builder.show();
+                        }
+                    }
                 }
 
             }
@@ -593,6 +615,39 @@ public class RedCheckerActivity extends AppCompatActivity {
                     checkerList.get(r).get(c).setType("NullChecker");
                 }
             }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Log.d("Pressed","Hello");
+        if(player1Exited == false) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Leaving while in a game");
+            builder.setMessage("Leave now means surrender");
+            builder.setPositiveButton("Leave", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    backPressed = true;
+                    refThisRoom.child("player2").removeValue();
+                    player.updateLoss();
+                    refSignUpPlayers.child(player.getUsername()).setValue(player);
+                    RedCheckerActivity.super.onBackPressed();
+                    finish();
+                }
+            });
+            builder.setNegativeButton("Stay", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                }
+            });
+            builder.show();
+        }
+        else{
+            backPressed = true;
+            refThisRoom.removeValue();
+            RedCheckerActivity.super.onBackPressed();
+            finish();
         }
     }
 }

@@ -95,8 +95,9 @@ public class CheckerRoomActivity extends AppCompatActivity {
                 roomManager.getRoomList().clear();
                 roomManager.getIdList().clear();
                 for(DataSnapshot roomSnapshot : dataSnapshot.getChildren()){
-                    roomManager.getRoomList().add(roomSnapshot.getValue(Room.class));
-                    roomManager.getIdList().add(roomSnapshot.getValue(Room.class).getId());
+                        roomManager.getRoomList().add(roomSnapshot.getValue(Room.class));
+                        roomManager.getIdList().add(roomSnapshot.getValue(Room.class).getId());
+
                 }
                 recyclerViewAdapter = new RecyclerViewAdapter(CheckerRoomActivity.this, roomManager.getRoomList());
                 recyclerView.setAdapter(recyclerViewAdapter);

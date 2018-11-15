@@ -42,6 +42,8 @@ public class Player extends RoomManager implements Serializable {
 
     public void updateWin() {
         this.win++;
+        updateWinningRate();
+
     }
 
     public int getLoss() {
@@ -50,6 +52,7 @@ public class Player extends RoomManager implements Serializable {
 
     public void updateLoss() {
         this.loss++;
+        updateWinningRate();
     }
 
     public void updateWinningRate(){

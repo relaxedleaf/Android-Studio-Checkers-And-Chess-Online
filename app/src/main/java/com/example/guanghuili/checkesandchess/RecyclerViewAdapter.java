@@ -84,8 +84,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder viewHolder, int position) {
         Room room = roomList.get(position);
-        viewHolder.tvUsername.setText(room.getPlayer1().getUsername());
-        viewHolder.tvRoom.setText(String.valueOf(room.getId()));
+        //Only display when the player1 is still in the room
+        if(room.getPlayer1() != null) {
+            viewHolder.tvUsername.setText(room.getPlayer1().getUsername());
+            viewHolder.tvRoom.setText(String.valueOf(room.getId()));
+        }
     }
 
     @Override
