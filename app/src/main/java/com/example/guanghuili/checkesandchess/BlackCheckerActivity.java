@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.Array;
@@ -68,6 +69,10 @@ public class BlackCheckerActivity extends AppCompatActivity {
     private RoomManager roomManager = new RoomManager();
     private Player player;
     private Room room;
+
+    private TextView tvRoom;
+    private TextView tvPlayer1Name;
+    private TextView tvPlayer2Name;
 
     //row 1
     private ImageButton ibtn_0_0;
@@ -154,6 +159,9 @@ public class BlackCheckerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_black_checker);
 
         btnSurrender = findViewById(R.id.btnSurrenderID);
+        tvRoom = findViewById(R.id.tvRoomIdID);
+        tvPlayer1Name = findViewById(R.id.tvPlayer1ID);
+        tvPlayer2Name = findViewById(R.id.tvPlayer2ID);
 
 //row 1
         ibtn_0_0 = findViewById(R.id.ibtn_0_0);
@@ -245,6 +253,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
                         {ibtn_7_0, null, ibtn_7_2, null, ibtn_7_4, null, ibtn_7_6, null}};
 
         room = (Room)getIntent().getSerializableExtra("room");
+        tvRoom.setText(getResources().getText(R.string.room_id) + String.valueOf(room.getId()));
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -266,6 +275,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
                     if(dataSnapshot1.getValue(Player.class).getUsername().equals(user.getDisplayName())){
                         player = dataSnapshot1.getValue(Player.class);
+                        tvPlayer1Name.setText(getResources().getText(R.string.player1) + player.getUsername());
                     }
                 }
             }
@@ -283,6 +293,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
                         if (player2Left == false) {
                             if(dataSnapshot.getValue() != null) {
                                 if (dataSnapshot.getValue(Room.class).getPlayer2() != null) {
+                                    tvPlayer2Name.setText(getResources().getText(R.string.player2) + dataSnapshot.getValue(Room.class).getPlayer2().getUsername());
                                     turn = dataSnapshot.getValue(Room.class).getTurn();
                                     checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
                                     processCheckerList();
