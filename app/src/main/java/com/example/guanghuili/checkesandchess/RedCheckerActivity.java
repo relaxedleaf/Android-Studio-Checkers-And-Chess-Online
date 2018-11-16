@@ -298,6 +298,7 @@ public class RedCheckerActivity extends AppCompatActivity {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(RedCheckerActivity.this);
                                     builder.setTitle("Room Update");
                                     builder.setMessage("Player left the room! You win");
+                                    builder.setCancelable(false);
                                     builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             player.updateWin();
