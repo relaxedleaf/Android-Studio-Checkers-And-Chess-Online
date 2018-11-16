@@ -340,6 +340,31 @@ public class BlackCheckerActivity extends AppCompatActivity {
             }
         });
 
+        btnSurrender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(BlackCheckerActivity.this);
+                builder.setTitle("Surrender");
+                builder.setMessage("Are you sure you want to surrender?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        backPressed = true;
+                        refThisRoom.child("player1").removeValue();
+                        player.updateLoss();
+                        refSignUpPlayers.child(player.getUsername()).setValue(player);
+                        BlackCheckerActivity.super.onBackPressed();
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            }
+        });
+
 
     }
 
