@@ -151,7 +151,7 @@ public class RedCheckerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_red_checker);
 
-        btnSurrender = findViewById(R.id.btnSurrenderID);
+
 //row 1
         ibtn_0_0 = findViewById(R.id.ibtn_0_0);
         ibtn_0_1 = findViewById(R.id.ibtn_0_1);
@@ -247,7 +247,14 @@ public class RedCheckerActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         refSignUpPlayers = database.getReference("Signed Up Players");
-        refThisRoom = database.getReference("Room").child(String.valueOf(room.getId()));
+        refRoom = database.getReference("Room");
+        refThisRoom = refRoom.child("unavailable").child(String.valueOf(room.getId()));
+
+        refRoom.child("unavailable").child(String.valueOf(room.getId())).setValue(room);
+        refRoom.child("available").child(String.valueOf(room.getId())).removeValue();
+
+        btnSurrender = findViewById(R.id.btnSurrenderID);
+
 
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
@@ -278,28 +285,30 @@ public class RedCheckerActivity extends AppCompatActivity {
                 if(backPressed == false) {
                     if(paused == false) {
                         if (player1Exited == false) {
-                            if (dataSnapshot.getValue(Room.class).getPlayer1() != null) {
-                                turn = dataSnapshot.getValue(Room.class).getTurn();
-                                checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
-                                processCheckerList();
-                                updateAllButtons();
-                                disableButtons();
-                            } else {
-                                Toast.makeText(RedCheckerActivity.this, "User exited", Toast.LENGTH_LONG).show();
-                                player1Exited = true;
-                                AlertDialog.Builder builder = new AlertDialog.Builder(RedCheckerActivity.this);
-                                builder.setTitle("Room Update");
-                                builder.setMessage("Player left the room! You win");
-                                builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        player.updateWin();
-                                        refSignUpPlayers.child(player.getUsername()).setValue(player);
-                                        refThisRoom.removeValue();
-                                        RedCheckerActivity.super.onBackPressed();
-                                        finish();
-                                    }
-                                });
-                                builder.show();
+                            if(dataSnapshot.getValue(Room.class) != null) {
+                                if (dataSnapshot.getValue(Room.class).getPlayer1() != null) {
+                                    turn = dataSnapshot.getValue(Room.class).getTurn();
+                                    checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
+                                    processCheckerList();
+                                    updateAllButtons();
+                                    disableButtons();
+                                } else {
+                                    Toast.makeText(RedCheckerActivity.this, "User exited", Toast.LENGTH_LONG).show();
+                                    player1Exited = true;
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(RedCheckerActivity.this);
+                                    builder.setTitle("Room Update");
+                                    builder.setMessage("Player left the room! You win");
+                                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            player.updateWin();
+                                            refSignUpPlayers.child(player.getUsername()).setValue(player);
+                                            refThisRoom.removeValue();
+                                            RedCheckerActivity.super.onBackPressed();
+                                            finish();
+                                        }
+                                    });
+                                    builder.show();
+                                }
                             }
                         }
                     }

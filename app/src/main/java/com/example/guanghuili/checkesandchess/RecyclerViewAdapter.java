@@ -38,7 +38,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private FirebaseDatabase database;
     private DatabaseReference refSignUpPlayers;
     private DatabaseReference refRoom;
-    private DatabaseReference refThisRoom;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -51,7 +50,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         refSignUpPlayers = database.getReference("Signed Up Players");
-        refRoom = database.getReference("Room");
+        refRoom = database.getReference("Room").child("available");
 
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
@@ -88,22 +87,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull final RecyclerViewAdapter.ViewHolder viewHolder, int position) {
         final Room room = roomList.get(position);
-        refThisRoom = database.getReference("Room").child(String.valueOf(room.getId()));
-        refThisRoom.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue(Room.class) != null) {
-                    if (dataSnapshot.getValue(Room.class).getAvailability() == false) {
-                        viewHolder.cardView.setVisibility(View.GONE);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
         if(room.getPlayer1() != null) {
             viewHolder.tvUsername.setText(room.getPlayer1().getUsername());
             viewHolder.tvRoom.setText(String.valueOf(room.getId()));

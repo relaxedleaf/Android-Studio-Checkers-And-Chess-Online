@@ -64,7 +64,7 @@ public class CheckerRoomActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         refSignUpPlayers = database.getReference("Signed Up Players");
-        refRoom = database.getReference("Room");
+        refRoom = database.getReference("Room").child("available");
 
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override

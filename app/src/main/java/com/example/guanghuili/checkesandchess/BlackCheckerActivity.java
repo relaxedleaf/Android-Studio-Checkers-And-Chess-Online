@@ -58,7 +58,8 @@ public class BlackCheckerActivity extends AppCompatActivity {
 
     private FirebaseDatabase database;
     private DatabaseReference refSignUpPlayers;
-    private DatabaseReference refThisRoom;
+    private DatabaseReference refRoom;
+    private static DatabaseReference refThisRoom;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -248,7 +249,8 @@ public class BlackCheckerActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         refSignUpPlayers = database.getReference("Signed Up Players");
-        refThisRoom = database.getReference("Room").child(String.valueOf(room.getId()));
+        refRoom = database.getReference("Room");
+        refThisRoom = refRoom.child("available").child(String.valueOf(room.getId()));
 
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
@@ -279,36 +281,40 @@ public class BlackCheckerActivity extends AppCompatActivity {
                 if(backPressed == false) {
                     if(paused == false) {
                         if (player2Left == false) {
-                            if (dataSnapshot.getValue(Room.class).getPlayer2() != null) {
-                                turn = dataSnapshot.getValue(Room.class).getTurn();
-                                checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
-                                processCheckerList();
-                                if (player2Enter == false) {
-                                    Toast.makeText(BlackCheckerActivity.this, "Player Entered", Toast.LENGTH_LONG).show();
-                                    player2Enter = true;
-                                }
-                                updateAllButtons();
-                                disableButtons();
-                            } else {//player2 is null
-                                if (waitingMessage == false) {
-                                    Toast.makeText(BlackCheckerActivity.this, "Waiting for another player", Toast.LENGTH_LONG).show();
-                                    waitingMessage = true;
-                                } else {
-                                    player2Left = true;
-                                    Toast.makeText(BlackCheckerActivity.this, "User exited", Toast.LENGTH_LONG).show();
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(BlackCheckerActivity.this);
-                                    builder.setTitle("Room Update");
-                                    builder.setMessage("Player left the room! You win");
-                                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            player.updateWin();
-                                            refSignUpPlayers.child(player.getUsername()).setValue(player);
-                                            refThisRoom.removeValue();
-                                            BlackCheckerActivity.super.onBackPressed();
-                                            finish();
-                                        }
-                                    });
-                                    builder.show();
+                            if(dataSnapshot.getValue() != null) {
+                                if (dataSnapshot.getValue(Room.class).getPlayer2() != null) {
+                                    turn = dataSnapshot.getValue(Room.class).getTurn();
+                                    checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
+                                    processCheckerList();
+                                    if (player2Enter == false) {
+                                        Toast.makeText(BlackCheckerActivity.this, "Player Entered", Toast.LENGTH_LONG).show();
+                                        player2Enter = true;
+                                        refThisRoom.removeEventListener(this);//when change the ref path, the listener won't update, so remove it and add it back
+                                        refThisRoom = refRoom.child("unavailable").child(String.valueOf(room.getId()));
+                                        refThisRoom.addValueEventListener(this);
+                                    }
+                                    updateAllButtons();
+                                    disableButtons();
+                                } else {//player2 is null
+                                    if (waitingMessage == false) {
+                                        Toast.makeText(BlackCheckerActivity.this, "Waiting for another player", Toast.LENGTH_LONG).show();
+                                        waitingMessage = true;
+                                    } else {
+                                        player2Left = true;
+                                        Toast.makeText(BlackCheckerActivity.this, "User exited", Toast.LENGTH_LONG).show();
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(BlackCheckerActivity.this);
+                                        builder.setTitle("Room Update");
+                                        builder.setMessage("Player left the room! You win");
+                                        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                player.updateWin();
+                                                refSignUpPlayers.child(player.getUsername()).setValue(player);
+                                                BlackCheckerActivity.super.onBackPressed();
+                                                finish();
+                                            }
+                                        });
+                                        builder.show();
+                                    }
                                 }
                             }
                         }
