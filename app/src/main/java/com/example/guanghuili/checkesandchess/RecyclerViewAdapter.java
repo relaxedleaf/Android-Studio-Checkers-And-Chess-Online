@@ -3,11 +3,13 @@ package com.example.guanghuili.checkesandchess;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.guanghuili.checkesandchess.Checkers.Player;
@@ -36,6 +38,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private FirebaseDatabase database;
     private DatabaseReference refSignUpPlayers;
     private DatabaseReference refRoom;
+    private DatabaseReference refThisRoom;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -77,14 +80,30 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        //TODO Should probably set visibility here!!
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview, viewGroup, false);
         return new ViewHolder(view, context);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder viewHolder, int position) {
-        Room room = roomList.get(position);
-        //Only display when the player1 is still in the room
+    public void onBindViewHolder(@NonNull final RecyclerViewAdapter.ViewHolder viewHolder, int position) {
+        final Room room = roomList.get(position);
+        refThisRoom = database.getReference("Room").child(String.valueOf(room.getId()));
+        refThisRoom.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue(Room.class) != null) {
+                    if (dataSnapshot.getValue(Room.class).getAvailability() == false) {
+                        viewHolder.cardView.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         if(room.getPlayer1() != null) {
             viewHolder.tvUsername.setText(room.getPlayer1().getUsername());
             viewHolder.tvRoom.setText(String.valueOf(room.getId()));
@@ -99,6 +118,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView tvUsername;
         public TextView tvRoom;
+        public CardView cardView;
 
         public ViewHolder(View view, Context ctx) {
             super(view);
@@ -107,6 +127,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             context = ctx;
             tvUsername = view.findViewById(R.id.tvUsernameID);
             tvRoom = view.findViewById(R.id.tvRoomID);
+            cardView = view.findViewById(R.id.cardviewLayoutID);
 
         }
         @Override
@@ -115,12 +136,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             int position = getAdapterPosition();
             room = roomList.get(position);
             room.setPlayer2(player);
+            room.setAvailability(false);
             refRoom.child(String.valueOf(room.getId())).setValue(room);
             Intent intent = new Intent(context, RedCheckerActivity.class);
             intent.putExtra("room", room);
             context.startActivity(intent);
-
-
         }
     }
 }

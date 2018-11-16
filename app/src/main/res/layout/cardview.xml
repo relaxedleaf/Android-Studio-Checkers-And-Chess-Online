@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/cardviewLayoutID"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardBackgroundColor="#B0C7C2">

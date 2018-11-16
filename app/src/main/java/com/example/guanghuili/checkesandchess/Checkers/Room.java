@@ -1,11 +1,8 @@
 package com.example.guanghuili.checkesandchess.Checkers;
 
 
-import android.util.Log;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Room implements Serializable {
@@ -13,6 +10,7 @@ public class Room implements Serializable {
     private Player player1;
     private Player player2;
     private Boolean turn = true;
+    private Boolean availability = true;
     private List<List<Checker>> checkerList;
 
     public Room(){
@@ -84,6 +82,14 @@ public class Room implements Serializable {
 
     public void setCheckerList(List<List<Checker>> checkerList) {
         this.checkerList = checkerList;
+    }
+
+    public Boolean getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(Boolean availability) {
+        this.availability = availability;
     }
 
 }
