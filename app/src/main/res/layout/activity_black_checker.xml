@@ -91,6 +91,7 @@
             android:id="@+id/ibtn_0_0"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -111,6 +112,7 @@
             android:id="@+id/ibtn_0_2"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -131,6 +133,7 @@
             android:id="@+id/ibtn_0_4"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -151,6 +154,7 @@
             android:id="@+id/ibtn_0_6"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -183,9 +187,10 @@
             android:id="@+id/ibtn_1_1"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
-            app:layout_columnWeight="1"
 
+            app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
 
         <ImageButton
@@ -203,6 +208,7 @@
             android:id="@+id/ibtn_1_3"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -222,6 +228,7 @@
             android:id="@+id/ibtn_1_5"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -241,6 +248,7 @@
             android:id="@+id/ibtn_1_7"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -250,6 +258,7 @@
             android:id="@+id/ibtn_2_0"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -271,6 +280,7 @@
             android:id="@+id/ibtn_2_2"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -290,6 +300,7 @@
             android:id="@+id/ibtn_2_4"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -309,6 +320,7 @@
             android:id="@+id/ibtn_2_6"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -342,9 +354,10 @@
             android:id="@+id/ibtn_3_1"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
-            app:layout_columnWeight="1"
 
+            app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
 
         <ImageButton
@@ -362,6 +375,7 @@
             android:id="@+id/ibtn_3_3"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -381,6 +395,7 @@
             android:id="@+id/ibtn_3_5"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -400,6 +415,7 @@
             android:id="@+id/ibtn_3_7"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -409,6 +425,7 @@
             android:id="@+id/ibtn_4_0"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -430,6 +447,7 @@
             android:id="@+id/ibtn_4_2"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -449,6 +467,7 @@
             android:id="@+id/ibtn_4_4"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -468,6 +487,7 @@
             android:id="@+id/ibtn_4_6"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -501,9 +521,10 @@
             android:id="@+id/ibtn_5_1"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
-            app:layout_columnWeight="1"
 
+            app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
 
         <ImageButton
@@ -521,6 +542,7 @@
             android:id="@+id/ibtn_5_3"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -540,6 +562,7 @@
             android:id="@+id/ibtn_5_5"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -559,6 +582,7 @@
             android:id="@+id/ibtn_5_7"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -569,6 +593,7 @@
             android:id="@+id/ibtn_6_0"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -590,6 +615,7 @@
             android:id="@+id/ibtn_6_2"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -609,6 +635,7 @@
             android:id="@+id/ibtn_6_4"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -628,6 +655,7 @@
             android:id="@+id/ibtn_6_6"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -661,9 +689,10 @@
             android:id="@+id/ibtn_7_1"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
-            app:layout_columnWeight="1"
 
+            app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
 
         <ImageButton
@@ -681,6 +710,7 @@
             android:id="@+id/ibtn_7_3"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -700,6 +730,7 @@
             android:id="@+id/ibtn_7_5"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -719,6 +750,7 @@
             android:id="@+id/ibtn_7_7"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:background="#e1e4e9"
             android:clickable="false"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
