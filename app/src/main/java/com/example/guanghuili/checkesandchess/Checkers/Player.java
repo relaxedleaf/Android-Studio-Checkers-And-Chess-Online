@@ -1,5 +1,7 @@
 package com.example.guanghuili.checkesandchess.Checkers;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 public class Player extends RoomManager implements Serializable {
@@ -8,7 +10,7 @@ public class Player extends RoomManager implements Serializable {
     private String id;
     private int win;
     private int loss;
-    private double winningRate;
+    private String winningRate;
 
     public Player(){
 
@@ -56,12 +58,19 @@ public class Player extends RoomManager implements Serializable {
     }
 
     public void updateWinningRate(){
+        double rate;
         if((win + loss) != 0){
-            this.winningRate = (double)Math.round(((double)win/(double)(win+loss))*100)/100;
+            rate = (Math.round(((double)win/(double)(win+loss))*100)/(double)100);
+            rate = rate * 100;
+            Log.d("Winning Rate",String.valueOf(rate));
+            this.winningRate = String.valueOf(rate) + "%";
+        }
+        else{
+            this.winningRate = "0%";
         }
     }
 
-    public double getWinningRate() {
+    public String getWinningRate() {
         return winningRate;
     }
 

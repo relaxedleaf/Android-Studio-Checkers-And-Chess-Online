@@ -57,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
     private Button btnSignUpXML;
     //**************
 
+    //***Status Page***
+    private TextView tvWin;
+    private TextView tvLoss;
+    private TextView tvWinningRate;
+    //**************
+
     private AlertDialog alertDialog;
     private AlertDialog.Builder dialogBuilder;
 
@@ -109,6 +115,14 @@ public class MainActivity extends AppCompatActivity {
                 createLoginDialog();
             }
         });
+
+        tvGreeting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createStatusDialog();
+            }
+        });
+
         ibtnCheckers = findViewById(R.id.ibtnCheckersID);
         ibtnChess = findViewById(R.id.ibtnChessID);
         ibtnCheckers.setOnClickListener(new View.OnClickListener() {
@@ -292,6 +306,36 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+    }
+
+    private void createStatusDialog(){
+        dialogBuilder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.status,null);
+        tvWin = view.findViewById(R.id.tvWinID);
+        tvLoss =  view.findViewById(R.id.tvLossID);
+        tvWinningRate = view.findViewById(R.id.tvWinningRateID);
+
+        refSignUpPlayers.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                player = dataSnapshot.child(user.getDisplayName()).getValue(Player.class);
+                tvWin.setText("Win: " + player.getWin());
+                tvLoss.setText("Loss: " + player.getLoss());
+                tvWinningRate.setText("Winning Rate: " + player.getWinningRate());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        dialogBuilder.setView(view);
+        alertDialog = dialogBuilder.create();
+        alertDialog.show();
+
 
     }
 
