@@ -334,7 +334,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
                                     turn = dataSnapshot.getValue(Room.class).getTurn();
                                     checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
                                     processCheckerList();
-                                    if (player2Enter == false) {
+                                    if (player2Enter == false) {//first time enter
                                         btnSurrender.setClickable(true);
                                         Toast.makeText(BlackCheckerActivity.this, "Player Entered", Toast.LENGTH_LONG).show();
                                         player2Enter = true;
@@ -345,6 +345,45 @@ public class BlackCheckerActivity extends AppCompatActivity {
                                     }
                                     updateAllButtons();
                                     disableButtons();
+                                    if(checkWin() == true){
+                                        player2Left = true;
+                                        Toast.makeText(BlackCheckerActivity.this, "You win!", Toast.LENGTH_LONG).show();
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(BlackCheckerActivity.this);
+                                        tvPlayer2Name.setClickable(false);
+                                        builder.setTitle("Room Update");
+                                        builder.setMessage("Excellent! You win");
+                                        builder.setCancelable(false);
+                                        builder.setPositiveButton("Nice", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                clickSound.start();
+                                                //refThisRoom.removeValue();
+                                                player.updateWin();
+                                                refSignUpPlayers.child(player.getUsername()).setValue(player);
+                                                BlackCheckerActivity.super.onBackPressed();
+                                                finish();
+                                            }
+                                        });
+                                        builder.show();
+                                    }
+                                    if(checkLose() == true){
+                                        player2Left = true;
+                                        Toast.makeText(BlackCheckerActivity.this, "You Lost!", Toast.LENGTH_LONG).show();
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(BlackCheckerActivity.this);
+                                        builder.setTitle("Room Update");
+                                        builder.setMessage("Sorry! You Lost");
+                                        builder.setCancelable(false);
+                                        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                clickSound.start();
+                                                refThisRoom.removeValue();
+                                                player.updateLoss();
+                                                refSignUpPlayers.child(player.getUsername()).setValue(player);
+                                                BlackCheckerActivity.super.onBackPressed();
+                                                finish();
+                                            }
+                                        });
+                                        builder.show();
+                                    }
                                 } else {//player2 is null
                                     if (waitingMessage == false) {
                                         btnSurrender.setClickable(false);
@@ -356,7 +395,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(BlackCheckerActivity.this);
                                         tvPlayer2Name.setClickable(false);
                                         builder.setTitle("Room Update");
-                                        builder.setMessage("Player left the room! You win");
+                                        builder.setMessage("Player Surrendered! You win");
                                         builder.setCancelable(false);
                                         builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
@@ -767,5 +806,31 @@ public class BlackCheckerActivity extends AppCompatActivity {
             BlackCheckerActivity.super.onBackPressed();
             finish();
         }
+    }
+
+    public boolean checkWin(){
+        boolean win = true;
+        for(int r = 0; r < checkerList.size(); r++){
+            for(int c = 0; c < checkerList.get(r).size(); c++){
+                if(checkerList.get(r).get(c).getType().equals("RedChecker")){
+                    win = false;
+                    break;
+                }
+            }
+        }
+        return win;
+    }
+
+    public boolean checkLose(){
+        boolean lose = true;
+        for(int r = 0; r < checkerList.size(); r++){
+            for(int c = 0; c < checkerList.get(r).size(); c++){
+                if(checkerList.get(r).get(c).getType().equals("BlackChecker")){
+                    lose = false;
+                    break;
+                }
+            }
+        }
+        return lose;
     }
 }

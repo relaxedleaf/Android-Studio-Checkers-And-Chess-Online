@@ -338,6 +338,43 @@ public class RedCheckerActivity extends AppCompatActivity {
                                     processCheckerList();
                                     updateAllButtons();
                                     disableButtons();
+                                    if(checkWin() == true){
+                                        player1Exited =true;
+                                        Toast.makeText(RedCheckerActivity.this, "You win!", Toast.LENGTH_LONG).show();
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(RedCheckerActivity.this);
+                                        builder.setTitle("Room Update");
+                                        builder.setMessage("Excellent! You win");
+                                        builder.setCancelable(false);
+                                        builder.setPositiveButton("Nice", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                clickSound.start();
+                                                player.updateWin();
+                                                refSignUpPlayers.child(player.getUsername()).setValue(player);
+                                                RedCheckerActivity.super.onBackPressed();
+                                                finish();
+                                            }
+                                        });
+                                        builder.show();
+                                    }
+                                    if(checkLose() == true){
+                                        player1Exited =true;
+                                        Toast.makeText(RedCheckerActivity.this, "You Lost!", Toast.LENGTH_LONG).show();
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(RedCheckerActivity.this);
+                                        builder.setTitle("Room Update");
+                                        builder.setMessage("Sorry! You Lost");
+                                        builder.setCancelable(false);
+                                        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                clickSound.start();
+                                                refThisRoom.removeValue();
+                                                player.updateLoss();
+                                                refSignUpPlayers.child(player.getUsername()).setValue(player);
+                                                RedCheckerActivity.super.onBackPressed();
+                                                finish();
+                                            }
+                                        });
+                                        builder.show();
+                                    }
                                 } else {
                                     Toast.makeText(RedCheckerActivity.this, "User exited", Toast.LENGTH_LONG).show();
                                     btnSurrender.setClickable(false);
@@ -345,7 +382,7 @@ public class RedCheckerActivity extends AppCompatActivity {
                                     player1Exited = true;
                                     AlertDialog.Builder builder = new AlertDialog.Builder(RedCheckerActivity.this);
                                     builder.setTitle("Room Update");
-                                    builder.setMessage("Player left the room! You win");
+                                    builder.setMessage("Player Surrendered! You win");
                                     builder.setCancelable(false);
                                     builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
@@ -760,5 +797,31 @@ public class RedCheckerActivity extends AppCompatActivity {
             RedCheckerActivity.super.onBackPressed();
             finish();
         }
+    }
+
+    public boolean checkWin(){
+        boolean win = true;
+        for(int r = 0; r < checkerList.size(); r++){
+            for(int c = 0; c < checkerList.get(r).size(); c++){
+                if(checkerList.get(r).get(c).getType().equals("BlackChecker")){
+                    win = false;
+                    break;
+                }
+            }
+        }
+        return win;
+    }
+
+    public boolean checkLose(){
+        boolean lose = true;
+        for(int r = 0; r < checkerList.size(); r++){
+            for(int c = 0; c < checkerList.get(r).size(); c++){
+                if(checkerList.get(r).get(c).getType().equals("RedChecker")){
+                    lose = false;
+                    break;
+                }
+            }
+        }
+        return lose;
     }
 }
