@@ -167,17 +167,22 @@ public class CheckerRoomActivity extends AppCompatActivity {
                     }
                 }
                 else{//join random room
-                    int min = 0;
-                    int max = roomManager.getRoomList().size();
-                    int range = (roomManager.getRoomList().size() - 1) + 1;
-                    int random = (int) (Math.random() * range) + min;
-                    Room room = roomManager.getRoomList().get(random);
-                    room.setPlayer2(player);
-                    room.setAvailability(false);
-                    refRoom.child(String.valueOf(room.getId())).setValue(room);
-                    Intent intent = new Intent(CheckerRoomActivity.this, RedCheckerActivity.class);
-                    intent.putExtra("room", room);
-                    CheckerRoomActivity.this.startActivity(intent);
+                    if(roomManager.getRoomList().size() == 0){
+                        Toast.makeText(CheckerRoomActivity.this, "No Available Rooms", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        int min = 0;
+                        int max = roomManager.getRoomList().size();
+                        int range = (roomManager.getRoomList().size() - 1) + 1;
+                        int random = (int) (Math.random() * range) + min;
+                        Room room = roomManager.getRoomList().get(random);
+                        room.setPlayer2(player);
+                        room.setAvailability(false);
+                        refRoom.child(String.valueOf(room.getId())).setValue(room);
+                        Intent intent = new Intent(CheckerRoomActivity.this, RedCheckerActivity.class);
+                        intent.putExtra("room", room);
+                        CheckerRoomActivity.this.startActivity(intent);
+                    }
                 }
             }
         });

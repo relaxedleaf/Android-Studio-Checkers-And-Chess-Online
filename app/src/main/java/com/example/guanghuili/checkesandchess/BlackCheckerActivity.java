@@ -319,6 +319,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
                                         builder.setCancelable(false);
                                         builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
+                                                refThisRoom.removeValue();
                                                 player.updateWin();
                                                 refSignUpPlayers.child(player.getUsername()).setValue(player);
                                                 BlackCheckerActivity.super.onBackPressed();
@@ -379,6 +380,9 @@ public class BlackCheckerActivity extends AppCompatActivity {
                 player.updateLoss();
                 refSignUpPlayers.child(player.getUsername()).setValue(player);
                 finish();
+            }
+            if(player2Enter == false){
+                refThisRoom.removeValue();
             }
         }
     }
