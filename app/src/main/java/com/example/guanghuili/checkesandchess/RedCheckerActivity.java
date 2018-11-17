@@ -52,6 +52,9 @@ public class RedCheckerActivity extends AppCompatActivity {
     private boolean disableAllButOneButton = false;
     private Checker nullc = new NullChecker();
 
+    private AlertDialog alertDialog;
+    private AlertDialog.Builder dialogBuilder;
+
     private FirebaseDatabase database;
     private DatabaseReference refSignUpPlayers;
     private DatabaseReference refRoom;
@@ -62,7 +65,8 @@ public class RedCheckerActivity extends AppCompatActivity {
     private FirebaseUser user;
 
     private RoomManager roomManager = new RoomManager();
-    private Player player;
+    private Player player;//Red
+    private Player player1;//Black
     private Room room;
     private boolean player1Exited = false;
     private boolean backPressed = false;
@@ -159,6 +163,27 @@ public class RedCheckerActivity extends AppCompatActivity {
         tvRoom = findViewById(R.id.tvRoomIdID);
         tvPlayer1Name = findViewById(R.id.tvPlayer1ID);
         tvPlayer2Name = findViewById(R.id.tvPlayer2ID);
+
+        tvPlayer2Name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(player1Exited == false){
+                    dialogBuilder = new AlertDialog.Builder(RedCheckerActivity.this);
+                    View statusView = getLayoutInflater().inflate(R.layout.status,null);
+                    TextView tvWin = statusView.findViewById(R.id.tvWinID);
+                    TextView tvLoss =  statusView.findViewById(R.id.tvLossID);
+                    TextView tvWinningRate = statusView.findViewById(R.id.tvWinningRateID);
+
+                    tvWin.setText("Win: " + player1.getWin());
+                    tvLoss.setText("Loss: " + player1.getLoss());
+                    tvWinningRate.setText("Winning Rate: " + player1.getWinningRate());
+
+                    dialogBuilder.setView(statusView);
+                    alertDialog = dialogBuilder.create();
+                    alertDialog.show();
+                }
+            }
+        });
 
 
 //row 1
@@ -298,7 +323,9 @@ public class RedCheckerActivity extends AppCompatActivity {
                         if (player1Exited == false) {
                             if(dataSnapshot.getValue(Room.class) != null) {
                                 if (dataSnapshot.getValue(Room.class).getPlayer1() != null) {
+                                    tvPlayer2Name.setClickable(true);
                                     tvPlayer2Name.setText(getResources().getText(R.string.player2) + dataSnapshot.getValue(Room.class).getPlayer1().getUsername());
+                                    player1 = dataSnapshot.getValue(Room.class).getPlayer1();
                                     turn = dataSnapshot.getValue(Room.class).getTurn();
                                     checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
                                     processCheckerList();
@@ -306,6 +333,7 @@ public class RedCheckerActivity extends AppCompatActivity {
                                     disableButtons();
                                 } else {
                                     Toast.makeText(RedCheckerActivity.this, "User exited", Toast.LENGTH_LONG).show();
+                                    tvPlayer2Name.setClickable(false);
                                     player1Exited = true;
                                     AlertDialog.Builder builder = new AlertDialog.Builder(RedCheckerActivity.this);
                                     builder.setTitle("Room Update");

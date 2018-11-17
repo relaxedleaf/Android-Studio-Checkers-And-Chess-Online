@@ -57,6 +57,9 @@ public class BlackCheckerActivity extends AppCompatActivity {
     private Boolean paused = false;
     private Boolean waitingMessage = false;
 
+    private AlertDialog alertDialog;
+    private AlertDialog.Builder dialogBuilder;
+
     private FirebaseDatabase database;
     private DatabaseReference refSignUpPlayers;
     private DatabaseReference refRoom;
@@ -68,6 +71,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
 
     private RoomManager roomManager = new RoomManager();
     private Player player;
+    private Player player2;
     private Room room;
 
     private TextView tvRoom;
@@ -162,6 +166,27 @@ public class BlackCheckerActivity extends AppCompatActivity {
         tvRoom = findViewById(R.id.tvRoomIdID);
         tvPlayer1Name = findViewById(R.id.tvPlayer1ID);
         tvPlayer2Name = findViewById(R.id.tvPlayer2ID);
+
+        tvPlayer2Name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(player2Enter == true && player2Left == false){
+                    dialogBuilder = new AlertDialog.Builder(BlackCheckerActivity.this);
+                    View statusView = getLayoutInflater().inflate(R.layout.status,null);
+                    TextView tvWin = statusView.findViewById(R.id.tvWinID);
+                    TextView tvLoss =  statusView.findViewById(R.id.tvLossID);
+                    TextView tvWinningRate = statusView.findViewById(R.id.tvWinningRateID);
+
+                    tvWin.setText("Win: " + player2.getWin());
+                    tvLoss.setText("Loss: " + player2.getLoss());
+                    tvWinningRate.setText("Winning Rate: " + player2.getWinningRate());
+
+                    dialogBuilder.setView(statusView);
+                    alertDialog = dialogBuilder.create();
+                    alertDialog.show();
+                }
+            }
+        });
 
 //row 1
         ibtn_0_0 = findViewById(R.id.ibtn_0_0);
@@ -277,6 +302,11 @@ public class BlackCheckerActivity extends AppCompatActivity {
                         player = dataSnapshot1.getValue(Player.class);
                         tvPlayer1Name.setText(getResources().getText(R.string.player1) + player.getUsername());
                     }
+                    if(player2Enter == true && player2Left == false){
+                        if (dataSnapshot1.getValue(Player.class).getUsername().equals(tvPlayer2Name.getText().toString())){
+                            player2 = dataSnapshot1.getValue(Player.class);
+                        }
+                    }
                 }
             }
             @Override
@@ -293,6 +323,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
                         if (player2Left == false) {
                             if(dataSnapshot.getValue() != null) {
                                 if (dataSnapshot.getValue(Room.class).getPlayer2() != null) {
+                                    player2 = dataSnapshot.getValue(Room.class).getPlayer2();
                                     tvPlayer2Name.setText(getResources().getText(R.string.player2) + dataSnapshot.getValue(Room.class).getPlayer2().getUsername());
                                     turn = dataSnapshot.getValue(Room.class).getTurn();
                                     checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
@@ -300,6 +331,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
                                     if (player2Enter == false) {
                                         Toast.makeText(BlackCheckerActivity.this, "Player Entered", Toast.LENGTH_LONG).show();
                                         player2Enter = true;
+                                        tvPlayer2Name.setClickable(true);
                                         refThisRoom.removeEventListener(this);//when change the ref path, the listener won't update, so remove it and add it back
                                         refThisRoom = refRoom.child("unavailable").child(String.valueOf(room.getId()));
                                         refThisRoom.addValueEventListener(this);
@@ -314,6 +346,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
                                         player2Left = true;
                                         Toast.makeText(BlackCheckerActivity.this, "User exited", Toast.LENGTH_LONG).show();
                                         AlertDialog.Builder builder = new AlertDialog.Builder(BlackCheckerActivity.this);
+                                        tvPlayer2Name.setClickable(false);
                                         builder.setTitle("Room Update");
                                         builder.setMessage("Player left the room! You win");
                                         builder.setCancelable(false);
