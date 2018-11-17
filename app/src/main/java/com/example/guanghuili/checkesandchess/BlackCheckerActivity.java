@@ -2,6 +2,7 @@ package com.example.guanghuili.checkesandchess;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -59,6 +60,8 @@ public class BlackCheckerActivity extends AppCompatActivity {
 
     private AlertDialog alertDialog;
     private AlertDialog.Builder dialogBuilder;
+
+    MediaPlayer clickSound;
 
     private FirebaseDatabase database;
     private DatabaseReference refSignUpPlayers;
@@ -162,6 +165,8 @@ public class BlackCheckerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_black_checker);
 
+        clickSound = MediaPlayer.create(BlackCheckerActivity.this, R.raw.click);
+
         btnSurrender = findViewById(R.id.btnSurrenderID);
         tvRoom = findViewById(R.id.tvRoomIdID);
         tvPlayer1Name = findViewById(R.id.tvPlayer1ID);
@@ -170,6 +175,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
         tvPlayer2Name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clickSound.start();
                 if(player2Enter == true && player2Left == false){
                     dialogBuilder = new AlertDialog.Builder(BlackCheckerActivity.this);
                     View statusView = getLayoutInflater().inflate(R.layout.status,null);
@@ -329,6 +335,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
                                     checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
                                     processCheckerList();
                                     if (player2Enter == false) {
+                                        btnSurrender.setClickable(true);
                                         Toast.makeText(BlackCheckerActivity.this, "Player Entered", Toast.LENGTH_LONG).show();
                                         player2Enter = true;
                                         tvPlayer2Name.setClickable(true);
@@ -340,6 +347,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
                                     disableButtons();
                                 } else {//player2 is null
                                     if (waitingMessage == false) {
+                                        btnSurrender.setClickable(false);
                                         Toast.makeText(BlackCheckerActivity.this, "Waiting for another player", Toast.LENGTH_LONG).show();
                                         waitingMessage = true;
                                     } else {
@@ -352,6 +360,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
                                         builder.setCancelable(false);
                                         builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
+                                                clickSound.start();
                                                 refThisRoom.removeValue();
                                                 player.updateWin();
                                                 refSignUpPlayers.child(player.getUsername()).setValue(player);
@@ -377,11 +386,13 @@ public class BlackCheckerActivity extends AppCompatActivity {
         btnSurrender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clickSound.start();
                 AlertDialog.Builder builder = new AlertDialog.Builder(BlackCheckerActivity.this);
                 builder.setTitle("Surrender");
                 builder.setMessage("Are you sure you want to surrender?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        clickSound.start();
                         backPressed = true;
                         refThisRoom.child("player1").removeValue();
                         player.updateLoss();
@@ -392,6 +403,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        clickSound.start();
                         dialog.cancel();
                     }
                 });
@@ -421,6 +433,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
     }
 
     public void myOnClick(View view) {
+        clickSound.start();
         if (turn) {//BlackChecker's turn
             if (secondClick == false) {//(first click)
                 for (int r = 0; r < imageButtonList.length; r++) {
@@ -731,6 +744,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
             builder.setMessage("Leave now means surrender");
             builder.setPositiveButton("Leave", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
+                    clickSound.start();
                     backPressed = true;
                     refThisRoom.child("player1").removeValue();
                     player.updateLoss();
@@ -741,6 +755,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
             });
             builder.setNegativeButton("Stay", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
+                    clickSound.start();
                     dialog.cancel();
                 }
             });

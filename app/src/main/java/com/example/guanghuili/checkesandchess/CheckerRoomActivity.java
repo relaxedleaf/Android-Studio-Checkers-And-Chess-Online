@@ -1,6 +1,7 @@
 package com.example.guanghuili.checkesandchess;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -41,6 +42,8 @@ public class CheckerRoomActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+    MediaPlayer clickSound;
+
     private Button btnCreate;
     private EditText etRoom;
     private Button btnJoin;
@@ -55,6 +58,9 @@ public class CheckerRoomActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checker_room);
+
+        clickSound = MediaPlayer.create(CheckerRoomActivity.this, R.raw.click);
+
 //**********RecyclerView***********
         recyclerView = (RecyclerView) findViewById(R.id.RecyclerViewID);
         recyclerView.setHasFixedSize(true);
@@ -133,6 +139,7 @@ public class CheckerRoomActivity extends AppCompatActivity {
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clickSound.start();
                 room = roomManager.createRoom(player);
                 refRoom.child(String.valueOf(room.getId())).setValue(room);
                 Intent intent = new Intent(CheckerRoomActivity.this,BlackCheckerActivity.class);
@@ -144,6 +151,7 @@ public class CheckerRoomActivity extends AppCompatActivity {
         btnJoin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clickSound.start();
                 Boolean exist = false;
                 if (!etRoom.getText().toString().equals("")){
                     int roomNum = Integer.parseInt(etRoom.getText().toString());

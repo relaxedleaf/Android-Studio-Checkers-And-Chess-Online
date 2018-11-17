@@ -3,6 +3,7 @@ package com.example.guanghuili.checkesandchess;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -54,6 +55,8 @@ public class RedCheckerActivity extends AppCompatActivity {
 
     private AlertDialog alertDialog;
     private AlertDialog.Builder dialogBuilder;
+
+    MediaPlayer clickSound;
 
     private FirebaseDatabase database;
     private DatabaseReference refSignUpPlayers;
@@ -160,6 +163,8 @@ public class RedCheckerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_red_checker);
 
+        clickSound = MediaPlayer.create(RedCheckerActivity.this, R.raw.click);
+
         tvRoom = findViewById(R.id.tvRoomIdID);
         tvPlayer1Name = findViewById(R.id.tvPlayer1ID);
         tvPlayer2Name = findViewById(R.id.tvPlayer2ID);
@@ -167,6 +172,7 @@ public class RedCheckerActivity extends AppCompatActivity {
         tvPlayer2Name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clickSound.start();
                 if(player1Exited == false){
                     dialogBuilder = new AlertDialog.Builder(RedCheckerActivity.this);
                     View statusView = getLayoutInflater().inflate(R.layout.status,null);
@@ -323,6 +329,7 @@ public class RedCheckerActivity extends AppCompatActivity {
                         if (player1Exited == false) {
                             if(dataSnapshot.getValue(Room.class) != null) {
                                 if (dataSnapshot.getValue(Room.class).getPlayer1() != null) {
+                                    btnSurrender.setClickable(true);
                                     tvPlayer2Name.setClickable(true);
                                     tvPlayer2Name.setText(getResources().getText(R.string.player2) + dataSnapshot.getValue(Room.class).getPlayer1().getUsername());
                                     player1 = dataSnapshot.getValue(Room.class).getPlayer1();
@@ -333,6 +340,7 @@ public class RedCheckerActivity extends AppCompatActivity {
                                     disableButtons();
                                 } else {
                                     Toast.makeText(RedCheckerActivity.this, "User exited", Toast.LENGTH_LONG).show();
+                                    btnSurrender.setClickable(false);
                                     tvPlayer2Name.setClickable(false);
                                     player1Exited = true;
                                     AlertDialog.Builder builder = new AlertDialog.Builder(RedCheckerActivity.this);
@@ -341,6 +349,7 @@ public class RedCheckerActivity extends AppCompatActivity {
                                     builder.setCancelable(false);
                                     builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
+                                            clickSound.start();
                                             player.updateWin();
                                             refSignUpPlayers.child(player.getUsername()).setValue(player);
                                             refThisRoom.removeValue();
@@ -366,11 +375,13 @@ public class RedCheckerActivity extends AppCompatActivity {
         btnSurrender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clickSound.start();
                 AlertDialog.Builder builder = new AlertDialog.Builder(RedCheckerActivity.this);
                 builder.setTitle("Surrender");
                 builder.setMessage("Are you sure you want to surrender?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        clickSound.start();
                         backPressed = true;
                         refThisRoom.child("player2").removeValue();
                         player.updateLoss();
@@ -381,6 +392,7 @@ public class RedCheckerActivity extends AppCompatActivity {
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        clickSound.start();
                         dialog.cancel();
                     }
                 });
@@ -406,7 +418,7 @@ public class RedCheckerActivity extends AppCompatActivity {
     }
 
     public void myOnClick(View view) {
-
+        clickSound.start();
         if(turn == false){
             if (secondClick == false) {//(First Click)
                 for (int r = 0; r < imageButtonList.length; r++) {
@@ -725,6 +737,7 @@ public class RedCheckerActivity extends AppCompatActivity {
             builder.setMessage("Leave now means surrender");
             builder.setPositiveButton("Leave", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
+                    clickSound.start();
                     backPressed = true;
                     refThisRoom.child("player2").removeValue();
                     player.updateLoss();
@@ -735,6 +748,7 @@ public class RedCheckerActivity extends AppCompatActivity {
             });
             builder.setNegativeButton("Stay", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
+                    clickSound.start();
                     dialog.cancel();
                 }
             });

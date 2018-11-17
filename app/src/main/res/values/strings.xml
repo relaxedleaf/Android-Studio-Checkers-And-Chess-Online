@@ -12,5 +12,9 @@
     <string name="player1">You:\u0020</string>
     <string name="player2">Op:\u0020</string>
     <string name="surrender">Surrender</string>
+    <string name="credit">Credits</string>
+    <string name="logo">Logo</string>
+    <string name="images">Images</string>
+    <string name="sound">Sounds</string>
 
 </resources>

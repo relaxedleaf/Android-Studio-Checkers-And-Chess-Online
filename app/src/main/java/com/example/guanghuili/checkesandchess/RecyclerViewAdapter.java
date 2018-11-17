@@ -2,6 +2,7 @@ package com.example.guanghuili.checkesandchess;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +35,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private Room room;
     private Player player;
 
+    MediaPlayer clickSound;
+
     private FirebaseUser user;
     private FirebaseDatabase database;
     private DatabaseReference refSignUpPlayers;
@@ -46,6 +49,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public RecyclerViewAdapter(Context context, ArrayList<Room>roomList){
         this.roomList = roomList;
         this.context = context;
+        clickSound = MediaPlayer.create(context, R.raw.click);
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -115,6 +119,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
         @Override
         public void onClick(View view) {
+            clickSound.start();
             Log.d("clicked","clicked");
             int position = getAdapterPosition();
             room = roomList.get(position);
