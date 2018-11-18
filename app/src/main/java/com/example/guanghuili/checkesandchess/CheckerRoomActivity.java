@@ -89,8 +89,10 @@ public class CheckerRoomActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 user = mAuth.getCurrentUser();
                 for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                    if(dataSnapshot1.getValue(Player.class).getUsername().equals(user.getDisplayName())){
-                        player = dataSnapshot1.getValue(Player.class);
+                    if(user != null) {//(double check)when user sign up in the mainActivity, this listener will be called, but the activity has not been called, so there is no user
+                        if (dataSnapshot1.getValue(Player.class).getUsername().equals(user.getDisplayName())) {
+                            player = dataSnapshot1.getValue(Player.class);
+                        }
                     }
                 }
             }
