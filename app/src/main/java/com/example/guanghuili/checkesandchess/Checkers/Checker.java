@@ -1,15 +1,28 @@
 package com.example.guanghuili.checkesandchess.Checkers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import com.google.firebase.database.*;
 
-public class Checker {
+public class Checker implements Serializable{
     private int row;
     private int column;
+    private String type;
     private boolean crownStatus;
 
-    public Checker(int row, int column){
+
+    public Checker(){
+    }
+
+    public Checker(String type){
+        this.type = type;
+    }
+
+    public Checker(int row, int column, String type){
         this.row = row;
         this.column = column;
+        this.type = type;
         this.crownStatus = false;
     }
 
@@ -43,15 +56,23 @@ public class Checker {
         this.crownStatus = crownStatus;
     }
 
-    public ArrayList<int[]> getMove(Checker[][] checkerList) {
+    public ArrayList<int[]> getMove(List<List<Checker>> checkerList) {
         return null;
     }
 
-    public ArrayList<int[]> getMove2(Checker[][] checkerList) {
+    public ArrayList<int[]> getMove2(List<List<Checker>> checkerList) {
         return null;
     }
 
     public ArrayList<int[]> getKillList() {
         return null;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
