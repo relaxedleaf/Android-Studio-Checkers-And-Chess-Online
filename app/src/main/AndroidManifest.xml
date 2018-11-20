@@ -17,15 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< HEAD
-        <activity android:name=".CheckerActivity" android:screenOrientation="portrait" />
-        <activity android:name=".CheckerRoomActivity" android:screenOrientation="portrait"></activity>
-=======
+
         <activity android:name=".CheckerRoomActivity" />
         <activity android:name=".BlackCheckerActivity" />
         <activity android:name=".RedCheckerActivity" />
         <activity android:name=".CreditActivity"></activity>
->>>>>>> fc018070ffa36e8b21145a1bffa4260528719f48
+
     </application>
 
 </manifest>

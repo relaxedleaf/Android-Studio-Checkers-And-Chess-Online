@@ -2,6 +2,9 @@ package com.example.guanghuili.checkesandchess.Chess;
 
 //import Piece;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class King extends Piece {
     int row, column;
 
@@ -160,9 +163,72 @@ public class King extends Piece {
                 }
             }
         }
+
+
+        //*************************************************************************
+        //pawns
+        //*************************************************************************
+
+        if(this.isBlack()){
+            if((row + 1) < 8){
+                if(column - 1 >= 0){
+                    if(board[row+1][column - 1] != null){
+                        if(board[row+1][column - 1] instanceof Pawn && !(board[row+1][column - 1].isBlack())){
+                            return true;
+                        }
+                    }
+                }
+                if(column+1 < 8){
+                    if(board[row+1][column + 1] != null){
+                        if(board[row+1][column + 1] instanceof Pawn && !(board[row+1][column + 1].isBlack())){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            if((row - 1) >= 0){
+                if(column - 1 >= 0){
+                    if(board[row+1][column - 1] != null){
+                        if(board[row+1][column - 1] instanceof Pawn && (board[row+1][column - 1].isBlack())){
+                            return true;
+                        }
+                    }
+                }
+                if(column+1 < 8){
+                    if(board[row+1][column + 1] != null){
+                        if(board[row+1][column + 1] instanceof Pawn && (board[row+1][column + 1].isBlack())){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+
+
         return false;
+
+
     }
 
+    @Override
+    public List getMoves(Piece[][] board) {
+        List<Point> moves = new ArrayList<>();
 
+        for(int i = row - 1; i < row + 1; i++){
+            for(int j = column - 1; j < column+1; j++){
+                if(i >= 0 && i < 8){
+                    if (j >=0 && j <8){
+                        if(!(i == row && j == column)) {
+                            moves.add(new Point(i, j));
+                        }
+                    }
+                }
+            }
+        }
 
+        return moves;
+    }
 }
