@@ -219,8 +219,11 @@ public class King extends Piece {
 
         for(int i = row - 1; i < row + 1; i++){
             for(int j = column - 1; j < column+1; j++){
+                //if the row is on the board
                 if(i >= 0 && i < 8){
+                    //if the column is on the board
                     if (j >=0 && j <8){
+                        //if the point would actually be moving
                         if(!(i == row && j == column)) {
                             if(board[i][j] == null || board[i][j].isBlack() != this.isBlack()) {
                                 moves.add(new Point(i, j));
