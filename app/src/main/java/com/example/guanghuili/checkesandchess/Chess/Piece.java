@@ -8,8 +8,8 @@ public abstract class Piece implements Cloneable {
     boolean isBlack;
 
 
-    public Piece(Boolean isBlack, int row, int column, int moveDistance){
-        this.moveDistance = moveDistance;
+    public Piece(Boolean isBlack, int row, int column){
+        //this.moveDistance = moveDistance;
         this.row = row;
         this.column = column;
         this.isBlack = isBlack;
@@ -24,5 +24,5 @@ public abstract class Piece implements Cloneable {
         return (Piece) this.clone();
     }
 
-    public abstract List getMoves(Piece[][] board);
+    public abstract List<Point> getMoves(Piece[][] board);
 }

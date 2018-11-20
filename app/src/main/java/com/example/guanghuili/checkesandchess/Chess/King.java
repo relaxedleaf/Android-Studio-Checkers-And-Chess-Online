@@ -9,7 +9,7 @@ public class King extends Piece {
     int row, column;
 
     public King(Boolean isBlack, int row, int column){
-        super(isBlack,row,column,1);
+        super(isBlack,row,column);
         this.row = row;
         this.column = column;
 

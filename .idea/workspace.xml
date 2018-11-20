@@ -14,7 +14,11 @@
     <list default="true" id="5a19b2d4-5417-45d4-81e2-6f6b31a2705f" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Bishop.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Bishop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/King.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/King.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Knight.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Knight.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Pawn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Piece.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Piece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Queen.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Queen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Rook.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Rook.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -61,11 +65,49 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bishop.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Bishop.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Bishop.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="20" column="12" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
+            <state relative-caret-position="340">
+              <caret line="22" column="31" lean-forward="true" selection-start-line="16" selection-end-line="112" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Rook.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Rook.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="18" column="25" lean-forward="true" selection-start-line="14" selection-end-line="94" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Knight.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Knight.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="541">
+              <caret line="35" column="21" lean-forward="true" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#147#148#0" expanded="true" />
+                <element signature="e#190#191#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Queen.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Queen.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="371">
+              <caret line="194" column="9" selection-start-line="194" selection-start-column="9" selection-end-line="194" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -103,8 +145,8 @@
       <file leaf-file-name="Piece.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Piece.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+            <state relative-caret-position="408">
+              <caret line="26" column="46" lean-forward="true" selection-start-line="26" selection-start-column="46" selection-end-line="26" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -2400,22 +2442,23 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Knight.java" />
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Piece.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Point.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Pawn.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/King.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Bishop.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Piece.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Rook.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Knight.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Queen.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-7" />
+    <option name="width" value="697" />
+    <option name="height" value="735" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -2793,27 +2836,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Queen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Rook.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Knight.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding>
-            <element signature="e#147#148#0" expanded="true" />
-            <element signature="e#193#194#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/signup.xml">
       <provider editor-type-id="text-editor">
         <state />
@@ -2854,10 +2876,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Piece.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Pawn.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+        <state relative-caret-position="204">
+          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2874,16 +2899,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Pawn.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/King.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -2894,10 +2909,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Piece.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="26" column="46" lean-forward="true" selection-start-line="26" selection-start-column="46" selection-end-line="26" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Knight.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="541">
+          <caret line="35" column="21" lean-forward="true" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#147#148#0" expanded="true" />
+            <element signature="e#190#191#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Rook.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="18" column="25" lean-forward="true" selection-start-line="14" selection-end-line="94" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Bishop.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="20" column="12" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
+        <state relative-caret-position="340">
+          <caret line="22" column="31" lean-forward="true" selection-start-line="16" selection-end-line="112" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Queen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="194" column="9" selection-start-line="194" selection-start-column="9" selection-end-line="194" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

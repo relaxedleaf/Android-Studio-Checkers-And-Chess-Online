@@ -10,7 +10,7 @@ public class Pawn extends Piece {
     Boolean firstMove;
 
     public Pawn(Boolean isBlack, int row, int column) {
-        super(isBlack, row, column, 1);
+        super(isBlack, row, column);
         firstMove = true;
     }
 
