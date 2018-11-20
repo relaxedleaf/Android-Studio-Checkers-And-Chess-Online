@@ -19,7 +19,11 @@ public class Pawn extends Piece {
 
         List<Point> moves = new ArrayList<>();
 
-        
+        if(this.isBlack()){
+            if(firstMove){
+
+            }
+        }
 
 
         return null;

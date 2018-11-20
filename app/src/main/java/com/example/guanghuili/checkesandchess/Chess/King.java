@@ -222,7 +222,9 @@ public class King extends Piece {
                 if(i >= 0 && i < 8){
                     if (j >=0 && j <8){
                         if(!(i == row && j == column)) {
-                            moves.add(new Point(i, j));
+                            if(board[i][j] == null || board[i][j].isBlack() != this.isBlack()) {
+                                moves.add(new Point(i, j));
+                            }
                         }
                     }
                 }
