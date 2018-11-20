@@ -58,6 +58,8 @@ public class BlackCheckerActivity extends AppCompatActivity {
     private Boolean paused = false;
     private Boolean waitingMessage = false;
 
+    private int round = 0;//for tracking the number of turns, if round is even, show the toast saying "your turn"
+
     private AlertDialog alertDialog;
     private AlertDialog.Builder dialogBuilder;
 
@@ -332,6 +334,10 @@ public class BlackCheckerActivity extends AppCompatActivity {
                                     player2 = dataSnapshot.getValue(Room.class).getPlayer2();
                                     tvPlayer2Name.setText(getResources().getText(R.string.player2) + dataSnapshot.getValue(Room.class).getPlayer2().getUsername());
                                     turn = dataSnapshot.getValue(Room.class).getTurn();
+                                    round++;
+                                    if(turn == true && (round%2 == 0)){
+                                        Toast.makeText(BlackCheckerActivity.this, "Your Turn", Toast.LENGTH_SHORT).show();
+                                    }
                                     checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
                                     processCheckerList();
                                     if (player2Enter == false) {//first time enter
@@ -597,7 +603,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
                         //imageButtonList[r][c].setBackgroundColor(Color.BLACK);
                     }
                     else if(checkerList.get(r).get(c) instanceof BlackChecker){//disable the unmovable blackCheckers
-                        if(r == 0){//if the blackChecker is at row 0 (crown)
+                        if(checkerList.get(r).get(c).isCrownStatus() == true){//if the blackChecker is at row 0 (crown)//TODO need to improve the code here
                             imageButtonList[r][c].setClickable(true);
                         }
                         else {
@@ -637,7 +643,7 @@ public class BlackCheckerActivity extends AppCompatActivity {
                         //imageButtonList[r][c].setBackgroundColor(Color.BLACK);
                     }
                     else if(checkerList.get(r).get(c) instanceof RedChecker) {//disable the unmovable red Checkers
-                        if (r == 7) {//if the red checker is at row 7 (crown)
+                        if (checkerList.get(r).get(c).isCrownStatus() == true) {//if the red checker is at row 7 (crown)//TODO need to improve the code
                             imageButtonList[r][c].setClickable(true);
                         } else {
                             if (c == 0) {
