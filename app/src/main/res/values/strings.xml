@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Checkes and Chess</string>
+    <string name="app_name">Checkers and Chess</string>
     <string name="sign_up">Sign Up</string>
     <string name="login">Login</string>
-    <string name="play_checkers">Plary Checkers</string>
+    <string name="play_checkers">Play Checkers</string>
     <string name="play_chess">Play Chess</string>
     <string name="username">Username:</string>
     <string name="room_id">Room ID:\u0020</string>
