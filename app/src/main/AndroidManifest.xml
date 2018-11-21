@@ -10,9 +10,7 @@
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
-            android:screenOrientation="portrait">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,8 +20,7 @@
         <activity android:name=".CheckerRoomActivity" />
         <activity android:name=".BlackCheckerActivity" />
         <activity android:name=".RedCheckerActivity" />
-        <activity android:name=".CreditActivity" />
-        <activity android:name=".Chess.Chess"></activity>
+        <activity android:name=".CreditActivity"></activity>
     </application>
 
 </manifest>

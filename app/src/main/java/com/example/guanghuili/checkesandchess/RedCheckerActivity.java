@@ -56,6 +56,8 @@ public class RedCheckerActivity extends AppCompatActivity {
     private AlertDialog alertDialog;
     private AlertDialog.Builder dialogBuilder;
 
+    private int round = 0;//for tracking the number of turns, if round is even, show the toast saying "your turn"
+
     MediaPlayer clickSound;
 
     private FirebaseDatabase database;
@@ -334,6 +336,10 @@ public class RedCheckerActivity extends AppCompatActivity {
                                     tvPlayer2Name.setText(getResources().getText(R.string.player2) + dataSnapshot.getValue(Room.class).getPlayer1().getUsername());
                                     player1 = dataSnapshot.getValue(Room.class).getPlayer1();
                                     turn = dataSnapshot.getValue(Room.class).getTurn();
+                                    round++;
+                                    if(turn == false && (round%2 != 0)){
+                                        Toast.makeText(RedCheckerActivity.this, "Your Turn", Toast.LENGTH_SHORT).show();
+                                    }
                                     checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
                                     processCheckerList();
                                     updateAllButtons();

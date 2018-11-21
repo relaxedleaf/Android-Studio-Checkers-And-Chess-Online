@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Checkes and Chess</string>
+    <string name="app_name">Checkers and Chess</string>
     <string name="sign_up">Sign Up</string>
     <string name="login">Login</string>
     <string name="play_checkers">Play Checkers</string>
