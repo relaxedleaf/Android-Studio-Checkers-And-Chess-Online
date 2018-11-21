@@ -1,0 +1,759 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RedCheckerActivity">
+
+    <LinearLayout
+        android:id="@+id/LinearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnSurrenderID"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.017">
+
+        <TextView
+            android:id="@+id/tvRoomIdID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="casual"
+            android:text="@string/room_id"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPlayer1ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="casual"
+            android:text="@string/player1"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPlayer2ID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="casual"
+            android:text="@string/player2"
+            android:textAlignment="center"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSurrenderID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="casual"
+        android:text="@string/surrender"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <android.support.v7.widget.GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:columnCount="8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LinearLayout"
+        app:rowCount="8">
+
+        <!-- Row 1-->
+        <ImageButton
+            android:id="@+id/ibtn_0_0"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_0_1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:adjustViewBounds="false"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_0_2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_0_3"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:adjustViewBounds="false"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_0_4"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_0_5"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:adjustViewBounds="false"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_0_6"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_0_7"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:adjustViewBounds="false"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <!-- Row 2-->
+        <ImageButton
+            android:id="@+id/ibtn_1_0"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_1_1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_1_2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_1_3"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_1_4"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_1_5"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_1_6"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_1_7"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <!-- Row 3-->
+        <ImageButton
+            android:id="@+id/ibtn_2_0"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+
+        <ImageButton
+            android:id="@+id/ibtn_2_1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_2_2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_2_3"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_2_4"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_2_5"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_2_6"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_2_7"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+
+        <!--Row 4-->
+        <ImageButton
+            android:id="@+id/ibtn_3_0"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+
+        <ImageButton
+            android:id="@+id/ibtn_3_1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_3_2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_3_3"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_3_4"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_3_5"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_3_6"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_3_7"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <!--Row 5-->
+        <ImageButton
+            android:id="@+id/ibtn_4_0"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+
+        <ImageButton
+            android:id="@+id/ibtn_4_1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_4_2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_4_3"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_4_4"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_4_5"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_4_6"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_4_7"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+
+        <!--Row 6-->
+        <ImageButton
+            android:id="@+id/ibtn_5_0"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+
+        <ImageButton
+            android:id="@+id/ibtn_5_1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_5_2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_5_3"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_5_4"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_5_5"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_5_6"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_5_7"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+
+        <!--Row 7-->
+        <ImageButton
+            android:id="@+id/ibtn_6_0"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+
+        <ImageButton
+            android:id="@+id/ibtn_6_1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_6_2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_6_3"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_6_4"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_6_5"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_6_6"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_6_7"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+
+        <!--Row 8-->
+        <ImageButton
+            android:id="@+id/ibtn_7_0"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+
+        <ImageButton
+            android:id="@+id/ibtn_7_1"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_7_2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_7_3"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_7_4"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_7_5"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_7_6"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#c9af98"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="myOnClick"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+
+        <ImageButton
+            android:id="@+id/ibtn_7_7"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="#e1e4e9"
+            android:clickable="false"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
+    </android.support.v7.widget.GridLayout>
+
+</android.support.constraint.ConstraintLayout>

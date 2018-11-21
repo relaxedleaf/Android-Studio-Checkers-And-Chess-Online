@@ -2,11 +2,14 @@ package com.example.guanghuili.checkesandchess.Chess;
 
 //import Piece;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class King extends Piece {
     int row, column;
 
     public King(Boolean isBlack, int row, int column){
-        super(isBlack,row,column,1);
+        super(isBlack,row,column);
         this.row = row;
         this.column = column;
 
@@ -148,7 +151,7 @@ public class King extends Piece {
         }
 
         //*************************************************************************
-        //knights and pawns
+        //still needs to check knights and pawns
         //*************************************************************************
 
         int columnPos[] = {column + 1, column + 1, column + 2, column + 2, column - 1, column - 1, column - 2, column - 2};
@@ -160,7 +163,77 @@ public class King extends Piece {
                 }
             }
         }
+
+
+        //*************************************************************************
+        //pawns
+        //*************************************************************************
+
+        if(this.isBlack()){
+            if((row + 1) < 8){
+                if(column - 1 >= 0){
+                    if(board[row+1][column - 1] != null){
+                        if(board[row+1][column - 1] instanceof Pawn && !(board[row+1][column - 1].isBlack())){
+                            return true;
+                        }
+                    }
+                }
+                if(column+1 < 8){
+                    if(board[row+1][column + 1] != null){
+                        if(board[row+1][column + 1] instanceof Pawn && !(board[row+1][column + 1].isBlack())){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            if((row - 1) >= 0){
+                if(column - 1 >= 0){
+                    if(board[row+1][column - 1] != null){
+                        if(board[row+1][column - 1] instanceof Pawn && (board[row+1][column - 1].isBlack())){
+                            return true;
+                        }
+                    }
+                }
+                if(column+1 < 8){
+                    if(board[row+1][column + 1] != null){
+                        if(board[row+1][column + 1] instanceof Pawn && (board[row+1][column + 1].isBlack())){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+
+
         return false;
+
+
     }
 
+    @Override
+    public List getMoves(Piece[][] board) {
+        List<Point> moves = new ArrayList<>();
+
+        for(int i = row - 1; i < row + 1; i++){
+            for(int j = column - 1; j < column+1; j++){
+                //if the row is on the board
+                if(i >= 0 && i < 8){
+                    //if the column is on the board
+                    if (j >=0 && j <8){
+                        //if the point would actually be moving
+                        if(!(i == row && j == column)) {
+                            if(board[i][j] == null || board[i][j].isBlack() != this.isBlack()) {
+                                moves.add(new Point(i, j));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return moves;
+    }
 }

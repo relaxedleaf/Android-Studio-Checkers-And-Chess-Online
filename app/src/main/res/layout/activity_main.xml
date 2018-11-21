@@ -9,7 +9,7 @@
 
     <RelativeLayout
         android:id="@+id/RelativeLayout"
-        android:layout_width="368dp"
+        android:layout_width="0dp"
         android:layout_height="44dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -27,8 +27,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:textSize="18sp"
-            android:textStyle="italic" />
+            android:clickable="true"
+            android:fontFamily="casual"
+            android:textSize="20sp"
+            android:textStyle="bold|italic" />
 
         <Button
             android:id="@+id/btnSignUpID"
@@ -82,12 +84,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="#90B5C1"
+        android:onClick="goChess"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvChessID"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/chess" />
 
     <TextView
@@ -106,7 +110,7 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/RelativeLayout"
-        app:layout_constraintVertical_bias="0.002" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvChessID"
@@ -124,5 +128,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ibtnCheckersID"
         app:layout_constraintVertical_bias="0.005" />
+
+    <TextView
+        android:id="@+id/tvCredit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:fontFamily="casual"
+        android:text="@string/credit"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

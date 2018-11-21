@@ -1,6 +1,8 @@
 package com.example.guanghuili.checkesandchess;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Parcel;
 import android.support.annotation.NonNull;
@@ -16,9 +18,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.guanghuili.checkesandchess.Checkers.BlackChecker;
 import com.example.guanghuili.checkesandchess.Checkers.Player;
 import com.example.guanghuili.checkesandchess.Checkers.PlayerManager;
 import com.example.guanghuili.checkesandchess.Checkers.RoomManager;
+import com.example.guanghuili.checkesandchess.Chess.Chess;
 import com.google.android.gms.internal.firebase_auth.zzao;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -56,6 +60,14 @@ public class MainActivity extends AppCompatActivity {
     private Button btnSignUpXML;
     //**************
 
+    //***Status Page***
+    private TextView tvWin;
+    private TextView tvLoss;
+    private TextView tvWinningRate;
+    //**************
+
+    MediaPlayer backgroundSound;
+    MediaPlayer clickSound;
     private AlertDialog alertDialog;
     private AlertDialog.Builder dialogBuilder;
 
@@ -66,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton ibtnCheckers;
     private ImageButton ibtnChess;
     private TextView tvGreeting;
+    private TextView tvCredit;
     //*******************
 
     private FirebaseUser user;
@@ -75,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+
     private static final String TAG = "DebugMainActivity";
 
     @Override
@@ -82,14 +96,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        backgroundSound = MediaPlayer.create(MainActivity.this, R.raw.adventure);
+        clickSound = MediaPlayer.create(MainActivity.this, R.raw.click);
+        backgroundSound.setLooping(true);
+        backgroundSound.start();
+
         tvGreeting = findViewById(R.id.tvGreetingID);
         btnSignup = findViewById(R.id.btnSignUpID);
         btnLogin = findViewById(R.id.btnLoginID);
         btnSignOut = findViewById(R.id.btnSignOutID);
+        tvCredit = findViewById(R.id.tvCredit);
+
+        tvCredit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickSound.start();
+                Intent intent = new Intent(MainActivity.this, CreditActivity.class);
+                startActivity(intent);
+            }
+        });
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clickSound.start();
                 createSignUpDialog();
             }
         });
@@ -97,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clickSound.start();
                 mAuth.signOut();
                 Toast.makeText(MainActivity.this,"Signed Out",Toast.LENGTH_LONG).show();
             }
@@ -104,14 +135,25 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clickSound.start();
                 createLoginDialog();
             }
         });
+
+        tvGreeting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickSound.start();
+                createStatusDialog();
+            }
+        });
+
         ibtnCheckers = findViewById(R.id.ibtnCheckersID);
         ibtnChess = findViewById(R.id.ibtnChessID);
         ibtnCheckers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clickSound.start();
                 Intent intent = new Intent(MainActivity.this, CheckerRoomActivity.class);
                 startActivity(intent);
             }
@@ -137,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                         tvGreeting.setText("Hello " + user.getDisplayName());
                         tvGreeting.setVisibility(View.VISIBLE);
                         ibtnCheckers.setEnabled(true);
+
                     }
                     else{
                         //User is signed out
@@ -205,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
         btnLoginXML.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clickSound.start();
                 final String email = etEmailLogin.getText().toString();
                 String password = etPasswordLogin.getText().toString();
 
@@ -240,6 +284,7 @@ public class MainActivity extends AppCompatActivity {
         btnSignUpXML.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                clickSound.start();
                 final String username = etNameSignUp.getText().toString();
                 final String email = etEmailSignUp.getText().toString();
                 final String password = etPasswordSignUp.getText().toString();
@@ -292,4 +337,44 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void createStatusDialog(){
+        dialogBuilder = new AlertDialog.Builder(this);
+        View view = getLayoutInflater().inflate(R.layout.status,null);
+        tvWin = view.findViewById(R.id.tvWinID);
+        tvLoss =  view.findViewById(R.id.tvLossID);
+        tvWinningRate = view.findViewById(R.id.tvWinningRateID);
+
+        refSignUpPlayers.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                player = dataSnapshot.child(user.getDisplayName()).getValue(Player.class);
+                tvWin.setText("Win: " + player.getWin());
+                tvLoss.setText("Loss: " + player.getLoss());
+                tvWinningRate.setText("Winning Rate: " + player.getWinningRate());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+        dialogBuilder.setView(view);
+        alertDialog = dialogBuilder.create();
+        alertDialog.show();
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        backgroundSound.stop();
+        super.onDestroy();
+    }
+
+    public void goChess(View view){
+        Intent intent = new Intent(MainActivity.this, Chess.class);
+        startActivity(intent);
+    }
 }
