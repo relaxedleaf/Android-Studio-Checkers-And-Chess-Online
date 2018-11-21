@@ -12,14 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a19b2d4-5417-45d4-81e2-6f6b31a2705f" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Chess.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Chess.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/MainActivity.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -77,11 +70,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Chess.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Chess.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Chess.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="371" column="9" selection-start-line="371" selection-start-column="9" selection-end-line="371" selection-end-column="9" />
+            <state relative-caret-position="213">
+              <caret line="307" column="33" lean-forward="true" selection-start-line="307" selection-start-column="33" selection-end-line="307" selection-end-column="33" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -107,11 +100,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="374" column="4" selection-start-line="374" selection-start-column="4" selection-end-line="374" selection-end-column="4" />
+            <state relative-caret-position="213">
+              <caret line="374" selection-start-line="374" selection-end-line="374" />
             </state>
           </provider>
         </entry>
@@ -2428,13 +2421,13 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Queen.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Board.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Point.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Chess.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_chess.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Chess.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-7" />
     <option name="width" value="697" />
     <option name="height" value="735" />
@@ -3076,16 +3069,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Chess.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="371" column="9" selection-start-line="371" selection-start-column="9" selection-end-line="371" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chess.xml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -3098,8 +3081,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="374" column="4" selection-start-line="374" selection-start-column="4" selection-end-line="374" selection-end-column="4" />
+        <state relative-caret-position="213">
+          <caret line="374" selection-start-line="374" selection-end-line="374" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Chess.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="213">
+          <caret line="307" column="33" lean-forward="true" selection-start-line="307" selection-start-column="33" selection-end-line="307" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
