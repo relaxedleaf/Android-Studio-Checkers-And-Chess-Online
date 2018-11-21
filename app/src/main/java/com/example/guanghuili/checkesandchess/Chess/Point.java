@@ -15,4 +15,11 @@ public class Point {
     public int getColumn() {
         return column;
     }
+
+    public boolean equals(Point p){
+        if(p.row == row && p.column == column){
+            return true;
+        }
+        return false;
+    }
 }
