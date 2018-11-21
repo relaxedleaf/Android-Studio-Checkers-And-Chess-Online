@@ -12,10 +12,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5a19b2d4-5417-45d4-81e2-6f6b31a2705f" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Chess.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Chess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/Black_Bishop.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/black_bishop.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/Black_King.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/black_king.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/Black_Knight.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/black_knight.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/Black_Pawn.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/black_pawn.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/Black_Queen.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/black_queen.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/Black_Rook.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/black_rook.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/Red_Bishop.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/red_bishop.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/Red_King.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/red_king.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/Red_Knight.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/red_knight.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/Red_Pawn.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/red_pawn.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/Red_Queen.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/red_queen.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/Red_Rook.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/red_rook.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_chess.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_chess.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -60,30 +80,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="King.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/King.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1037">
-              <caret line="225" column="63" selection-start-line="225" selection-start-column="63" selection-end-line="225" selection-end-column="63" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Queen.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Queen.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1462">
-              <caret line="88" column="26" selection-start-line="88" selection-start-column="26" selection-end-line="88" selection-end-column="26" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Board.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Board.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -101,7 +97,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chess.xml">
           <provider editor-type-id="text-editor">
             <state relative-caret-position="340">
-              <caret line="114" column="36" selection-start-line="114" selection-start-column="36" selection-end-line="114" selection-end-column="36" />
+              <caret line="116" column="36" selection-start-line="116" selection-start-column="36" selection-end-line="116" selection-end-column="36" />
             </state>
           </provider>
           <provider selected="true" editor-type-id="android-designer2">
@@ -134,7 +130,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Point.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
-              <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+              <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -142,9 +138,19 @@
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="51" column="31" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
+            <state relative-caret-position="365">
+              <caret line="377" column="30" selection-start-line="377" selection-start-column="30" selection-end-line="377" selection-end-column="30" />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_main.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+          <provider editor-type-id="text-editor">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="android-designer2">
+            <state />
           </provider>
         </entry>
       </file>
@@ -2451,6 +2457,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Board.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Point.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Chess.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/MainActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_chess.xml" />
       </list>
     </option>
@@ -2506,6 +2514,12 @@
               <item name="Checkers-and-Chess" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="Checkers-and-Chess" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
               <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
           </expand>
@@ -2549,6 +2563,7 @@
       <recent name="com.example.guanghuili.checkesandchess.Chess" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Wallace Coleman\Documents\College\Mobile Apps\Group Project\Checkers-and-Chess\app\src\main\res\drawable" />
       <recent name="C:\Users\Wallace Coleman\Documents\College\Mobile Apps\Group Project\Checkers-and-Chess\app\src\main\java\com\example\guanghuili\checkesandchess\Chess" />
     </key>
   </component>
@@ -2695,7 +2710,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Android Profiler" order="7" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
@@ -2711,7 +2726,7 @@
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18305598" />
-      <window_info anchor="bottom" id="Build" order="7" visible="true" weight="0.09405941" />
+      <window_info anchor="bottom" id="Build" order="7" visible="true" weight="0.31848186" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.24962178" />
       <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" />
@@ -2806,14 +2821,6 @@
         <state relative-caret-position="2805">
           <caret line="165" selection-start-line="165" selection-end-line="165" />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state />
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/CheckerActivity.java" />
@@ -2930,13 +2937,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="51" column="31" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Queen.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1462">
@@ -2994,7 +2994,7 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/Chess/Point.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
-          <caret line="20" column="24" lean-forward="true" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -3015,10 +3015,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/guanghuili/checkesandchess/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="365">
+          <caret line="377" column="30" selection-start-line="377" selection-start-column="30" selection-end-line="377" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/black_king.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="text-editor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_chess.xml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="340">
-          <caret line="114" column="36" selection-start-line="114" selection-start-column="36" selection-end-line="114" selection-end-column="36" />
+          <caret line="116" column="36" selection-start-line="116" selection-start-column="36" selection-end-line="116" selection-end-column="36" />
         </state>
       </provider>
       <provider selected="true" editor-type-id="android-designer2">
