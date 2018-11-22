@@ -10,12 +10,14 @@ import com.example.guanghuili.checkesandchess.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.graphics.Color.WHITE;
+
 
 public class Chess extends AppCompatActivity implements View.OnClickListener{
 
     Boolean firstClick;
     Piece[][] board;
-    List<Point> moves;
+
     Point start;
 
     Boolean isBlacksTurn;
@@ -310,7 +312,7 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
         ibtn_7_7 = findViewById(R.id.ibtn_7_7);
         buttons[7][7] = ibtn_7_7;
 
-
+        /*
         //**********************************************************************
         //row 1
         ibtn_0_0.setOnClickListener(this);
@@ -391,7 +393,13 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
         ibtn_7_6.setOnClickListener(this);
         ibtn_7_7.setOnClickListener(this);
 
+*/
 
+        for(int i = 0; i < buttons.length;i++){
+            for (int j = 0; i < buttons[i].length;j++){
+                buttons[i][j].setOnClickListener(this);
+            }
+        }
 
 
         firstClick = true;
@@ -404,7 +412,7 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-
+        List<Point> moves = new ArrayList<>();
         if(firstClick) {
 
             switch (v.getId()) {
@@ -422,6 +430,11 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
                     else{
                         //get all possible moves
                         moves = board[0][0].getMoves(board);
+
+                        for(int i = 0; i < moves.size(); i++){
+                            buttons[moves.get(i).getRow()][moves.get(i).getColumn()].setColorFilter(WHITE);
+                        }
+
                         //record stating position
                         start = new Point(0,0);
                     }
@@ -448,6 +461,38 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
                             if(moves.get(i).equals(new Point(0,0))){
                                 board[0][0] = board[start.getRow()][start.getColumn()];
                                 board[start.getRow()][start.getColumn()] = null;
+
+                                for(int p = 0; p < moves.size(); p++){
+                                    buttons[moves.get(p).getRow()][moves.get(p).getColumn()].clearColorFilter();
+                                }
+
+                                return;
+                            }
+                        }
+
+                    }
+
+                    break;
+
+                case R.id.ibtn_1_0:
+                    //if the users clicks the same position twice
+                    //deselect the piece
+                    if(start.equals(new Point(1,0))){
+                        firstClick = true;
+                        start = null;
+                        return;
+                    }
+                    else{
+
+                        for(int i = 0; i < moves.size(); i++){
+                            if(moves.get(i).equals(new Point(1,0))){
+                                board[1][0] = board[start.getRow()][start.getColumn()];
+                                board[start.getRow()][start.getColumn()] = null;
+
+                                for(int p = 0; p < moves.size(); p++){
+                                    buttons[moves.get(p).getRow()][moves.get(p).getColumn()].clearColorFilter();
+                                }
+
                                 return;
                             }
                         }

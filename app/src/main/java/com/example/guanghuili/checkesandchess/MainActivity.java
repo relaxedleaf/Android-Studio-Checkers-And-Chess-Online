@@ -22,6 +22,7 @@ import com.example.guanghuili.checkesandchess.Checkers.BlackChecker;
 import com.example.guanghuili.checkesandchess.Checkers.Player;
 import com.example.guanghuili.checkesandchess.Checkers.PlayerManager;
 import com.example.guanghuili.checkesandchess.Checkers.RoomManager;
+import com.example.guanghuili.checkesandchess.Chess.Chess;
 import com.google.android.gms.internal.firebase_auth.zzao;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -372,5 +373,8 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-
+    public void goChess(View view){
+        Intent intent = new Intent(MainActivity.this, Chess.class);
+        startActivity(intent);
+    }
 }
