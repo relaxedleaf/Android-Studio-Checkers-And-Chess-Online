@@ -21,6 +21,7 @@
         <activity android:name=".BlackCheckerActivity" />
         <activity android:name=".RedCheckerActivity" />
         <activity android:name=".CreditActivity"></activity>
+        <activity android:name=".Chess.Chess"></activity>
     </application>
 
 </manifest>

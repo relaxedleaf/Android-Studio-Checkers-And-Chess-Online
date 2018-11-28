@@ -1,7 +1,9 @@
 package com.example.guanghuili.checkesandchess.Chess;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -12,9 +14,10 @@ import java.util.List;
 
 
 public class Chess extends AppCompatActivity implements View.OnClickListener{
+    private ImageButton[][] imageButtonList;
 
     Boolean firstClick;
-    Piece[][] board;
+    private Piece[][] board;
     List<Point> moves;
     Point start;
 
@@ -266,11 +269,21 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
         ibtn_7_6.setOnClickListener(this);
         ibtn_7_7.setOnClickListener(this);
 
+        imageButtonList = new ImageButton[][]
+                        {{ibtn_0_0, ibtn_0_1, ibtn_0_2, ibtn_0_3, ibtn_0_4, ibtn_0_5, ibtn_0_6, ibtn_0_7},
+                        {ibtn_1_0, ibtn_1_1, ibtn_1_2, ibtn_1_3, ibtn_1_4, ibtn_1_5, ibtn_1_6, ibtn_1_7},
+                        {ibtn_2_0, ibtn_2_1, ibtn_2_2, ibtn_2_3, ibtn_2_4, ibtn_2_5, ibtn_2_6, ibtn_2_7},
+                        {ibtn_3_0, ibtn_3_1, ibtn_3_2, ibtn_3_3, ibtn_3_4, ibtn_3_5, ibtn_3_6, ibtn_3_7},
+                        {ibtn_4_0, ibtn_4_1, ibtn_4_2, ibtn_4_3, ibtn_4_4, ibtn_4_5, ibtn_4_6, ibtn_4_7},
+                        {ibtn_5_0, ibtn_5_1, ibtn_5_2, ibtn_5_3, ibtn_5_4, ibtn_5_5, ibtn_5_6, ibtn_5_7},
+                        {ibtn_6_0, ibtn_6_1, ibtn_6_2, ibtn_6_3, ibtn_6_4, ibtn_6_5, ibtn_6_6, ibtn_6_7},
+                        {ibtn_7_0, ibtn_7_1, ibtn_7_2, ibtn_7_3, ibtn_7_4, ibtn_7_5, ibtn_7_6, ibtn_7_7}};
+
 
 
 
         firstClick = true;
-        isBlacksTurn = true;
+        isBlacksTurn = false;
 
 
         board = new Piece[8][8];
@@ -279,12 +292,9 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-
         if(firstClick) {
-
             switch (v.getId()) {
                 case R.id.ibtn_0_0:
-
                     //if no piece is in this position
                     if(board[0][0] == null){
                         return;
@@ -300,7 +310,32 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
                         //record stating position
                         start = new Point(0,0);
                     }
+                    break;
 
+                case R.id.ibtn_6_0:
+                    Log.d("Clicked","clicked");
+                    //if no piece is in this position
+                    if(board[6][0] == null){
+                        Log.d("Clicked","clicked1");
+                        return;
+                    }
+                    //else if the the piece is the wrong color
+                    else if(board[6][0].isBlack() != isBlacksTurn){
+                        Log.d("Clicked","clicked2");
+                        return;
+                    }
+                    //if there is a piece and its the right color
+                    else{
+                        //get all possible moves
+                        moves = board[6][0].getMoves(board);
+                        Log.d("Clicked",String.valueOf(moves.size()));
+                        //record starting position
+                        start = new Point(6,0);
+                        for(int i = 0; i < moves.size(); i++){
+                            imageButtonList[moves.get(i).getRow()][moves.get(i).column].setBackgroundColor(Color.WHITE);
+                        }
+
+                    }
                     break;
             }
 
@@ -368,7 +403,7 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
         board[7][4] = new King(false,0,4);
 
         for(int i = 0; i < 8; i++){
-            board[7][i] = new Pawn(false,7,i);
+            board[6][i] = new Pawn(false,7,i);
         }
     }
 }
