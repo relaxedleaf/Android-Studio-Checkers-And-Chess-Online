@@ -16,10 +16,10 @@ import java.util.List;
 public class Chess extends AppCompatActivity implements View.OnClickListener{
     private ImageButton[][] imageButtonList;
 
-    Boolean firstClick;
+    private Boolean firstClick;
     private Piece[][] board;
-    List<Point> moves;
-    Point start;
+    private List<Point> moves;
+    private Point start;
 
     Boolean isBlacksTurn;
 
@@ -295,47 +295,39 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
         if(firstClick) {
             switch (v.getId()) {
                 case R.id.ibtn_0_0:
-                    //if no piece is in this position
-                    if(board[0][0] == null){
-                        return;
-                    }
-                    //else if the the piece is the wrong color
-                    else if(board[0][0].isBlack() != isBlacksTurn){
-                        return;
-                    }
-                    //if there is a piece and its the right color
-                    else{
-                        //get all possible moves
-                        moves = board[0][0].getMoves(board);
-                        //record stating position
-                        start = new Point(0,0);
-                    }
+                    processFirstClick(0,0);
                     break;
 
                 case R.id.ibtn_6_0:
-                    Log.d("Clicked","clicked");
-                    //if no piece is in this position
-                    if(board[6][0] == null){
-                        Log.d("Clicked","clicked1");
-                        return;
-                    }
-                    //else if the the piece is the wrong color
-                    else if(board[6][0].isBlack() != isBlacksTurn){
-                        Log.d("Clicked","clicked2");
-                        return;
-                    }
-                    //if there is a piece and its the right color
-                    else{
-                        //get all possible moves
-                        moves = board[6][0].getMoves(board);
-                        Log.d("Clicked",String.valueOf(moves.size()));
-                        //record starting position
-                        start = new Point(6,0);
-                        for(int i = 0; i < moves.size(); i++){
-                            imageButtonList[moves.get(i).getRow()][moves.get(i).column].setBackgroundColor(Color.WHITE);
-                        }
+                    processFirstClick(6,0);
+                    break;
 
-                    }
+                case R.id.ibtn_6_1:
+                    processFirstClick(6,1);
+                    break;
+
+                case R.id.ibtn_6_2:
+                    processFirstClick(6,2);
+                    break;
+
+                case R.id.ibtn_6_3:
+                    processFirstClick(6,3);
+                    break;
+
+                case R.id.ibtn_6_4:
+                    processFirstClick(6,4);
+                    break;
+
+                case R.id.ibtn_6_5:
+                    processFirstClick(6,5);
+                    break;
+
+                case R.id.ibtn_6_6:
+                    processFirstClick(6,6);
+                    break;
+
+                case R.id.ibtn_6_7:
+                    processFirstClick(6,7);
                     break;
             }
 
@@ -345,25 +337,39 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
 
             switch (v.getId()) {
                 case R.id.ibtn_0_0:
-                    //if the users clicks the same position twice
-                    //deselect the piece
-                    if(start.equals(new Point(0,0))){
-                        firstClick = true;
-                        start = null;
-                        return;
-                    }
-                    else{
+                    processSecondClick(0,0);
+                    break;
 
-                        for(int i = 0; i < moves.size(); i++){
-                            if(moves.get(i).equals(new Point(0,0))){
-                                board[0][0] = board[start.getRow()][start.getColumn()];
-                                board[start.getRow()][start.getColumn()] = null;
-                                return;
-                            }
-                        }
+                case R.id.ibtn_6_0:
+                    processSecondClick(6,0);
+                    break;
 
-                    }
+                case R.id.ibtn_6_1:
+                    processSecondClick(6,1);
+                    break;
 
+                case R.id.ibtn_6_2:
+                    processSecondClick(6,2);
+                    break;
+
+                case R.id.ibtn_6_3:
+                    processSecondClick(6,3);
+                    break;
+
+                case R.id.ibtn_6_4:
+                    processSecondClick(6,4);
+                    break;
+
+                case R.id.ibtn_6_5:
+                    processSecondClick(6,5);
+                    break;
+
+                case R.id.ibtn_6_6:
+                    processSecondClick(6,6);
+                    break;
+
+                case R.id.ibtn_6_7:
+                    processSecondClick(6,7);
                     break;
             }
 
@@ -403,7 +409,73 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
         board[7][4] = new King(false,0,4);
 
         for(int i = 0; i < 8; i++){
-            board[6][i] = new Pawn(false,7,i);
+            board[6][i] = new Pawn(false,6,i);
         }
     }
+
+    public void resetBackground(){
+        for(int r = 0; r < imageButtonList.length; r++){
+            for(int c = 0; c < imageButtonList.length; c++){
+                if(r%2 == 0){
+                    if(c%2 == 0){
+                        imageButtonList[r][c].setBackgroundColor(Color.parseColor("#e1e4e9"));
+                    }
+                    else{
+                        imageButtonList[r][c].setBackgroundColor(Color.parseColor("#c9af98"));
+                    }
+                }
+                else{
+                    if(c%2 == 0){
+                        imageButtonList[r][c].setBackgroundColor(Color.parseColor("#c9af98"));
+                    }
+                    else{
+                        imageButtonList[r][c].setBackgroundColor(Color.parseColor("#e1e4e9"));
+                    }
+                }
+            }
+        }
+    }
+
+    public void processFirstClick(int row, int column){
+        //if no piece is in this position
+        if(board[row][column] == null){
+            return;
+        }
+        //else if the the piece is the wrong color
+        else if(board[row][column].isBlack() != isBlacksTurn){
+            return;
+        }
+        //if there is a piece and its the right color
+        else{
+            //get all possible moves
+            moves = board[row][column].getMoves(board);
+            //record starting position
+            start = new Point(row,column);
+            for(int i = 0; i < moves.size(); i++){
+                imageButtonList[moves.get(i).getRow()][moves.get(i).column].setBackgroundColor(Color.WHITE);
+            }
+
+        }
+    }
+
+    public void processSecondClick(int row, int column){
+        //if the users clicks the same position twice
+        //deselect the piece
+        if(start.equals(new Point(row,column))){
+            resetBackground();
+            firstClick = true;
+            start = null;
+        }
+        else{
+
+            for(int i = 0; i < moves.size(); i++){
+                if(moves.get(i).equals(new Point(row,column))){
+                    board[row][column] = board[start.getRow()][start.getColumn()];
+                    board[start.getRow()][start.getColumn()] = null;
+                }
+            }
+
+        }
+    }
+
 }
