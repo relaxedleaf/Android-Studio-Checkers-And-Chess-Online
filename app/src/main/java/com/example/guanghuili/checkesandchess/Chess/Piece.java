@@ -5,7 +5,7 @@ import java.util.List;
 public abstract class Piece implements Cloneable {
     int moveDistance,row, column;
     //int[][] moveDirection = new int[3][3];
-    boolean isBlack;
+    private boolean isBlack;
 
 
     public Piece(Boolean isBlack, int row, int column){

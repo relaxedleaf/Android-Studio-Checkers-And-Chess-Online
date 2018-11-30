@@ -1,8 +1,8 @@
 package com.example.guanghuili.checkesandchess.Chess;
 
 public class Point {
-    int row;
-    int column;
+    private int row;
+    private int column;
 
     public Point(int row, int column){
         this.row = row;
@@ -14,6 +14,14 @@ public class Point {
 
     public int getColumn() {
         return column;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
     }
 
     public boolean equals(Point p){

@@ -298,6 +298,198 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
                     processFirstClick(0,0);
                     break;
 
+                case R.id.ibtn_0_1:
+                    processFirstClick(0,1);
+                    break;
+
+                case R.id.ibtn_0_2:
+                    processFirstClick(0,2);
+                    break;
+
+                case R.id.ibtn_0_3:
+                    processFirstClick(0,3);
+                    break;
+
+                case R.id.ibtn_0_4:
+                    processFirstClick(0,4);
+                    break;
+
+                case R.id.ibtn_0_5:
+                    processFirstClick(0,5);
+                    break;
+
+                case R.id.ibtn_0_6:
+                    processFirstClick(0,6);
+                    break;
+
+                case R.id.ibtn_0_7:
+                    processFirstClick(0,7);
+                    break;
+
+                case R.id.ibtn_1_0:
+                    processFirstClick(1,0);
+                    break;
+
+                case R.id.ibtn_1_1:
+                    processFirstClick(1,1);
+                    break;
+
+                case R.id.ibtn_1_2:
+                    processFirstClick(1,2);
+                    break;
+
+
+                case R.id.ibtn_1_3:
+                    processFirstClick(1,3);
+                    break;
+
+
+                case R.id.ibtn_1_4:
+                    processFirstClick(1,4);
+                    break;
+
+
+                case R.id.ibtn_1_5:
+                    processFirstClick(1,5);
+                    break;
+
+
+                case R.id.ibtn_1_6:
+                    processFirstClick(1,6);
+                    break;
+
+                case R.id.ibtn_1_7:
+                    processFirstClick(1,7);
+                    break;
+
+                case R.id.ibtn_2_0:
+                    processFirstClick(2,0);
+                    break;
+
+                case R.id.ibtn_2_1:
+                    processFirstClick(2,1);
+                    break;
+
+                case R.id.ibtn_2_2:
+                    processFirstClick(2,2);
+                    break;
+
+                case R.id.ibtn_2_3:
+                    processFirstClick(2,3);
+                    break;
+
+                case R.id.ibtn_2_4:
+                    processFirstClick(2,4);
+                    break;
+
+                case R.id.ibtn_2_5:
+                    processFirstClick(2,5);
+                    break;
+
+                case R.id.ibtn_2_6:
+                    processFirstClick(2,6);
+                    break;
+
+                case R.id.ibtn_2_7:
+                    processFirstClick(2,7);
+                    break;
+
+                case R.id.ibtn_3_0:
+                    processFirstClick(3,0);
+                    break;
+
+                case R.id.ibtn_3_1:
+                    processFirstClick(3,1);
+                    break;
+
+                case R.id.ibtn_3_2:
+                    processFirstClick(3,2);
+                    break;
+
+                case R.id.ibtn_3_3:
+                    processFirstClick(3,3);
+                    break;
+
+                case R.id.ibtn_3_4:
+                    processFirstClick(3,4);
+                    break;
+
+                case R.id.ibtn_3_5:
+                    processFirstClick(3,5);
+                    break;
+
+                case R.id.ibtn_3_6:
+                    processFirstClick(3,6);
+                    break;
+
+                case R.id.ibtn_3_7:
+                    processFirstClick(3,7);
+                    break;
+
+                case R.id.ibtn_4_0:
+                    processFirstClick(4,0);
+                    break;
+
+                case R.id.ibtn_4_1:
+                    processFirstClick(4,1);
+                    break;
+
+                case R.id.ibtn_4_2:
+                    processFirstClick(4,2);
+                    break;
+
+                case R.id.ibtn_4_3:
+                    processFirstClick(4,3);
+                    break;
+
+                case R.id.ibtn_4_4:
+                    processFirstClick(4,4);
+                    break;
+
+                case R.id.ibtn_4_5:
+                    processFirstClick(4,5);
+                    break;
+
+                case R.id.ibtn_4_6:
+                    processFirstClick(4,6);
+                    break;
+
+                case R.id.ibtn_4_7:
+                    processFirstClick(4,7);
+                    break;
+
+                case R.id.ibtn_5_0:
+                    processFirstClick(5,0);
+                    break;
+
+                case R.id.ibtn_5_1:
+                    processFirstClick(5,1);
+                    break;
+
+                case R.id.ibtn_5_2:
+                    processFirstClick(5,2);
+                    break;
+
+                case R.id.ibtn_5_3:
+                    processFirstClick(5,3);
+                    break;
+
+                case R.id.ibtn_5_4:
+                    processFirstClick(5,4);
+                    break;
+
+                case R.id.ibtn_5_5:
+                    processFirstClick(5,5);
+                    break;
+
+                case R.id.ibtn_5_6:
+                    processFirstClick(5,6);
+                    break;
+
+                case R.id.ibtn_5_7:
+                    processFirstClick(5,7);
+                    break;
+
                 case R.id.ibtn_6_0:
                     processFirstClick(6,0);
                     break;
@@ -329,15 +521,235 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
                 case R.id.ibtn_6_7:
                     processFirstClick(6,7);
                     break;
+
+                case R.id.ibtn_7_0:
+                    processFirstClick(7,0);
+                    break;
+
+                case R.id.ibtn_7_1:
+                    processFirstClick(7,1);
+                    break;
+
+                case R.id.ibtn_7_2:
+                    processFirstClick(7,2);
+                    break;
+
+                case R.id.ibtn_7_3:
+                    processFirstClick(7,3);
+                    break;
+
+                case R.id.ibtn_7_4:
+                    processFirstClick(7,5);
+                    break;
+
+                case R.id.ibtn_7_5:
+                    processFirstClick(7,5);
+                    break;
+
+                case R.id.ibtn_7_6:
+                    processFirstClick(7,6);
+                    break;
+                case R.id.ibtn_7_7:
+                    processFirstClick(7,7);
+                    break;
+
+
             }
 
-            firstClick = false;
         }
         else{
 
             switch (v.getId()) {
                 case R.id.ibtn_0_0:
                     processSecondClick(0,0);
+                    break;
+
+                case R.id.ibtn_0_1:
+                    processSecondClick(0,1);
+                    break;
+
+                case R.id.ibtn_0_2:
+                    processSecondClick(0,2);
+                    break;
+
+                case R.id.ibtn_0_3:
+                    processSecondClick(0,3);
+                    break;
+
+                case R.id.ibtn_0_4:
+                    processSecondClick(0,4);
+                    break;
+
+                case R.id.ibtn_0_5:
+                    processSecondClick(0,5);
+                    break;
+
+                case R.id.ibtn_0_6:
+                    processSecondClick(0,6);
+                    break;
+
+                case R.id.ibtn_0_7:
+                    processSecondClick(0,7);
+                    break;
+
+                case R.id.ibtn_1_0:
+                    processSecondClick(1,0);
+                    break;
+
+                case R.id.ibtn_1_1:
+                    processSecondClick(1,1);
+                    break;
+
+                case R.id.ibtn_1_2:
+                    processSecondClick(1,2);
+                    break;
+
+                case R.id.ibtn_1_3:
+                    processSecondClick(1,3);
+                    break;
+
+                case R.id.ibtn_1_4:
+                    processSecondClick(1,4);
+                    break;
+
+                case R.id.ibtn_1_5:
+                    processSecondClick(1,5);
+                    break;
+
+                case R.id.ibtn_1_6:
+                    processSecondClick(1,6);
+                    break;
+
+                case R.id.ibtn_1_7:
+                    processSecondClick(1,7);
+                    break;
+
+                case R.id.ibtn_2_0:
+                    processSecondClick(2,0);
+                    break;
+
+                case R.id.ibtn_2_1:
+                    processSecondClick(2,1);
+                    break;
+
+                case R.id.ibtn_2_2:
+                    processSecondClick(2,2);
+                    break;
+
+                case R.id.ibtn_2_3:
+                    processSecondClick(2,3);
+                    break;
+
+                case R.id.ibtn_2_4:
+                    processSecondClick(2,4);
+                    break;
+
+                case R.id.ibtn_2_5:
+                    processSecondClick(2,5);
+                    break;
+
+                case R.id.ibtn_2_6:
+                    processSecondClick(2,6);
+                    break;
+
+                case R.id.ibtn_2_7:
+                    processSecondClick(2,7);
+                    break;
+
+                case R.id.ibtn_3_0:
+                    processSecondClick(3,0);
+                    break;
+
+                case R.id.ibtn_3_1:
+                    processSecondClick(3,1);
+                    break;
+
+                case R.id.ibtn_3_2:
+                    processSecondClick(3,2);
+                    break;
+
+                case R.id.ibtn_3_3:
+                    processSecondClick(3,3);
+                    break;
+
+                case R.id.ibtn_3_4:
+                    processSecondClick(3,4);
+                    break;
+
+                case R.id.ibtn_3_5:
+                    processSecondClick(3,5);
+                    break;
+
+                case R.id.ibtn_3_6:
+                    processSecondClick(3,6);
+                    break;
+
+                case R.id.ibtn_3_7:
+                    processSecondClick(3,7);
+                    break;
+
+                case R.id.ibtn_4_0:
+                    processSecondClick(4,0);
+                    break;
+
+                case R.id.ibtn_4_1:
+                    processSecondClick(4,1);
+                    break;
+
+                case R.id.ibtn_4_2:
+                    processSecondClick(4,2);
+                    break;
+
+                case R.id.ibtn_4_3:
+                    processSecondClick(4,3);
+                    break;
+
+                case R.id.ibtn_4_4:
+                    processSecondClick(4,4);
+                    break;
+
+                case R.id.ibtn_4_5:
+                    processSecondClick(4,5);
+                    break;
+
+                case R.id.ibtn_4_6:
+                    processSecondClick(4,6);
+                    break;
+
+                case R.id.ibtn_4_7:
+                    processSecondClick(4,7);
+                    break;
+
+                case R.id.ibtn_5_0:
+                    processSecondClick(5,0);
+                    break;
+
+                case R.id.ibtn_5_1:
+                    processSecondClick(5,1);
+                    break;
+
+                case R.id.ibtn_5_2:
+                    processSecondClick(5,2);
+                    break;
+
+                case R.id.ibtn_5_3:
+                    processSecondClick(5,3);
+                    break;
+
+                case R.id.ibtn_5_4:
+                    processSecondClick(5,4);
+                    break;
+
+                case R.id.ibtn_5_5:
+                    processSecondClick(5,5);
+                    break;
+
+                case R.id.ibtn_5_6:
+                    processSecondClick(5,6);
+                    break;
+
+                case R.id.ibtn_5_7:
+                    processSecondClick(5,7);
                     break;
 
                 case R.id.ibtn_6_0:
@@ -371,11 +783,38 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
                 case R.id.ibtn_6_7:
                     processSecondClick(6,7);
                     break;
+
+                case R.id.ibtn_7_0:
+                    processSecondClick(7,0);
+                    break;
+
+                case R.id.ibtn_7_1:
+                    processSecondClick(7,1);
+                    break;
+
+                case R.id.ibtn_7_2:
+                    processSecondClick(7,2);
+                    break;
+
+                case R.id.ibtn_7_3:
+                    processSecondClick(7,3);
+                    break;
+
+                case R.id.ibtn_7_4:
+                    processSecondClick(7,5);
+                    break;
+
+                case R.id.ibtn_7_5:
+                    processSecondClick(7,5);
+                    break;
+
+                case R.id.ibtn_7_6:
+                    processSecondClick(7,6);
+                    break;
+                case R.id.ibtn_7_7:
+                    processSecondClick(7,7);
+                    break;
             }
-
-            firstClick = true;
-
-            isBlacksTurn = !isBlacksTurn;
         }
     }
 
@@ -413,7 +852,7 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    public void resetBackground(){
+    public void resetBackgroundColor(){
         for(int r = 0; r < imageButtonList.length; r++){
             for(int c = 0; c < imageButtonList.length; c++){
                 if(r%2 == 0){
@@ -432,8 +871,69 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
                         imageButtonList[r][c].setBackgroundColor(Color.parseColor("#e1e4e9"));
                     }
                 }
+
             }
         }
+    }
+
+    public void resetBackgroundAll(){
+        for(int r = 0; r < imageButtonList.length; r++){
+            for(int c = 0; c < imageButtonList.length; c++){
+                if(r%2 == 0){
+                    if(c%2 == 0){
+                        imageButtonList[r][c].setBackgroundColor(Color.parseColor("#e1e4e9"));
+                    }
+                    else{
+                        imageButtonList[r][c].setBackgroundColor(Color.parseColor("#c9af98"));
+                    }
+                }
+                else{
+                    if(c%2 == 0){
+                        imageButtonList[r][c].setBackgroundColor(Color.parseColor("#c9af98"));
+                    }
+                    else{
+                        imageButtonList[r][c].setBackgroundColor(Color.parseColor("#e1e4e9"));
+                    }
+                }
+                if(board[r][c] != null) {
+                    if (board[r][c].isBlack() && board[r][c] instanceof Bishop) {
+                        imageButtonList[r][c].setImageResource(R.drawable.black_bishop);
+                    } else if (board[r][c].isBlack() && board[r][c] instanceof King) {
+                        imageButtonList[r][c].setImageResource(R.drawable.black_king);
+                    } else if (board[r][c].isBlack() && board[r][c] instanceof Knight) {
+                        imageButtonList[r][c].setImageResource(R.drawable.black_knight);
+                    } else if (board[r][c].isBlack() && board[r][c] instanceof Pawn) {
+                        imageButtonList[r][c].setImageResource(R.drawable.black_pawn);
+                    } else if (board[r][c].isBlack() && board[r][c] instanceof Queen) {
+                        imageButtonList[r][c].setImageResource(R.drawable.black_queen);
+                    } else if (board[r][c].isBlack() && board[r][c] instanceof Rook) {
+                        imageButtonList[r][c].setImageResource(R.drawable.black_rook);
+                    } else if (!board[r][c].isBlack() && board[r][c] instanceof Bishop) {
+                        imageButtonList[r][c].setImageResource(R.drawable.red_bishop);
+                    } else if (!board[r][c].isBlack() && board[r][c] instanceof King) {
+                        imageButtonList[r][c].setImageResource(R.drawable.red_king);
+                    } else if (!board[r][c].isBlack() && board[r][c] instanceof Knight) {
+                        imageButtonList[r][c].setImageResource(R.drawable.red_knight);
+                    } else if (!board[r][c].isBlack() && board[r][c] instanceof Pawn) {
+                        imageButtonList[r][c].setImageResource(R.drawable.red_pawn);
+                    } else if (!board[r][c].isBlack() && board[r][c] instanceof Queen) {
+                        imageButtonList[r][c].setImageResource(R.drawable.red_queen);
+                    } else if (!board[r][c].isBlack() && board[r][c] instanceof Rook) {
+                        imageButtonList[r][c].setImageResource(R.drawable.red_rook);
+                    } else {
+                        return;
+                    }
+                }
+                else{
+                    imageButtonList[r][c].setImageResource(0);
+                }
+            }
+        }
+    }
+
+    public void resetStart(){
+        start.setRow(-1);
+        start.setColumn(-1);
     }
 
     public void processFirstClick(int row, int column){
@@ -452,9 +952,9 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
             //record starting position
             start = new Point(row,column);
             for(int i = 0; i < moves.size(); i++){
-                imageButtonList[moves.get(i).getRow()][moves.get(i).column].setBackgroundColor(Color.WHITE);
+                imageButtonList[moves.get(i).getRow()][moves.get(i).getColumn()].setBackgroundColor(Color.WHITE);
             }
-
+            firstClick = false;
         }
     }
 
@@ -462,20 +962,50 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
         //if the users clicks the same position twice
         //deselect the piece
         if(start.equals(new Point(row,column))){
-            resetBackground();
+            resetBackgroundColor();
             firstClick = true;
-            start = null;
+            resetStart();
         }
+        //else the users clicks other chess of the same color, possible moves, or null
         else{
-
-            for(int i = 0; i < moves.size(); i++){
-                if(moves.get(i).equals(new Point(row,column))){
-                    board[row][column] = board[start.getRow()][start.getColumn()];
-                    board[start.getRow()][start.getColumn()] = null;
+            if(board[row][column] == null){
+                for (int i = 0; i < moves.size(); i++) {
+                    if (moves.get(i).equals(new Point(row, column))) {
+                        board[row][column] = board[start.getRow()][start.getColumn()];
+                        board[start.getRow()][start.getColumn()] = null;
+                        resetBackgroundAll();
+                        firstClick = true;
+                        isBlacksTurn = !isBlacksTurn;
+                        resetStart();
+                        break;
+                    }
+                }
+            }
+            else {
+                //same color, processFirstClick
+                if (board[row][column].isBlack() == isBlacksTurn) {
+                    firstClick = true;
+                    resetBackgroundColor();
+                    processFirstClick(row, column);
+                }
+                //possible moves
+                else {
+                    for (int i = 0; i < moves.size(); i++) {
+                        if (moves.get(i).equals(new Point(row, column))) {
+                            board[row][column] = board[start.getRow()][start.getColumn()];
+                            board[start.getRow()][start.getColumn()] = null;
+                            resetBackgroundAll();
+                            firstClick = true;
+                            isBlacksTurn = !isBlacksTurn;
+                            resetStart();
+                            break;
+                        }
+                    }
                 }
             }
 
         }
     }
+
 
 }
