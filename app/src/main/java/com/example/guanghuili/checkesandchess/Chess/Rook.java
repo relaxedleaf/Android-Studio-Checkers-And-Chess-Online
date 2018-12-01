@@ -29,6 +29,9 @@ public class Rook extends Piece {
                     break;
                 }
             }
+            else{
+                break;
+            }
 
         }
 
@@ -50,6 +53,9 @@ public class Rook extends Piece {
                     break;
                 }
             }
+            else{
+                break;
+            }
 
         }
 
@@ -58,7 +64,7 @@ public class Rook extends Piece {
         tempColumn = column;
         for(;;){
             tempRow++;
-            if(tempColumn >= 0 && tempColumn < 8){
+            if(tempRow >= 0 && tempRow < 8){
                 if(board[tempRow][tempColumn] == null){
                     moves.add(new Point(tempRow,tempColumn));
                 }
@@ -70,6 +76,9 @@ public class Rook extends Piece {
                     break;
                 }
             }
+            else{
+                break;
+            }
 
         }
 
@@ -79,7 +88,7 @@ public class Rook extends Piece {
         tempColumn = column;
         for(;;){
             tempRow--;
-            if(tempColumn >= 0 && tempColumn < 8){
+            if(tempRow >= 0 && tempRow < 8){
                 if(board[tempRow][tempColumn] == null){
                     moves.add(new Point(tempRow,tempColumn));
                 }
@@ -90,6 +99,9 @@ public class Rook extends Piece {
                 else{
                     break;
                 }
+            }
+            else{
+                break;
             }
 
         }

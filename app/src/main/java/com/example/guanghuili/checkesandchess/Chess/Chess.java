@@ -824,31 +824,30 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
     public void setup(){
         //Black
         board[0][0] = new Rook(true,0,0);
-        //ibtn_0_0.setText("B Rook");
         board[0][7] = new Rook(true,0,7);
         board[0][1] = new Knight(true,0,1);
         board[0][6] = new Knight(true,0,6);
-        board[0][2] = new Bishop(true,0,3);
+        board[0][2] = new Bishop(true,0,2);
         board[0][5] = new Bishop(true,0,5);
         board[0][3] = new Queen(true,0,3);
         board[0][4] = new King(true,0,4);
 
         for(int i = 0; i < 8; i++){
-            board[1][i] = new Pawn(true,1,i);
+            board[1][i] = new Pawn(true,1,i,true);
         }
 
-        //White
-        board[7][0] = new Rook(false,0,0);
-        board[7][7] = new Rook(false,0,7);
-        board[7][1] = new Knight(false,0,1);
-        board[7][6] = new Knight(false,0,6);
-        board[7][2] = new Bishop(false,0,3);
-        board[7][5] = new Bishop(false,0,5);
-        board[7][3] = new Queen(false,0,3);
-        board[7][4] = new King(false,0,4);
+        //Red
+        board[7][0] = new Rook(false,7,0);
+        board[7][7] = new Rook(false,7,7);
+        board[7][1] = new Knight(false,7,1);
+        board[7][6] = new Knight(false,7,6);
+        board[7][2] = new Bishop(false,7,2);
+        board[7][5] = new Bishop(false,7,5);
+        board[7][3] = new Queen(false,7,3);
+        board[7][4] = new King(false,7,4);
 
         for(int i = 0; i < 8; i++){
-            board[6][i] = new Pawn(false,6,i);
+            board[6][i] = new Pawn(false,6,i,true);
         }
     }
 
@@ -937,18 +936,23 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
     }
 
     public void processFirstClick(int row, int column){
+        Log.d("Clicked","clicked");
         //if no piece is in this position
         if(board[row][column] == null){
+            Log.d("Clicked","clicked1");
             return;
         }
         //else if the the piece is the wrong color
         else if(board[row][column].isBlack() != isBlacksTurn){
+            Log.d("Clicked","clicked2");
             return;
         }
         //if there is a piece and its the right color
         else{
+            Log.d("Clicked","clicked3");
             //get all possible moves
             moves = board[row][column].getMoves(board);
+            Log.d("Clicked",String.valueOf(moves.size()));
             //record starting position
             start = new Point(row,column);
             for(int i = 0; i < moves.size(); i++){
@@ -972,6 +976,11 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
                 for (int i = 0; i < moves.size(); i++) {
                     if (moves.get(i).equals(new Point(row, column))) {
                         board[row][column] = board[start.getRow()][start.getColumn()];
+                        board[row][column].setRow(row);
+                        board[row][column].setColumn(column);
+                        if(board[row][column] instanceof Pawn){
+                            board[row][column].setFirstMove(false);
+                        }
                         board[start.getRow()][start.getColumn()] = null;
                         resetBackgroundAll();
                         firstClick = true;
@@ -990,9 +999,12 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
                 }
                 //possible moves
                 else {
+                    Log.d("rowColumn",String.valueOf(board[row][column].row));
                     for (int i = 0; i < moves.size(); i++) {
                         if (moves.get(i).equals(new Point(row, column))) {
                             board[row][column] = board[start.getRow()][start.getColumn()];
+                            board[row][column].setRow(row);
+                            board[row][column].setColumn(column);
                             board[start.getRow()][start.getColumn()] = null;
                             resetBackgroundAll();
                             firstClick = true;

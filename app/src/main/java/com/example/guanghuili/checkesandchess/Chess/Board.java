@@ -24,7 +24,7 @@ public class Board {
         board[0][4] = new King(true,0,4);
 
         for(int i = 0; i < 8; i++){
-            board[1][i] = new Pawn(true,1,i);
+            board[1][i] = new Pawn(true,1,i,true);
         }
 
         //White
@@ -38,7 +38,7 @@ public class Board {
         board[7][4] = new King(false,0,4);
 
         for(int i = 0; i < 8; i++){
-            board[7][i] = new Pawn(false,7,i);
+            board[7][i] = new Pawn(false,7,i,true);
         }
     }
 }

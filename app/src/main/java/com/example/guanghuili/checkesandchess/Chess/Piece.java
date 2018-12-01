@@ -3,9 +3,12 @@ package com.example.guanghuili.checkesandchess.Chess;
 import java.util.List;
 
 public abstract class Piece implements Cloneable {
-    int moveDistance,row, column;
+    protected int moveDistance;
+    protected int row;
+    protected int column;
     //int[][] moveDirection = new int[3][3];
-    private boolean isBlack;
+    protected boolean isBlack;
+    protected boolean firstMove;
 
 
     public Piece(Boolean isBlack, int row, int column){
@@ -13,6 +16,14 @@ public abstract class Piece implements Cloneable {
         this.row = row;
         this.column = column;
         this.isBlack = isBlack;
+    }
+
+    public Piece(Boolean isBlack, int row, int column, Boolean firstMove){
+        //this.moveDistance = moveDistance;
+        this.row = row;
+        this.column = column;
+        this.isBlack = isBlack;
+        this.firstMove = firstMove;
     }
 
     public boolean isBlack(){
@@ -25,4 +36,19 @@ public abstract class Piece implements Cloneable {
     }
 
     public abstract List<Point> getMoves(Piece[][] board);
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+    public boolean isFirstMove() {
+        return firstMove;
+    }
+
+    public void setFirstMove(boolean firstMove) {
+        this.firstMove = firstMove;
+    }
 }
