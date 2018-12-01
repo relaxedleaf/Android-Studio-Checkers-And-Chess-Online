@@ -24,12 +24,14 @@ public class Knight extends Piece {
         moves.add(new Point(row-2,column-1));
         moves.add(new Point(row-1,column-2));
 
-        for(int i = moves.size(); i > 0 ; i--){
+        for(int i = (moves.size()-1); i >= 0 ; i--){
             if(moves.get(i).getRow() < 0 || moves.get(i).getRow() >= 8 || moves.get(i).getColumn() < 0 || moves.get(i).getColumn() >= 8){
                 moves.remove(i);
             }
-            else if(board[moves.get(i).getRow()][moves.get(i).getColumn()].isBlack() == this.isBlack()){
-                moves.remove(i);
+            else if(board[moves.get(i).getRow()][moves.get(i).getColumn()]!= null){
+                if(board[moves.get(i).getRow()][moves.get(i).getColumn()].isBlack() == this.isBlack()) {
+                    moves.remove(i);
+                }
             }
         }
 
