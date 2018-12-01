@@ -10,7 +10,7 @@ import java.util.List;
 public class Pawn extends Piece {
 
     public Pawn(Boolean isBlack, int row, int column, Boolean firstMove) {
-        super(isBlack, row, column, firstMove);
+        super(isBlack, row, column, firstMove,"Pawn");
     }
 
     @Override

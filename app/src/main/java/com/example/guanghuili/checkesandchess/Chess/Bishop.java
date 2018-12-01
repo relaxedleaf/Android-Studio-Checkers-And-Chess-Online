@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Bishop extends Piece {
     public Bishop(Boolean isBlack, int row, int column) {
-        super(isBlack, row, column);
+        super(isBlack, row, column, "Bishop");
     }
 
     @Override

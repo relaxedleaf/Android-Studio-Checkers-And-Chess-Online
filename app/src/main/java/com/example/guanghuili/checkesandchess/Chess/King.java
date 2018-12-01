@@ -11,11 +11,12 @@ public class King extends Piece {
     private List<Point> moves = new ArrayList<>();
 
     public King(Boolean isBlack, int row, int column){
-        super(isBlack,row,column);
+        super(isBlack,row,column,"King");
         this.row = row;
         this.column = column;
 
     }
+    /*
     public int[][] getDirections(){
         int[][] x = {{1,1,1},{1,0,1},{1,1,1}};
         return x;
@@ -214,6 +215,7 @@ public class King extends Piece {
 
 
     }
+    */
 
     @Override
     public List getMoves(Piece[][] board) {

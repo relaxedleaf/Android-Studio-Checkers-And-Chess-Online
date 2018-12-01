@@ -1,26 +1,21 @@
-package com.example.guanghuili.checkesandchess;
+package com.example.guanghuili.checkesandchess.Checkers;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.guanghuili.checkesandchess.Checkers.Player;
-import com.example.guanghuili.checkesandchess.Checkers.Room;
-import com.example.guanghuili.checkesandchess.Checkers.RoomManager;
+import com.example.guanghuili.checkesandchess.Player;
+import com.example.guanghuili.checkesandchess.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

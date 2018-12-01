@@ -1,4 +1,4 @@
-package com.example.guanghuili.checkesandchess;
+package com.example.guanghuili.checkesandchess.Chess;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,12 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.guanghuili.checkesandchess.Checkers.Player;
-import com.example.guanghuili.checkesandchess.Checkers.RedChecker;
-import com.example.guanghuili.checkesandchess.Checkers.Room;
+import com.example.guanghuili.checkesandchess.Checkers.RedCheckerActivity;
+import com.example.guanghuili.checkesandchess.Chess.Room;
+import com.example.guanghuili.checkesandchess.Player;
+import com.example.guanghuili.checkesandchess.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,8 +23,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -54,7 +52,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         refSignUpPlayers = database.getReference("Signed Up Players");
-        refRoom = database.getReference("Room").child("available");
+        refRoom = database.getReference("ChessRoom").child("available");
 
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override

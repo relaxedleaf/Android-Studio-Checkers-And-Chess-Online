@@ -1,7 +1,6 @@
-package com.example.guanghuili.checkesandchess;
+package com.example.guanghuili.checkesandchess.Checkers;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
@@ -15,18 +14,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import com.example.guanghuili.checkesandchess.Checkers.BlackChecker;
-import com.example.guanghuili.checkesandchess.Checkers.Checker;
-import com.example.guanghuili.checkesandchess.Checkers.NullChecker;
-import com.example.guanghuili.checkesandchess.Checkers.Player;
-import com.example.guanghuili.checkesandchess.Checkers.RedChecker;
-import com.example.guanghuili.checkesandchess.Checkers.Room;
-import com.example.guanghuili.checkesandchess.Checkers.RoomManager;
+import com.example.guanghuili.checkesandchess.Player;
+import com.example.guanghuili.checkesandchess.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -35,47 +27,48 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
-public class RedCheckerActivity extends AppCompatActivity {
+public class BlackCheckerActivity extends AppCompatActivity {
 
     private ImageButton[][] imageButtonList;
     //private Checker[][] checkerList;
-    private List<List<Checker>> checkerList;
+    private List<List<Checker>> checkerList;//from database
     private ArrayList<int[]> possibleMove;
     private ArrayList<int[]> killList;
     private int [] killLocation;
-    private boolean turn = true; //true for black's turn, false for white's turn
+    private boolean turn;
     private boolean secondClick = false;
     private boolean destroyed = false;
     private int row;
     private int column;
     private boolean disableAllButOneButton = false;
-    private Checker nullc = new NullChecker();
+    private NullChecker nullc = new NullChecker();
+
+    private Boolean player2Enter = false;
+    private Boolean player2Left = false;
+    private Boolean backPressed = false;
+    private Boolean paused = false;
+    private Boolean waitingMessage = false;
+
+    private int round = 0;//for tracking the number of turns, if round is even, show the toast saying "your turn"
 
     private AlertDialog alertDialog;
     private AlertDialog.Builder dialogBuilder;
-
-    private int round = 0;//for tracking the number of turns, if round is even, show the toast saying "your turn"
 
     MediaPlayer clickSound;
 
     private FirebaseDatabase database;
     private DatabaseReference refSignUpPlayers;
     private DatabaseReference refRoom;
-    private DatabaseReference refThisRoom;
+    private static DatabaseReference refThisRoom;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseUser user;
 
     private RoomManager roomManager = new RoomManager();
-    private Player player;//Red
-    private Player player1;//Black
+    private Player player;
+    private Player player2;
     private Room room;
-    private boolean player1Exited = false;
-    private boolean backPressed = false;
-    private Boolean paused = false;
 
     private TextView tvRoom;
     private TextView tvPlayer1Name;
@@ -163,10 +156,11 @@ public class RedCheckerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_red_checker);
+        setContentView(R.layout.activity_black_checker);
 
-        clickSound = MediaPlayer.create(RedCheckerActivity.this, R.raw.click);
+        clickSound = MediaPlayer.create(BlackCheckerActivity.this, R.raw.click);
 
+        btnSurrender = findViewById(R.id.btnSurrenderID);
         tvRoom = findViewById(R.id.tvRoomIdID);
         tvPlayer1Name = findViewById(R.id.tvPlayer1ID);
         tvPlayer2Name = findViewById(R.id.tvPlayer2ID);
@@ -175,16 +169,16 @@ public class RedCheckerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 clickSound.start();
-                if(player1Exited == false){
-                    dialogBuilder = new AlertDialog.Builder(RedCheckerActivity.this);
+                if(player2Enter == true && player2Left == false){
+                    dialogBuilder = new AlertDialog.Builder(BlackCheckerActivity.this);
                     View statusView = getLayoutInflater().inflate(R.layout.status,null);
                     TextView tvWin = statusView.findViewById(R.id.tvWinID);
                     TextView tvLoss =  statusView.findViewById(R.id.tvLossID);
                     TextView tvWinningRate = statusView.findViewById(R.id.tvWinningRateID);
 
-                    tvWin.setText("Win: " + player1.getWin());
-                    tvLoss.setText("Loss: " + player1.getLoss());
-                    tvWinningRate.setText("Winning Rate: " + player1.getWinningRate());
+                    tvWin.setText("Win: " + player2.getWin());
+                    tvLoss.setText("Loss: " + player2.getLoss());
+                    tvWinningRate.setText("Winning Rate: " + player2.getWinningRate());
 
                     dialogBuilder.setView(statusView);
                     alertDialog = dialogBuilder.create();
@@ -192,7 +186,6 @@ public class RedCheckerActivity extends AppCompatActivity {
                 }
             }
         });
-
 
 //row 1
         ibtn_0_0 = findViewById(R.id.ibtn_0_0);
@@ -283,7 +276,6 @@ public class RedCheckerActivity extends AppCompatActivity {
                         {null, ibtn_6_1, null, ibtn_6_3, null, ibtn_6_5, null, ibtn_6_7},
                         {ibtn_7_0, null, ibtn_7_2, null, ibtn_7_4, null, ibtn_7_6, null}};
 
-
         room = (Room)getIntent().getSerializableExtra("room");
         tvRoom.setText(getResources().getText(R.string.room_id) + String.valueOf(room.getId()));
 
@@ -291,13 +283,7 @@ public class RedCheckerActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         refSignUpPlayers = database.getReference("Signed Up Players");
         refRoom = database.getReference("Room");
-        refThisRoom = refRoom.child("unavailable").child(String.valueOf(room.getId()));
-
-        refRoom.child("unavailable").child(String.valueOf(room.getId())).setValue(room);
-        refRoom.child("available").child(String.valueOf(room.getId())).removeValue();
-
-        btnSurrender = findViewById(R.id.btnSurrenderID);
-
+        refThisRoom = refRoom.child("available").child(String.valueOf(room.getId()));
 
         mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
             @Override
@@ -315,6 +301,11 @@ public class RedCheckerActivity extends AppCompatActivity {
                         player = dataSnapshot1.getValue(Player.class);
                         tvPlayer1Name.setText(getResources().getText(R.string.player1) + player.getUsername());
                     }
+                    if(player2Enter == true && player2Left == false){
+                        if (dataSnapshot1.getValue(Player.class).getUsername().equals(tvPlayer2Name.getText().toString())){
+                            player2 = dataSnapshot1.getValue(Player.class);
+                        }
+                    }
                 }
             }
             @Override
@@ -328,44 +319,53 @@ public class RedCheckerActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(backPressed == false) {
                     if(paused == false) {
-                        if (player1Exited == false) {
-                            if(dataSnapshot.getValue(Room.class) != null) {
-                                if (dataSnapshot.getValue(Room.class).getPlayer1() != null) {
-                                    btnSurrender.setClickable(true);
-                                    tvPlayer2Name.setClickable(true);
-                                    tvPlayer2Name.setText(getResources().getText(R.string.player2) + dataSnapshot.getValue(Room.class).getPlayer1().getUsername());
-                                    player1 = dataSnapshot.getValue(Room.class).getPlayer1();
+                        if (player2Left == false) {
+                            if(dataSnapshot.getValue() != null) {
+                                if (dataSnapshot.getValue(Room.class).getPlayer2() != null) {
+                                    player2 = dataSnapshot.getValue(Room.class).getPlayer2();
+                                    tvPlayer2Name.setText(getResources().getText(R.string.player2) + dataSnapshot.getValue(Room.class).getPlayer2().getUsername());
                                     turn = dataSnapshot.getValue(Room.class).getTurn();
                                     round++;
-                                    if(turn == false && (round%2 != 0)){
-                                        Toast.makeText(RedCheckerActivity.this, "Your Turn", Toast.LENGTH_SHORT).show();
+                                    if(turn == true && (round%2 == 0)){
+                                        Toast.makeText(BlackCheckerActivity.this, "Your Turn", Toast.LENGTH_SHORT).show();
                                     }
                                     checkerList = dataSnapshot.getValue(Room.class).getCheckerList();
                                     processCheckerList();
+                                    if (player2Enter == false) {//first time enter
+                                        btnSurrender.setClickable(true);
+                                        Toast.makeText(BlackCheckerActivity.this, "Player Entered", Toast.LENGTH_LONG).show();
+                                        player2Enter = true;
+                                        tvPlayer2Name.setClickable(true);
+                                        refThisRoom.removeEventListener(this);//when change the ref path, the listener won't update, so remove it and add it back
+                                        refThisRoom = refRoom.child("unavailable").child(String.valueOf(room.getId()));
+                                        refThisRoom.addValueEventListener(this);
+                                    }
                                     updateAllButtons();
                                     disableButtons();
                                     if(checkWin() == true){
-                                        player1Exited =true;
-                                        Toast.makeText(RedCheckerActivity.this, "You win!", Toast.LENGTH_LONG).show();
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(RedCheckerActivity.this);
+                                        player2Left = true;
+                                        Toast.makeText(BlackCheckerActivity.this, "You win!", Toast.LENGTH_LONG).show();
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(BlackCheckerActivity.this);
+                                        tvPlayer2Name.setClickable(false);
                                         builder.setTitle("Room Update");
                                         builder.setMessage("Excellent! You win");
                                         builder.setCancelable(false);
                                         builder.setPositiveButton("Nice", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
                                                 clickSound.start();
+                                                //refThisRoom.removeValue();
                                                 player.updateWin();
                                                 refSignUpPlayers.child(player.getUsername()).setValue(player);
-                                                RedCheckerActivity.super.onBackPressed();
+                                                BlackCheckerActivity.super.onBackPressed();
                                                 finish();
                                             }
                                         });
                                         builder.show();
                                     }
                                     if(checkLose() == true){
-                                        player1Exited =true;
-                                        Toast.makeText(RedCheckerActivity.this, "You Lost!", Toast.LENGTH_LONG).show();
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(RedCheckerActivity.this);
+                                        player2Left = true;
+                                        Toast.makeText(BlackCheckerActivity.this, "You Lost!", Toast.LENGTH_LONG).show();
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(BlackCheckerActivity.this);
                                         builder.setTitle("Room Update");
                                         builder.setMessage("Sorry! You Lost");
                                         builder.setCancelable(false);
@@ -375,38 +375,42 @@ public class RedCheckerActivity extends AppCompatActivity {
                                                 refThisRoom.removeValue();
                                                 player.updateLoss();
                                                 refSignUpPlayers.child(player.getUsername()).setValue(player);
-                                                RedCheckerActivity.super.onBackPressed();
+                                                BlackCheckerActivity.super.onBackPressed();
                                                 finish();
                                             }
                                         });
                                         builder.show();
                                     }
-                                } else {
-                                    Toast.makeText(RedCheckerActivity.this, "User exited", Toast.LENGTH_LONG).show();
-                                    btnSurrender.setClickable(false);
-                                    tvPlayer2Name.setClickable(false);
-                                    player1Exited = true;
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(RedCheckerActivity.this);
-                                    builder.setTitle("Room Update");
-                                    builder.setMessage("Player Surrendered! You win");
-                                    builder.setCancelable(false);
-                                    builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            clickSound.start();
-                                            player.updateWin();
-                                            refSignUpPlayers.child(player.getUsername()).setValue(player);
-                                            refThisRoom.removeValue();
-                                            RedCheckerActivity.super.onBackPressed();
-                                            finish();
-                                        }
-                                    });
-                                    builder.show();
+                                } else {//player2 is null
+                                    if (waitingMessage == false) {
+                                        btnSurrender.setClickable(false);
+                                        Toast.makeText(BlackCheckerActivity.this, "Waiting for another player", Toast.LENGTH_LONG).show();
+                                        waitingMessage = true;
+                                    } else {
+                                        player2Left = true;
+                                        Toast.makeText(BlackCheckerActivity.this, "User exited", Toast.LENGTH_LONG).show();
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(BlackCheckerActivity.this);
+                                        tvPlayer2Name.setClickable(false);
+                                        builder.setTitle("Room Update");
+                                        builder.setMessage("Player Surrendered! You win");
+                                        builder.setCancelable(false);
+                                        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                clickSound.start();
+                                                refThisRoom.removeValue();
+                                                player.updateWin();
+                                                refSignUpPlayers.child(player.getUsername()).setValue(player);
+                                                BlackCheckerActivity.super.onBackPressed();
+                                                finish();
+                                            }
+                                        });
+                                        builder.show();
+                                    }
                                 }
                             }
                         }
                     }
                 }
-
             }
 
             @Override
@@ -419,17 +423,17 @@ public class RedCheckerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 clickSound.start();
-                AlertDialog.Builder builder = new AlertDialog.Builder(RedCheckerActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(BlackCheckerActivity.this);
                 builder.setTitle("Surrender");
                 builder.setMessage("Are you sure you want to surrender?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         clickSound.start();
                         backPressed = true;
-                        refThisRoom.child("player2").removeValue();
+                        refThisRoom.child("player1").removeValue();
                         player.updateLoss();
                         refSignUpPlayers.child(player.getUsername()).setValue(player);
-                        RedCheckerActivity.super.onBackPressed();
+                        BlackCheckerActivity.super.onBackPressed();
                         finish();
                     }
                 });
@@ -443,6 +447,7 @@ public class RedCheckerActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     @Override
@@ -450,33 +455,36 @@ public class RedCheckerActivity extends AppCompatActivity {
         super.onPause();
         Log.d("pausedCalled", "called");
         if(backPressed == false) {
-            if (player1Exited == false) {
+            if(player2Left == false) {
                 paused = true;
-                refThisRoom.child("player2").removeValue();
+                refThisRoom.child("player1").removeValue();
                 player.updateLoss();
                 refSignUpPlayers.child(player.getUsername()).setValue(player);
                 finish();
+            }
+            if(player2Enter == false){
+                refThisRoom.removeValue();
             }
         }
     }
 
     public void myOnClick(View view) {
         clickSound.start();
-        if(turn == false){
-            if (secondClick == false) {//(First Click)
+        if (turn) {//BlackChecker's turn
+            if (secondClick == false) {//(first click)
                 for (int r = 0; r < imageButtonList.length; r++) {
                     for (int c = 0; c < imageButtonList[r].length; c++) {
                         if (imageButtonList[r][c] != null) {//if imageButtonList[r][c] is not null
                             if (view.getId() == imageButtonList[r][c].getId()) {//get the r and c of the ibtn clicked
                                 if (!(checkerList.get(r).get(c) instanceof NullChecker)) {//if the corresponding location in the checkerList has a checker
-                                    Log.d("Type", checkerList.get(r).get(c).getClass().toString());
-                                    if (checkerList.get(r).get(c) instanceof RedChecker) {//if clicked checker is a blackChecker
+                                    if (checkerList.get(r).get(c) instanceof BlackChecker) {//if clicked checker is a blackChecker
                                         row = r;
                                         column = c;
+                                        Log.d("NoteSaveRow", String.valueOf(row));
+                                        Log.d("NoteSaveColumn", String.valueOf(column));
                                         if (destroyed == false) {
                                             possibleMove = checkerList.get(r).get(c).getMove(checkerList);//get the possibleMove from BlackChecker class
                                             killList = checkerList.get(r).get(c).getKillList();//get the corresponding killList
-                                            Log.d("PossibleMove", String.valueOf(possibleMove.size()));
                                             if (disableAllButOneButton == false) {
                                                 updateAllButtons();
                                                 disableButtons();
@@ -488,8 +496,7 @@ public class RedCheckerActivity extends AppCompatActivity {
                                                 imageButtonList[row][column].setBackgroundColor(Color.WHITE);
                                             }
                                             secondClick = true;
-                                        }
-                                        else {
+                                        } else {
                                             destroyed = false;
                                             possibleMove = checkerList.get(r).get(c).getMove2(checkerList);//get the possibleMove from BlackChecker class
                                             killList = checkerList.get(r).get(c).getKillList();
@@ -500,10 +507,9 @@ public class RedCheckerActivity extends AppCompatActivity {
                                                     disableAllButPossible(possibleMove);
                                                 }
                                                 secondClick = true;
-                                            }
-                                            else {
+                                            } else {
                                                 secondClick = false;
-                                                turn = true;
+                                                turn = false;
                                                 updateAllButtons();
                                                 disableAllButOneButton(r, c);
                                                 disableAllButOneButton = true;
@@ -518,56 +524,52 @@ public class RedCheckerActivity extends AppCompatActivity {
                         }
                     }
                 }
-            }
-            else {//RedChecker's turn (Second Click)
+            } else {//BlackChecker's turn (Second Click)
                 for (int r = 0; r < imageButtonList.length; r++) {
                     for (int c = 0; c < imageButtonList[r].length; c++) {
-                        if (imageButtonList[r][c] != null) {//if imageButtonList[r][c] is not null
-                            if (!(checkerList.get(r).get(c) instanceof BlackChecker)) {
-                                if (view.getId() == imageButtonList[r][c].getId()) {//get the r and c of the ibtn clicked
-                                    if(checkerList.get(r).get(c) instanceof NullChecker) {
-                                        checkerList.get(r).set(c, new RedChecker(checkerList.get(row).get(column)));//row and column are the position of the new position, copy the checker to the new position
+                        if (imageButtonList[r][c] != null) {
+                            if (!(checkerList.get(r).get(c) instanceof RedChecker)) {
+                                if (view.getId() == imageButtonList[r][c].getId()) {
+                                    if (checkerList.get(r).get(c) instanceof NullChecker) {
+                                        checkerList.get(r).set(c,new BlackChecker(checkerList.get(row).get(column)));//row and column are the position of the new position, copy the checker to the new position
                                         checkerList.get(r).get(c).setRow(r);
                                         checkerList.get(r).get(c).setColumn(c);
-                                        checkerList.get(r).get(c).setType("RedChecker");
-                                        if(checkerList.get(r).get(c).getRow() == 7){
+                                        checkerList.get(r).get(c).setType("BlackChecker");
+                                        if (checkerList.get(r).get(c).getRow() == 0) {
                                             checkerList.get(r).get(c).setCrownStatus(true);
                                         }
-                                        checkerList.get(row).set(column, nullc);//delete the check in the old location
-                                        killLocation = getKillCheckerLocation(r,c);
-                                        if(killLocation != null) {
-                                            checkerList.get(killLocation[0]).set(killLocation[1], nullc);
+                                        checkerList.get(row).set(column, nullc);//delete the checker in the old location
+                                        killLocation = getKillCheckerLocation(r, c);
+                                        if (killLocation != null) {
+                                            checkerList.get(killLocation[0]).set(killLocation[1],nullc);
                                             destroyed = true;
                                             secondClick = false;
                                             updateAllButtons();
                                             possibleMove = checkerList.get(r).get(c).getMove2(checkerList);
-                                            if(possibleMove.size() == 0){
+                                            if (possibleMove.size() == 0) {
                                                 disableAllButOneButton = false;
                                                 destroyed = false;
-                                                secondClick = false;
-                                                turn = true;
+                                                turn = false;
                                                 disableButtons();
                                                 refThisRoom.child("checkerList").setValue(checkerList);
                                                 refThisRoom.child("turn").setValue(turn);
-                                            }
-                                            else{
+                                            } else {
+                                                turn = true;
                                                 disableAllButOneButton(r, c);
                                                 disableAllButOneButton = true;
                                             }
-                                        }
-                                        else{
+                                        } else {
                                             disableAllButOneButton = false;
                                             destroyed = false;
                                             secondClick = false;
-                                            turn = true;
+                                            turn = false;
                                             updateAllButtons();
                                             disableButtons();
                                             refThisRoom.child("checkerList").setValue(checkerList);
                                             refThisRoom.child("turn").setValue(turn);
                                         }
                                         break;
-                                    }
-                                    else {
+                                    } else {//**for the user who wants to change his/her moves
                                         updateAllButtons();//update the layout and made all the buttons clickable
                                         disableButtons();
                                         secondClick = false;
@@ -578,9 +580,7 @@ public class RedCheckerActivity extends AppCompatActivity {
                         }
                     }
                 }
-
             }
-
         }
     }
 
@@ -594,7 +594,7 @@ public class RedCheckerActivity extends AppCompatActivity {
                         //imageButtonList[r][c].setBackgroundColor(Color.BLACK);
                     }
                     else if(checkerList.get(r).get(c) instanceof BlackChecker){//disable the unmovable blackCheckers
-                        if(r == 0){//if the blackChecker is at row 0 (crown)
+                        if(checkerList.get(r).get(c).isCrownStatus() == true){//if the blackChecker is at row 0 (crown)//TODO need to improve the code here
                             imageButtonList[r][c].setClickable(true);
                         }
                         else {
@@ -634,7 +634,7 @@ public class RedCheckerActivity extends AppCompatActivity {
                         //imageButtonList[r][c].setBackgroundColor(Color.BLACK);
                     }
                     else if(checkerList.get(r).get(c) instanceof RedChecker) {//disable the unmovable red Checkers
-                        if (r == 7) {//if the red checker is at row 7 (crown)
+                        if (checkerList.get(r).get(c).isCrownStatus() == true) {//if the red checker is at row 7 (crown)//TODO need to improve the code
                             imageButtonList[r][c].setClickable(true);
                         } else {
                             if (c == 0) {
@@ -708,20 +708,19 @@ public class RedCheckerActivity extends AppCompatActivity {
                     imageButtonList[r][c].setClickable(true);//make all the imageButtons clickable
                     imageButtonList[r][c].setImageDrawable(null);//Erase all the drawables and background color
 
-                    if (!(checkerList.get(r).get(c) instanceof NullChecker)) {//in the movable location if the checker in the checkerList is not null
+                    if (! (checkerList.get(r).get(c) instanceof NullChecker)) {//in the movable location if the checker in the checkerList is not null
                         if (checkerList.get(r).get(c) instanceof BlackChecker) {//if its a BlackChecker
-                            if(checkerList.get(r).get(c).isCrownStatus() == false) {
+                            if (checkerList.get(r).get(c).isCrownStatus() == false) {
+                                Log.d("UpdateCalled","Turn " + String.valueOf(turn));
                                 imageButtonList[r][c].setImageResource(R.drawable.black_dot);//change the image to black dot
-                            }
-                            else{
+                            } else {
                                 imageButtonList[r][c].setImageResource(R.drawable.black_crown);
                             }
                         }
                         if (checkerList.get(r).get(c) instanceof RedChecker) {//if its a RedChecker
-                            if(checkerList.get(r).get(c).isCrownStatus() == false) {
+                            if (checkerList.get(r).get(c).isCrownStatus() == false) {
                                 imageButtonList[r][c].setImageResource(R.drawable.red_dot);//change the image to red dot
-                            }
-                            else{
+                            } else {
                                 imageButtonList[r][c].setImageResource(R.drawable.red_crown);
                             }
                         }
@@ -745,26 +744,27 @@ public class RedCheckerActivity extends AppCompatActivity {
 
     public void processCheckerList() {
         Boolean status;
+        String type;
         for (int r = 0; r < checkerList.size(); r++) {
             for (int c = 0; c < checkerList.get(r).size(); c++) {
                 if (checkerList.get(r).get(c).getType().equals("BlackChecker")) {//if the checker is black
-                    checkerList.get(r).get(c).getType();
+                    type = checkerList.get(r).get(c).getType();
                     status = checkerList.get(r).get(c).isCrownStatus();
                     checkerList.get(r).set(c, (new BlackChecker(checkerList.get(r).get(c).getRow(), checkerList.get(r).get(c).getColumn())));
                     checkerList.get(r).get(c).setCrownStatus(status);
-                    checkerList.get(r).get(c).setType("BlackChecker");
+                    checkerList.get(r).get(c).setType(type);
                 }
                 if (checkerList.get(r).get(c).getType().equals("RedChecker")) {//if the checker is red
-                    checkerList.get(r).get(c).getType();
+                    type = checkerList.get(r).get(c).getType();
                     status = checkerList.get(r).get(c).isCrownStatus();
                     checkerList.get(r).set(c, (new RedChecker(checkerList.get(r).get(c).getRow(), checkerList.get(r).get(c).getColumn())));
                     checkerList.get(r).get(c).setCrownStatus(status);
-                    checkerList.get(r).get(c).setType("RedChecker");
+                    checkerList.get(r).get(c).setType(type);
                 }
                 if (checkerList.get(r).get(c).getType().equals("NullChecker")) {//if the checker is red
-                    checkerList.get(r).get(c).getType();
+                    type = checkerList.get(r).get(c).getType();
                     checkerList.get(r).set(c, (new NullChecker()));
-                    checkerList.get(r).get(c).setType("NullChecker");
+                    checkerList.get(r).get(c).setType(type);
                 }
             }
         }
@@ -774,7 +774,7 @@ public class RedCheckerActivity extends AppCompatActivity {
     public void onBackPressed() {
         //super.onBackPressed();
         Log.d("Pressed","Hello");
-        if(player1Exited == false) {
+        if(player2Enter == true) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Leaving while in a game");
             builder.setMessage("Leave now means surrender");
@@ -782,10 +782,10 @@ public class RedCheckerActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int id) {
                     clickSound.start();
                     backPressed = true;
-                    refThisRoom.child("player2").removeValue();
+                    refThisRoom.child("player1").removeValue();
                     player.updateLoss();
                     refSignUpPlayers.child(player.getUsername()).setValue(player);
-                    RedCheckerActivity.super.onBackPressed();
+                    BlackCheckerActivity.super.onBackPressed();
                     finish();
                 }
             });
@@ -800,7 +800,7 @@ public class RedCheckerActivity extends AppCompatActivity {
         else{
             backPressed = true;
             refThisRoom.removeValue();
-            RedCheckerActivity.super.onBackPressed();
+            BlackCheckerActivity.super.onBackPressed();
             finish();
         }
     }
@@ -809,7 +809,7 @@ public class RedCheckerActivity extends AppCompatActivity {
         boolean win = true;
         for(int r = 0; r < checkerList.size(); r++){
             for(int c = 0; c < checkerList.get(r).size(); c++){
-                if(checkerList.get(r).get(c).getType().equals("BlackChecker")){
+                if(checkerList.get(r).get(c).getType().equals("RedChecker")){
                     win = false;
                     break;
                 }
@@ -822,7 +822,7 @@ public class RedCheckerActivity extends AppCompatActivity {
         boolean lose = true;
         for(int r = 0; r < checkerList.size(); r++){
             for(int c = 0; c < checkerList.get(r).size(); c++){
-                if(checkerList.get(r).get(c).getType().equals("RedChecker")){
+                if(checkerList.get(r).get(c).getType().equals("BlackChecker")){
                     lose = false;
                     break;
                 }

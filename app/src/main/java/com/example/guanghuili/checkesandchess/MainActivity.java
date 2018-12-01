@@ -1,12 +1,8 @@
 package com.example.guanghuili.checkesandchess;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.media.MediaPlayer;
-import android.net.Uri;
-import android.os.Parcel;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,29 +14,21 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.guanghuili.checkesandchess.Checkers.BlackChecker;
-import com.example.guanghuili.checkesandchess.Checkers.Player;
-import com.example.guanghuili.checkesandchess.Checkers.PlayerManager;
+import com.example.guanghuili.checkesandchess.Checkers.CheckerRoomActivity;
 import com.example.guanghuili.checkesandchess.Checkers.RoomManager;
 import com.example.guanghuili.checkesandchess.Chess.Chess;
-import com.google.android.gms.internal.firebase_auth.zzao;
+import com.example.guanghuili.checkesandchess.Chess.ChessRoomActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.FirebaseUserMetadata;
-import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private PlayerManager playerManager = new PlayerManager();
@@ -374,7 +362,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goChess(View view){
-        Intent intent = new Intent(MainActivity.this, Chess.class);
+        Intent intent = new Intent(MainActivity.this, ChessRoomActivity.class);
         startActivity(intent);
     }
 }

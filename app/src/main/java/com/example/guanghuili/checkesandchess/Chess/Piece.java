@@ -2,40 +2,44 @@ package com.example.guanghuili.checkesandchess.Chess;
 
 import java.util.List;
 
-public abstract class Piece implements Cloneable {
+public class Piece{
     protected int moveDistance;
     protected int row;
     protected int column;
-    //int[][] moveDirection = new int[3][3];
+    protected String type;
     protected boolean isBlack;
     protected boolean firstMove;
 
 
-    public Piece(Boolean isBlack, int row, int column){
+    public Piece(Boolean isBlack, int row, int column, String type){
         //this.moveDistance = moveDistance;
         this.row = row;
         this.column = column;
         this.isBlack = isBlack;
+        this.type = type;
     }
 
-    public Piece(Boolean isBlack, int row, int column, Boolean firstMove){
+    public Piece(Boolean isBlack, int row, int column, Boolean firstMove, String type){
         //this.moveDistance = moveDistance;
         this.row = row;
         this.column = column;
         this.isBlack = isBlack;
         this.firstMove = firstMove;
+        this.type = type;
+    }
+
+    public Piece(String type){
+        this.type = type;
     }
 
     public boolean isBlack(){
         return isBlack;
     }
 
-    public Piece getcopy() throws CloneNotSupportedException
-    {
-        return (Piece) this.clone();
-    }
 
-    public abstract List<Point> getMoves(Piece[][] board);
+    public List<Point> getMoves(Piece[][] board){
+        return null;
+    };
 
     public void setRow(int row) {
         this.row = row;

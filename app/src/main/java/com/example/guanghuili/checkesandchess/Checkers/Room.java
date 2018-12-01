@@ -1,6 +1,8 @@
 package com.example.guanghuili.checkesandchess.Checkers;
 
 
+import com.example.guanghuili.checkesandchess.Player;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

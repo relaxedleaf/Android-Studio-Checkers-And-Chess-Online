@@ -1,6 +1,8 @@
-package com.example.guanghuili.checkesandchess.Checkers;
+package com.example.guanghuili.checkesandchess;
 
 import android.util.Log;
+
+import com.example.guanghuili.checkesandchess.Checkers.RoomManager;
 
 import java.io.Serializable;
 

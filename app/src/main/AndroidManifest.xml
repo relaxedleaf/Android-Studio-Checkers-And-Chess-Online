@@ -17,11 +17,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CheckerRoomActivity" />
-        <activity android:name=".BlackCheckerActivity" />
-        <activity android:name=".RedCheckerActivity" />
-        <activity android:name=".CreditActivity"></activity>
-        <activity android:name=".Chess.Chess"></activity>
+        <activity android:name=".Checkers.CheckerRoomActivity" />
+        <activity android:name=".Checkers.BlackCheckerActivity" />
+        <activity android:name=".Checkers.RedCheckerActivity" />
+        <activity android:name=".CreditActivity" />
+        <activity android:name=".Chess.Chess" />
+        <activity android:name=".Chess.ChessRoomActivity" />
+        <activity android:name=".Chess.BlackChessActivity" />
+        <activity android:name=".Chess.RedChessActivity"></activity>
     </application>
 
 </manifest>

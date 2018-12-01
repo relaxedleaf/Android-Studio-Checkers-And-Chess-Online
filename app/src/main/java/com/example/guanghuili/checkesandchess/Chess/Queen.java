@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Queen extends Piece {
     public Queen(Boolean isBlack, int row, int column) {
-        super(isBlack, row, column);
+        super(isBlack, row, column,"Queen");
     }
 
     @Override
