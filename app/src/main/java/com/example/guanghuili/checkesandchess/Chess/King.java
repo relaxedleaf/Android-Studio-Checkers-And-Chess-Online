@@ -2,11 +2,13 @@ package com.example.guanghuili.checkesandchess.Chess;
 
 //import Piece;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class King extends Piece {
-    int row, column;
+    private List<Point> moves = new ArrayList<>();
 
     public King(Boolean isBlack, int row, int column){
         super(isBlack,row,column);
@@ -215,25 +217,133 @@ public class King extends Piece {
 
     @Override
     public List getMoves(Piece[][] board) {
-        List<Point> moves = new ArrayList<>();
+        moves.clear();
+        moves = new ArrayList<>();
+        if(column == 0){
+            if(row == 0){
+                right(board);
+                bottomRight(board);
+                bottom(board);
+            }
+            else if(row == 7){
+                up(board);
+                upperRight(board);
+                right(board);
+            }
+            else{
+                up(board);
+                upperRight(board);
+                right(board);
+                bottomRight(board);
+                bottom(board);
+            }
+        }
+        else if(column == 7){
+            if(row == 0){
+                left(board);
+                bottomLeft(board);
+                bottom(board);
+            }
+            else if(row == 7){
+                up(board);
+                upperLeft(board);
+                left(board);
+            }
+            else{
+                up(board);
+                upperLeft(board);
+                left(board);
+                bottomLeft(board);
+                bottom(board);
+            }
+        }
+        else{
+            if(row == 0){
+                left(board);
+                bottomLeft(board);
+                bottom(board);
+                bottomRight(board);
+                right(board);
+            }
+            else if(row == 7){
+                left(board);
+                upperLeft(board);
+                up(board);
+                upperRight(board);
+                right(board);
 
-        for(int i = row - 1; i < row + 1; i++){
-            for(int j = column - 1; j < column+1; j++){
-                //if the row is on the board
-                if(i >= 0 && i < 8){
-                    //if the column is on the board
-                    if (j >=0 && j <8){
-                        //if the point would actually be moving
-                        if(!(i == row && j == column)) {
-                            if(board[i][j] == null || board[i][j].isBlack() != this.isBlack()) {
-                                moves.add(new Point(i, j));
-                            }
-                        }
-                    }
-                }
+            }
+            else{
+                left(board);
+                upperLeft(board);
+                up(board);
+                upperRight(board);
+                right(board);
+                bottomLeft(board);
+                bottomRight(board);
+                bottom(board);
+                bottomLeft(board);
             }
         }
 
+
+
         return moves;
     }
+
+    public void left(Piece[][] board){
+        //left
+        if(board[row][column - 1] == null || board[row][column - 1].isBlack() != this.isBlack()){
+            moves.add(new Point(row, column - 1));
+        }
+    }
+
+    public void upperLeft(Piece[][]board){
+        //upper left
+        if(board[row - 1][column - 1] == null || board[row - 1][column - 1].isBlack() != this.isBlack()){
+            moves.add(new Point(row - 1, column - 1));
+        }
+    }
+
+    public void up(Piece[][]board){
+        //up
+        if(board[row - 1][column] == null || board[row - 1][column].isBlack() != this.isBlack()){
+            moves.add(new Point(row - 1, column));
+        }
+    }
+
+    public void upperRight(Piece[][]board){
+        //upper right
+        if(board[row - 1][column + 1] == null || board[row - 1][column + 1].isBlack() != this.isBlack()){
+            moves.add(new Point(row - 1, column + 1));
+        }
+    }
+
+    public void right(Piece[][]board){
+        //right
+        if(board[row][column + 1] == null || board[row][column + 1].isBlack() != this.isBlack()){
+            moves.add(new Point(row, column + 1));
+        }
+    }
+
+    public void bottomRight(Piece[][]board){
+        //bottom right
+        if(board[row + 1][column + 1] == null || board[row + 1][column + 1].isBlack() != this.isBlack()){
+            moves.add(new Point(row + 1, column + 1));
+        }
+    }
+    public void bottom(Piece[][]board){
+        //bottom
+        if(board[row + 1][column] == null || board[row + 1][column].isBlack() != this.isBlack()){
+            moves.add(new Point(row + 1, column));
+        }
+    }
+
+    public void bottomLeft(Piece[][]board){
+        //bottom left
+        if(board[row + 1][column - 1] == null || board[row + 1][column - 1].isBlack() != this.isBlack()){
+            moves.add(new Point(row + 1, column - 1));
+        }
+    }
+
 }

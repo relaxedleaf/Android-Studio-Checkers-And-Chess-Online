@@ -539,7 +539,7 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
                     break;
 
                 case R.id.ibtn_7_4:
-                    processFirstClick(7,5);
+                    processFirstClick(7,4);
                     break;
 
                 case R.id.ibtn_7_5:
@@ -801,7 +801,7 @@ public class Chess extends AppCompatActivity implements View.OnClickListener{
                     break;
 
                 case R.id.ibtn_7_4:
-                    processSecondClick(7,5);
+                    processSecondClick(7,4);
                     break;
 
                 case R.id.ibtn_7_5:
