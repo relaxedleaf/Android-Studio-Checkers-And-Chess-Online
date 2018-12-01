@@ -58,7 +58,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btnSurrenderID3"
+        android:id="@+id/btnSurrenderID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

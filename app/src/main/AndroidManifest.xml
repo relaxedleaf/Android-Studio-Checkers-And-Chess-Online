@@ -21,7 +21,6 @@
         <activity android:name=".Checkers.BlackCheckerActivity" />
         <activity android:name=".Checkers.RedCheckerActivity" />
         <activity android:name=".CreditActivity" />
-        <activity android:name=".Chess.Chess" />
         <activity android:name=".Chess.ChessRoomActivity" />
         <activity android:name=".Chess.BlackChessActivity" />
         <activity android:name=".Chess.RedChessActivity"></activity>

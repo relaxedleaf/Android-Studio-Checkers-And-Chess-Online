@@ -1,15 +1,16 @@
 package com.example.guanghuili.checkesandchess.Chess;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Queen extends Piece {
+public class Queen extends Piece implements Serializable {
     public Queen(Boolean isBlack, int row, int column) {
         super(isBlack, row, column,"Queen");
     }
 
     @Override
-    public List<Point> getMoves(Piece[][] board) {
+    public List<Point> getMoves(List<List<Piece>> board) {
         List<Point> moves = new ArrayList<>();
 
 
@@ -19,10 +20,10 @@ public class Queen extends Piece {
         for(;;){
             tempColumn++;
             if(tempColumn >= 0 && tempColumn < 8){
-                if(board[tempRow][tempColumn] == null){
+                if(board.get(tempRow).get(tempColumn) instanceof NullChess){
                     moves.add(new Point(tempRow,tempColumn));
                 }
-                else if(board[tempRow][tempColumn].isBlack() != this.isBlack()){
+                else if(board.get(tempRow).get(tempColumn).isBlack() != this.isBlack()){
                     moves.add(new Point(tempRow,tempColumn));
                     break;
                 }
@@ -43,10 +44,10 @@ public class Queen extends Piece {
         for(;;){
             tempColumn--;
             if(tempColumn >= 0 && tempColumn < 8){
-                if(board[tempRow][tempColumn] == null){
+                if(board.get(tempRow).get(tempColumn) instanceof NullChess){
                     moves.add(new Point(tempRow,tempColumn));
                 }
-                else if(board[tempRow][tempColumn].isBlack() != this.isBlack()){
+                else if(board.get(tempRow).get(tempColumn).isBlack() != this.isBlack()){
                     moves.add(new Point(tempRow,tempColumn));
                     break;
                 }
@@ -66,10 +67,10 @@ public class Queen extends Piece {
         for(;;){
             tempRow++;
             if(tempRow >= 0 && tempRow < 8){
-                if(board[tempRow][tempColumn] == null){
+                if(board.get(tempRow).get(tempColumn) instanceof NullChess){
                     moves.add(new Point(tempRow,tempColumn));
                 }
-                else if(board[tempRow][tempColumn].isBlack() != this.isBlack()){
+                else if(board.get(tempRow).get(tempColumn).isBlack() != this.isBlack()){
                     moves.add(new Point(tempRow,tempColumn));
                     break;
                 }
@@ -90,10 +91,10 @@ public class Queen extends Piece {
         for(;;){
             tempRow--;
             if(tempRow >= 0 && tempRow < 8){
-                if(board[tempRow][tempColumn] == null){
+                if(board.get(tempRow).get(tempColumn) instanceof NullChess){
                     moves.add(new Point(tempRow,tempColumn));
                 }
-                else if(board[tempRow][tempColumn].isBlack() != this.isBlack()){
+                else if(board.get(tempRow).get(tempColumn).isBlack() != this.isBlack()){
                     moves.add(new Point(tempRow,tempColumn));
                     break;
                 }
@@ -115,10 +116,10 @@ public class Queen extends Piece {
             tempRow++;
             tempColumn++;
             if(tempRow >= 0 && tempRow < 8 && tempColumn >= 0 && tempColumn < 8){
-                if(board[tempRow][tempColumn] == null) {
+                if(board.get(tempRow).get(tempColumn) instanceof NullChess) {
                     moves.add(new Point(tempRow, tempColumn));
                 }
-                else if(board[tempRow][tempColumn].isBlack() != this.isBlack()){
+                else if(board.get(tempRow).get(tempColumn).isBlack() != this.isBlack()){
                     moves.add(new Point(tempRow,tempColumn));
                     break;
                 }
@@ -140,10 +141,10 @@ public class Queen extends Piece {
             tempRow++;
             tempColumn--;
             if(tempRow >= 0 && tempRow < 8 && tempColumn >= 0 && tempColumn < 8){
-                if(board[tempRow][tempColumn] == null) {
+                if(board.get(tempRow).get(tempColumn) instanceof NullChess) {
                     moves.add(new Point(tempRow, tempColumn));
                 }
-                else if(board[tempRow][tempColumn].isBlack() != this.isBlack()){
+                else if(board.get(tempRow).get(tempColumn).isBlack() != this.isBlack()){
                     moves.add(new Point(tempRow,tempColumn));
                     break;
                 }
@@ -164,10 +165,10 @@ public class Queen extends Piece {
             tempRow--;
             tempColumn++;
             if(tempRow >= 0 && tempRow < 8 && tempColumn >= 0 && tempColumn < 8){
-                if(board[tempRow][tempColumn] == null) {
+                if(board.get(tempRow).get(tempColumn) instanceof NullChess) {
                     moves.add(new Point(tempRow, tempColumn));
                 }
-                else if(board[tempRow][tempColumn].isBlack() != this.isBlack()){
+                else if(board.get(tempRow).get(tempColumn).isBlack() != this.isBlack()){
                     moves.add(new Point(tempRow,tempColumn));
                     break;
                 }
@@ -189,10 +190,10 @@ public class Queen extends Piece {
             tempRow--;
             tempColumn--;
             if(tempRow >= 0 && tempRow < 8 && tempColumn >= 0 && tempColumn < 8){
-                if(board[tempRow][tempColumn] == null) {
+                if(board.get(tempRow).get(tempColumn) instanceof NullChess) {
                     moves.add(new Point(tempRow, tempColumn));
                 }
-                else if(board[tempRow][tempColumn].isBlack() != this.isBlack()){
+                else if(board.get(tempRow).get(tempColumn).isBlack() != this.isBlack()){
                     moves.add(new Point(tempRow,tempColumn));
                     break;
                 }

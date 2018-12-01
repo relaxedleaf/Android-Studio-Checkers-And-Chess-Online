@@ -65,7 +65,7 @@ public class RedCheckerActivity extends AppCompatActivity {
     private Room room;
     private boolean player1Exited = false;
     private boolean backPressed = false;
-    private Boolean paused = false;
+    private boolean paused = false;
 
     private TextView tvRoom;
     private TextView tvPlayer1Name;

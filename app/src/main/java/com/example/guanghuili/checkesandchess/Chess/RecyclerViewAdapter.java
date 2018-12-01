@@ -11,9 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.example.guanghuili.checkesandchess.Checkers.RedCheckerActivity;
-import com.example.guanghuili.checkesandchess.Chess.Room;
 import com.example.guanghuili.checkesandchess.Player;
 import com.example.guanghuili.checkesandchess.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -123,7 +120,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             room.setPlayer2(player);
             room.setAvailability(false);
             refRoom.child(String.valueOf(room.getId())).setValue(room);
-            Intent intent = new Intent(context, RedCheckerActivity.class);
+            Intent intent = new Intent(context, BlackChessActivity.class);
             intent.putExtra("room", room);
             context.startActivity(intent);
         }

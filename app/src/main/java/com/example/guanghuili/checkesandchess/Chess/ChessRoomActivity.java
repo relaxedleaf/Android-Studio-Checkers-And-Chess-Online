@@ -139,7 +139,7 @@ public class ChessRoomActivity extends AppCompatActivity {
                 clickSound.start();
                 room = roomManager.createRoom(player);
                 refRoom.child(String.valueOf(room.getId())).setValue(room);
-                Intent intent = new Intent(ChessRoomActivity.this,BlackChessActivity.class);
+                Intent intent = new Intent(ChessRoomActivity.this,RedChessActivity.class);
                 intent.putExtra("room",room);
                 startActivity(intent);
             }
@@ -160,7 +160,7 @@ public class ChessRoomActivity extends AppCompatActivity {
                                 room.setPlayer2(player);
                                 room.setAvailability(false);
                                 refRoom.child(String.valueOf(room.getId())).setValue(room);
-                                Intent intent = new Intent(ChessRoomActivity.this, RedChessActivity.class);
+                                Intent intent = new Intent(ChessRoomActivity.this, BlackChessActivity.class);
                                 intent.putExtra("room", room);
                                 ChessRoomActivity.this.startActivity(intent);
                                 break;
@@ -184,15 +184,13 @@ public class ChessRoomActivity extends AppCompatActivity {
                         room.setPlayer2(player);
                         room.setAvailability(false);
                         refRoom.child(String.valueOf(room.getId())).setValue(room);
-                        Intent intent = new Intent(ChessRoomActivity.this, RedChessActivity.class);
+                        Intent intent = new Intent(ChessRoomActivity.this, BlackChessActivity.class);
                         intent.putExtra("room", room);
                         ChessRoomActivity.this.startActivity(intent);
                     }
                 }
             }
         });
-
-
 
     }
 }

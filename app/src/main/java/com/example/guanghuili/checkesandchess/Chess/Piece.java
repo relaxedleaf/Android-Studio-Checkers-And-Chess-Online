@@ -1,8 +1,9 @@
 package com.example.guanghuili.checkesandchess.Chess;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Piece{
+public class Piece implements Serializable {
     protected int moveDistance;
     protected int row;
     protected int column;
@@ -32,12 +33,14 @@ public class Piece{
         this.type = type;
     }
 
+    public Piece(){}
+
     public boolean isBlack(){
         return isBlack;
     }
 
 
-    public List<Point> getMoves(Piece[][] board){
+    public List<Point> getMoves(List<List<Piece>> board){
         return null;
     };
 
@@ -54,5 +57,17 @@ public class Piece{
 
     public void setFirstMove(boolean firstMove) {
         this.firstMove = firstMove;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getColumn() {
+        return column;
     }
 }

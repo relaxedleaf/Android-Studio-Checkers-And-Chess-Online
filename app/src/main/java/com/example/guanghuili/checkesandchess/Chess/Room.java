@@ -10,7 +10,7 @@ public class Room implements Serializable {
     private int id;
     private Player player1;
     private Player player2;
-    private Boolean turn = true;
+    private boolean isBlacksTurn = false;
     private Boolean availability = true;
     private List<List<Piece>> chessList;
 
@@ -68,15 +68,6 @@ public class Room implements Serializable {
         this.player2 = player2;
     }
 
-
-    public Boolean getTurn() {
-        return turn;
-    }
-
-    public void setTurn(Boolean turn) {
-        this.turn = turn;
-    }
-
     public List<List<Piece>> getChessList() {
         return chessList;
     }
@@ -91,6 +82,14 @@ public class Room implements Serializable {
 
     public void setAvailability(Boolean availability) {
         this.availability = availability;
+    }
+
+    public boolean isBlacksTurn() {
+        return isBlacksTurn;
+    }
+
+    public void setBlacksTurn(boolean blacksTurn) {
+        isBlacksTurn = blacksTurn;
     }
 
 }

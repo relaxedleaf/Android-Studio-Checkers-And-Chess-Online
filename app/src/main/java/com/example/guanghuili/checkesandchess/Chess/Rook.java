@@ -1,15 +1,16 @@
 package com.example.guanghuili.checkesandchess.Chess;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Rook extends Piece {
+public class Rook extends Piece implements Serializable {
     public Rook(Boolean isBlack, int row, int column) {
         super(isBlack, row, column,"Rook");
     }
 
     @Override
-    public List getMoves(Piece[][] board) {
+    public List getMoves(List<List<Piece>> board) {
         List<Point> moves = new ArrayList<>();
 
         int tempRow = row;
@@ -18,10 +19,10 @@ public class Rook extends Piece {
         for(;;){
             tempColumn++;
             if(tempColumn >= 0 && tempColumn < 8){
-                if(board[tempRow][tempColumn] == null){
+                if(board.get(tempRow).get(tempColumn) instanceof NullChess){
                     moves.add(new Point(tempRow,tempColumn));
                 }
-                else if(board[tempRow][tempColumn].isBlack() != this.isBlack()){
+                else if(board.get(tempRow).get(tempColumn).isBlack() != this.isBlack()){
                     moves.add(new Point(tempRow,tempColumn));
                     break;
                 }
@@ -42,10 +43,10 @@ public class Rook extends Piece {
         for(;;){
             tempColumn--;
             if(tempColumn >= 0 && tempColumn < 8){
-                if(board[tempRow][tempColumn] == null){
+                if(board.get(tempRow).get(tempColumn) instanceof NullChess){
                     moves.add(new Point(tempRow,tempColumn));
                 }
-                else if(board[tempRow][tempColumn].isBlack() != this.isBlack()){
+                else if(board.get(tempRow).get(tempColumn).isBlack() != this.isBlack()){
                     moves.add(new Point(tempRow,tempColumn));
                     break;
                 }
@@ -65,10 +66,10 @@ public class Rook extends Piece {
         for(;;){
             tempRow++;
             if(tempRow >= 0 && tempRow < 8){
-                if(board[tempRow][tempColumn] == null){
+                if(board.get(tempRow).get(tempColumn) instanceof NullChess){
                     moves.add(new Point(tempRow,tempColumn));
                 }
-                else if(board[tempRow][tempColumn].isBlack() != this.isBlack()){
+                else if(board.get(tempRow).get(tempColumn).isBlack() != this.isBlack()){
                     moves.add(new Point(tempRow,tempColumn));
                     break;
                 }
@@ -89,10 +90,10 @@ public class Rook extends Piece {
         for(;;){
             tempRow--;
             if(tempRow >= 0 && tempRow < 8){
-                if(board[tempRow][tempColumn] == null){
+                if(board.get(tempRow).get(tempColumn) instanceof NullChess){
                     moves.add(new Point(tempRow,tempColumn));
                 }
-                else if(board[tempRow][tempColumn].isBlack() != this.isBlack()){
+                else if(board.get(tempRow).get(tempColumn).isBlack() != this.isBlack()){
                     moves.add(new Point(tempRow,tempColumn));
                     break;
                 }

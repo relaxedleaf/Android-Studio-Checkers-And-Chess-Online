@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.example.guanghuili.checkesandchess.Checkers.CheckerRoomActivity;
 import com.example.guanghuili.checkesandchess.Checkers.RoomManager;
-import com.example.guanghuili.checkesandchess.Chess.Chess;
 import com.example.guanghuili.checkesandchess.Chess.ChessRoomActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

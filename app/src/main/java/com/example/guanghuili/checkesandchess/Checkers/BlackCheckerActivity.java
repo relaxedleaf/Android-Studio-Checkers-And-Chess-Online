@@ -446,8 +446,6 @@ public class BlackCheckerActivity extends AppCompatActivity {
                 builder.show();
             }
         });
-
-
     }
 
     @Override

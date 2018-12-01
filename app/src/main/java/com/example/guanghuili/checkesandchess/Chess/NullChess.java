@@ -9,7 +9,7 @@ public class NullChess extends Piece implements Serializable {
     }
 
     @Override
-    public List<Point> getMoves(Piece[][] board) {
+    public List<Point> getMoves(List<List<Piece>> board) {
         return null;
     }
 }

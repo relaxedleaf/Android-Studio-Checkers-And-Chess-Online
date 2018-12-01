@@ -2,16 +2,17 @@ package com.example.guanghuili.checkesandchess.Chess;
 
 //import Piece;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bishop extends Piece {
+public class Bishop extends Piece implements Serializable {
     public Bishop(Boolean isBlack, int row, int column) {
         super(isBlack, row, column, "Bishop");
     }
 
     @Override
-    public List getMoves(Piece[][] board) {
+    public List getMoves(List<List<Piece>> board) {
         List<Point> moves = new ArrayList<>();
 
         //up right
@@ -21,10 +22,10 @@ public class Bishop extends Piece {
             tempRow++;
             tempColumn++;
             if(tempRow >= 0 && tempRow < 8 && tempColumn >= 0 && tempColumn < 8){
-                if(board[tempRow][tempColumn] == null) {
+                if(board.get(tempRow).get(tempColumn) instanceof NullChess) {
                     moves.add(new Point(tempRow, tempColumn));
                 }
-                else if(board[tempRow][tempColumn].isBlack() != this.isBlack()){
+                else if(board.get(tempRow).get(tempColumn).isBlack() != this.isBlack()){
                     moves.add(new Point(tempRow,tempColumn));
                     break;
                 }
@@ -46,10 +47,10 @@ public class Bishop extends Piece {
             tempRow++;
             tempColumn--;
             if(tempRow >= 0 && tempRow < 8 && tempColumn >= 0 && tempColumn < 8){
-                if(board[tempRow][tempColumn] == null) {
+                if(board.get(tempRow).get(tempColumn) instanceof NullChess) {
                     moves.add(new Point(tempRow, tempColumn));
                 }
-                else if(board[tempRow][tempColumn].isBlack() != this.isBlack()){
+                else if(board.get(tempRow).get(tempColumn).isBlack() != this.isBlack()){
                     moves.add(new Point(tempRow,tempColumn));
                     break;
                 }
@@ -70,10 +71,10 @@ public class Bishop extends Piece {
             tempRow--;
             tempColumn++;
             if(tempRow >= 0 && tempRow < 8 && tempColumn >= 0 && tempColumn < 8){
-                if(board[tempRow][tempColumn] == null) {
+                if(board.get(tempRow).get(tempColumn) instanceof NullChess) {
                     moves.add(new Point(tempRow, tempColumn));
                 }
-                else if(board[tempRow][tempColumn].isBlack() != this.isBlack()){
+                else if(board.get(tempRow).get(tempColumn).isBlack() != this.isBlack()){
                     moves.add(new Point(tempRow,tempColumn));
                     break;
                 }
@@ -95,10 +96,10 @@ public class Bishop extends Piece {
             tempRow--;
             tempColumn--;
             if(tempRow >= 0 && tempRow < 8 && tempColumn >= 0 && tempColumn < 8){
-                if(board[tempRow][tempColumn] == null) {
+                if(board.get(tempRow).get(tempColumn) instanceof NullChess) {
                     moves.add(new Point(tempRow, tempColumn));
                 }
-                else if(board[tempRow][tempColumn].isBlack() != this.isBlack()){
+                else if(board.get(tempRow).get(tempColumn).isBlack() != this.isBlack()){
                     moves.add(new Point(tempRow,tempColumn));
                     break;
                 }

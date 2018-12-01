@@ -1,27 +1,81 @@
 package com.example.guanghuili.checkesandchess.Chess;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.media.MediaPlayer;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.guanghuili.checkesandchess.Player;
 import com.example.guanghuili.checkesandchess.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class RedChessActivity extends AppCompatActivity implements View.OnClickListener{
     private ImageButton[][] imageButtonList;
 
-    private Boolean firstClick;
-    private Piece[][] board;
+    private Boolean firstClick = true;
+    private List<List<Piece>> board;
     private List<Point> moves;
     private Point start;
 
-    Boolean isBlacksTurn;
+    boolean isBlacksTurn;
+
+    //*****
+    private boolean secondClick = false;
+    private boolean destroyed = false;
+    private int row;
+    private int column;
+    private boolean disableAllButOneButton = false;
+    private NullChess nullc = new NullChess();
+
+    private Boolean player2Enter = false;
+    private Boolean player2Left = false;
+    private Boolean backPressed = false;
+    private Boolean paused = false;
+    private Boolean waitingMessage = false;
+
+    private int round = 0;//for tracking the number of turns, if round is even, show the toast saying "your turn"
+
+    private AlertDialog alertDialog;
+    private AlertDialog.Builder dialogBuilder;
+
+    MediaPlayer clickSound;
+
+    private FirebaseDatabase database;
+    private DatabaseReference refSignUpPlayers;
+    private DatabaseReference refRoom;
+    private static DatabaseReference refThisRoom;
+    private DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseUser user;
+
+    private RoomManager roomManager = new RoomManager();
+    private Player player;
+    private Player player2;
+    private Room room;
+
+    private TextView tvRoom;
+    private TextView tvPlayer1Name;
+    private TextView tvPlayer2Name;
+    //******
 
 
     //row 1
@@ -101,11 +155,43 @@ public class RedChessActivity extends AppCompatActivity implements View.OnClickL
     private ImageButton ibtn_7_6;
     private ImageButton ibtn_7_7;
 
+    private Button btnSurrender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chess);
+        setContentView(R.layout.activity_red_chess);
+
+        //*****
+        clickSound = MediaPlayer.create(RedChessActivity.this, R.raw.click);
+
+        btnSurrender = findViewById(R.id.btnSurrenderID);
+        tvRoom = findViewById(R.id.tvRoomIdID);
+        tvPlayer1Name = findViewById(R.id.tvPlayer1ID);
+        tvPlayer2Name = findViewById(R.id.tvPlayer2ID);
+
+        tvPlayer2Name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickSound.start();
+                if(player2Enter == true && player2Left == false){
+                    dialogBuilder = new AlertDialog.Builder(RedChessActivity.this);
+                    View statusView = getLayoutInflater().inflate(R.layout.status,null);
+                    TextView tvWin = statusView.findViewById(R.id.tvWinID);
+                    TextView tvLoss =  statusView.findViewById(R.id.tvLossID);
+                    TextView tvWinningRate = statusView.findViewById(R.id.tvWinningRateID);
+
+                    tvWin.setText("Win: " + player2.getWin());
+                    tvLoss.setText("Loss: " + player2.getLoss());
+                    tvWinningRate.setText("Winning Rate: " + player2.getWinningRate());
+
+                    dialogBuilder.setView(statusView);
+                    alertDialog = dialogBuilder.create();
+                    alertDialog.show();
+                }
+            }
+        });
+        //*****
 
 
 
@@ -279,15 +365,197 @@ public class RedChessActivity extends AppCompatActivity implements View.OnClickL
                         {ibtn_6_0, ibtn_6_1, ibtn_6_2, ibtn_6_3, ibtn_6_4, ibtn_6_5, ibtn_6_6, ibtn_6_7},
                         {ibtn_7_0, ibtn_7_1, ibtn_7_2, ibtn_7_3, ibtn_7_4, ibtn_7_5, ibtn_7_6, ibtn_7_7}};
 
+        disableAllButton();
 
 
+        room = (Room)getIntent().getSerializableExtra("room");
+        tvRoom.setText(getResources().getText(R.string.room_id) + String.valueOf(room.getId()));
 
-        firstClick = true;
-        isBlacksTurn = false;
+        mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        refSignUpPlayers = database.getReference("Signed Up Players");
+        refRoom = database.getReference("ChessRoom");
+        refThisRoom = refRoom.child("available").child(String.valueOf(room.getId()));
 
+        mAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                user = mAuth.getCurrentUser();
+            }
+        });
 
-        board = new Piece[8][8];
-        setup();
+        refSignUpPlayers.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                user = mAuth.getCurrentUser();
+                for(DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                    if(dataSnapshot1.getValue(Player.class).getUsername().equals(user.getDisplayName())){
+                        player = dataSnapshot1.getValue(Player.class);
+                        tvPlayer1Name.setText(getResources().getText(R.string.player1) + player.getUsername());
+                    }
+                    if(player2Enter == true && player2Left == false){
+                        if (dataSnapshot1.getValue(Player.class).getUsername().equals(tvPlayer2Name.getText().toString())){
+                            player2 = dataSnapshot1.getValue(Player.class);
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        refThisRoom.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(backPressed == false) {
+                    if(paused == false) {
+                        if (player2Left == false) {
+                            if(dataSnapshot.getValue() != null) {
+                                if (dataSnapshot.getValue(Room.class).getPlayer2() != null) {
+                                    player2 = dataSnapshot.getValue(Room.class).getPlayer2();
+                                    tvPlayer2Name.setText(getResources().getText(R.string.player2) + dataSnapshot.getValue(Room.class).getPlayer2().getUsername());
+                                    isBlacksTurn = dataSnapshot.getValue(Room.class).isBlacksTurn();
+                                    round++;
+                                    if(isBlacksTurn == false && (round%2 == 0)){
+                                        Toast.makeText(RedChessActivity.this, "Your Turn", Toast.LENGTH_SHORT).show();
+                                        enableRedButton();
+                                    }
+                                    board = dataSnapshot.getValue(Room.class).getChessList();
+                                    processCheckerList();
+                                    if (player2Enter == false) {//first time enter
+                                        btnSurrender.setClickable(true);
+                                        Toast.makeText(RedChessActivity.this, "Player Entered", Toast.LENGTH_LONG).show();
+                                        player2Enter = true;
+                                        tvPlayer2Name.setClickable(true);
+                                        refThisRoom.removeEventListener(this);//when change the ref path, the listener won't update, so remove it and add it back
+                                        refThisRoom = refRoom.child("unavailable").child(String.valueOf(room.getId()));
+                                        refThisRoom.addValueEventListener(this);
+                                    }
+                                    resetBackgroundAll();
+                                    if(checkWin() == true){
+                                        player2Left = true;
+                                        Toast.makeText(RedChessActivity.this, "You win!", Toast.LENGTH_LONG).show();
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(RedChessActivity.this);
+                                        tvPlayer2Name.setClickable(false);
+                                        builder.setTitle("Room Update");
+                                        builder.setMessage("Excellent! You win");
+                                        builder.setCancelable(false);
+                                        builder.setPositiveButton("Nice", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                clickSound.start();
+                                                //refThisRoom.removeValue();
+                                                player.updateWin();
+                                                refSignUpPlayers.child(player.getUsername()).setValue(player);
+                                                RedChessActivity.super.onBackPressed();
+                                                finish();
+                                            }
+                                        });
+                                        builder.show();
+                                    }
+                                    if(checkLose() == true){
+                                        player2Left = true;
+                                        Toast.makeText(RedChessActivity.this, "You Lost!", Toast.LENGTH_LONG).show();
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(RedChessActivity.this);
+                                        builder.setTitle("Room Update");
+                                        builder.setMessage("Sorry! You Lost");
+                                        builder.setCancelable(false);
+                                        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                clickSound.start();
+                                                refThisRoom.removeValue();
+                                                player.updateLoss();
+                                                refSignUpPlayers.child(player.getUsername()).setValue(player);
+                                                RedChessActivity.super.onBackPressed();
+                                                finish();
+                                            }
+                                        });
+                                        builder.show();
+                                    }
+                                } else {//player2 is null
+                                    if (waitingMessage == false) {
+                                        btnSurrender.setClickable(false);
+                                        Toast.makeText(RedChessActivity.this, "Waiting for another player", Toast.LENGTH_LONG).show();
+                                        waitingMessage = true;
+                                    } else {
+                                        player2Left = true;
+                                        Toast.makeText(RedChessActivity.this, "User exited", Toast.LENGTH_LONG).show();
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(RedChessActivity.this);
+                                        tvPlayer2Name.setClickable(false);
+                                        builder.setTitle("Room Update");
+                                        builder.setMessage("Player Surrendered! You win");
+                                        builder.setCancelable(false);
+                                        builder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                clickSound.start();
+                                                refThisRoom.removeValue();
+                                                player.updateWin();
+                                                refSignUpPlayers.child(player.getUsername()).setValue(player);
+                                                RedChessActivity.super.onBackPressed();
+                                                finish();
+                                            }
+                                        });
+                                        builder.show();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        btnSurrender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickSound.start();
+                AlertDialog.Builder builder = new AlertDialog.Builder(RedChessActivity.this);
+                builder.setTitle("Surrender");
+                builder.setMessage("Are you sure you want to surrender?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        clickSound.start();
+                        backPressed = true;
+                        refThisRoom.child("player1").removeValue();
+                        player.updateLoss();
+                        refSignUpPlayers.child(player.getUsername()).setValue(player);
+                        RedChessActivity.super.onBackPressed();
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        clickSound.start();
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+            }
+        });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("pausedCalled", "called");
+        if(backPressed == false) {
+            if(player2Left == false) {
+                paused = true;
+                refThisRoom.child("player1").removeValue();
+                player.updateLoss();
+                refSignUpPlayers.child(player.getUsername()).setValue(player);
+                finish();
+            }
+            if(player2Enter == false){
+                refThisRoom.removeValue();
+            }
+        }
     }
 
     @Override
@@ -819,38 +1087,6 @@ public class RedChessActivity extends AppCompatActivity implements View.OnClickL
     }
 
 
-
-
-    public void setup(){
-        //Black
-        board[0][0] = new Rook(true,0,0);
-        board[0][7] = new Rook(true,0,7);
-        board[0][1] = new Knight(true,0,1);
-        board[0][6] = new Knight(true,0,6);
-        board[0][2] = new Bishop(true,0,2);
-        board[0][5] = new Bishop(true,0,5);
-        board[0][3] = new Queen(true,0,3);
-        board[0][4] = new King(true,0,4);
-
-        for(int i = 0; i < 8; i++){
-            board[1][i] = new Pawn(true,1,i,true);
-        }
-
-        //Red
-        board[7][0] = new Rook(false,7,0);
-        board[7][7] = new Rook(false,7,7);
-        board[7][1] = new Knight(false,7,1);
-        board[7][6] = new Knight(false,7,6);
-        board[7][2] = new Bishop(false,7,2);
-        board[7][5] = new Bishop(false,7,5);
-        board[7][3] = new Queen(false,7,3);
-        board[7][4] = new King(false,7,4);
-
-        for(int i = 0; i < 8; i++){
-            board[6][i] = new Pawn(false,6,i,true);
-        }
-    }
-
     public void resetBackgroundColor(){
         for(int r = 0; r < imageButtonList.length; r++){
             for(int c = 0; c < imageButtonList.length; c++){
@@ -894,30 +1130,30 @@ public class RedChessActivity extends AppCompatActivity implements View.OnClickL
                         imageButtonList[r][c].setBackgroundColor(Color.parseColor("#e1e4e9"));
                     }
                 }
-                if(board[r][c] != null) {
-                    if (board[r][c].isBlack() && board[r][c] instanceof Bishop) {
+                if(!(board.get(r).get(c) instanceof NullChess)) {
+                    if (board.get(r).get(c).isBlack() && board.get(r).get(c) instanceof Bishop) {
                         imageButtonList[r][c].setImageResource(R.drawable.black_bishop);
-                    } else if (board[r][c].isBlack() && board[r][c] instanceof King) {
+                    } else if (board.get(r).get(c).isBlack() && board.get(r).get(c) instanceof King) {
                         imageButtonList[r][c].setImageResource(R.drawable.black_king);
-                    } else if (board[r][c].isBlack() && board[r][c] instanceof Knight) {
+                    } else if (board.get(r).get(c).isBlack() && board.get(r).get(c) instanceof Knight) {
                         imageButtonList[r][c].setImageResource(R.drawable.black_knight);
-                    } else if (board[r][c].isBlack() && board[r][c] instanceof Pawn) {
+                    } else if (board.get(r).get(c).isBlack() && board.get(r).get(c) instanceof Pawn) {
                         imageButtonList[r][c].setImageResource(R.drawable.black_pawn);
-                    } else if (board[r][c].isBlack() && board[r][c] instanceof Queen) {
+                    } else if (board.get(r).get(c).isBlack() && board.get(r).get(c) instanceof Queen) {
                         imageButtonList[r][c].setImageResource(R.drawable.black_queen);
-                    } else if (board[r][c].isBlack() && board[r][c] instanceof Rook) {
+                    } else if (board.get(r).get(c).isBlack() && board.get(r).get(c) instanceof Rook) {
                         imageButtonList[r][c].setImageResource(R.drawable.black_rook);
-                    } else if (!board[r][c].isBlack() && board[r][c] instanceof Bishop) {
+                    } else if (!board.get(r).get(c).isBlack() && board.get(r).get(c) instanceof Bishop) {
                         imageButtonList[r][c].setImageResource(R.drawable.red_bishop);
-                    } else if (!board[r][c].isBlack() && board[r][c] instanceof King) {
+                    } else if (!board.get(r).get(c).isBlack() && board.get(r).get(c) instanceof King) {
                         imageButtonList[r][c].setImageResource(R.drawable.red_king);
-                    } else if (!board[r][c].isBlack() && board[r][c] instanceof Knight) {
+                    } else if (!board.get(r).get(c).isBlack() && board.get(r).get(c) instanceof Knight) {
                         imageButtonList[r][c].setImageResource(R.drawable.red_knight);
-                    } else if (!board[r][c].isBlack() && board[r][c] instanceof Pawn) {
+                    } else if (!board.get(r).get(c).isBlack() && board.get(r).get(c) instanceof Pawn) {
                         imageButtonList[r][c].setImageResource(R.drawable.red_pawn);
-                    } else if (!board[r][c].isBlack() && board[r][c] instanceof Queen) {
+                    } else if (!board.get(r).get(c).isBlack() && board.get(r).get(c) instanceof Queen) {
                         imageButtonList[r][c].setImageResource(R.drawable.red_queen);
-                    } else if (!board[r][c].isBlack() && board[r][c] instanceof Rook) {
+                    } else if (!board.get(r).get(c).isBlack() && board.get(r).get(c) instanceof Rook) {
                         imageButtonList[r][c].setImageResource(R.drawable.red_rook);
                     } else {
                         return;
@@ -938,21 +1174,22 @@ public class RedChessActivity extends AppCompatActivity implements View.OnClickL
     public void processFirstClick(int row, int column){
         Log.d("Clicked","clicked");
         //if no piece is in this position
-        if(board[row][column] == null){
+        if(board.get(row).get(column) instanceof NullChess){
             Log.d("Clicked","clicked1");
             return;
         }
         //else if the the piece is the wrong color
-        else if(board[row][column].isBlack() != isBlacksTurn){
+        else if(board.get(row).get(column).isBlack() != isBlacksTurn){
             Log.d("Clicked","clicked2");
             return;
         }
         //if there is a piece and its the right color
         else{
             Log.d("Clicked","clicked3");
+            Log.d("Clickedr",board.get(row).get(column).getType());
             //get all possible moves
-            moves = board[row][column].getMoves(board);
-            Log.d("Clicked",String.valueOf(moves.size()));
+            moves = board.get(row).get(column).getMoves(board);
+            enablePossibleMoveButton();
             //record starting position
             start = new Point(row,column);
             for(int i = 0; i < moves.size(); i++){
@@ -963,53 +1200,64 @@ public class RedChessActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void processSecondClick(int row, int column){
+        Log.d("SecondClicked","clicked");
         //if the users clicks the same position twice
         //deselect the piece
         if(start.equals(new Point(row,column))){
             resetBackgroundColor();
             firstClick = true;
+            disableAllButton();
+            enableRedButton();
             resetStart();
         }
         //else the users clicks other chess of the same color, possible moves, or null
         else{
-            if(board[row][column] == null){
+            if(board.get(row).get(column) instanceof NullChess){
                 for (int i = 0; i < moves.size(); i++) {
                     if (moves.get(i).equals(new Point(row, column))) {
-                        board[row][column] = board[start.getRow()][start.getColumn()];
-                        board[row][column].setRow(row);
-                        board[row][column].setColumn(column);
-                        if(board[row][column] instanceof Pawn){
-                            board[row][column].setFirstMove(false);
+                        board.get(row).set(column, board.get(start.getRow()).get(start.getColumn()));
+                        board.get(row).get(column).setRow(row);
+                        board.get(row).get(column).setColumn(column);
+                        if(board.get(row).get(column) instanceof Pawn){
+                            board.get(row).get(column).setFirstMove(false);
                         }
-                        board[start.getRow()][start.getColumn()] = null;
+                        board.get(start.getRow()).set(start.getColumn(), nullc);
                         resetBackgroundAll();
                         firstClick = true;
                         isBlacksTurn = !isBlacksTurn;
                         resetStart();
+                        refThisRoom.child("chessList").setValue(board);
+                        refThisRoom.child("blacksTurn").setValue(isBlacksTurn);
+                        disableAllButton();
                         break;
                     }
                 }
             }
             else {
                 //same color, processFirstClick
-                if (board[row][column].isBlack() == isBlacksTurn) {
+                if (board.get(row).get(column).isBlack() == isBlacksTurn) {
                     firstClick = true;
                     resetBackgroundColor();
                     processFirstClick(row, column);
+                    disableAllButton();
+                    enableRedButton();
                 }
                 //possible moves
                 else {
-                    Log.d("rowColumn",String.valueOf(board[row][column].row));
+                    Log.d("rowColumn",String.valueOf(board.get(row).get(column).row));
                     for (int i = 0; i < moves.size(); i++) {
                         if (moves.get(i).equals(new Point(row, column))) {
-                            board[row][column] = board[start.getRow()][start.getColumn()];
-                            board[row][column].setRow(row);
-                            board[row][column].setColumn(column);
-                            board[start.getRow()][start.getColumn()] = null;
+                            board.get(row).set(column, board.get(start.getRow()).get(start.getColumn()));
+                            board.get(row).get(column).setRow(row);
+                            board.get(row).get(column).setColumn(column);
+                            board.get(start.getRow()).set(start.getColumn(), nullc);
                             resetBackgroundAll();
                             firstClick = true;
                             isBlacksTurn = !isBlacksTurn;
                             resetStart();
+                            refThisRoom.child("chessList").setValue(board);
+                            refThisRoom.child("blacksTurn").setValue(isBlacksTurn);
+                            disableAllButton();
                             break;
                         }
                     }
@@ -1018,6 +1266,131 @@ public class RedChessActivity extends AppCompatActivity implements View.OnClickL
 
         }
     }
+
+    public void processCheckerList() {
+        Boolean isBlack;
+        Boolean firstMove;
+        for (int r = 0; r < board.size(); r++) {
+            for (int c = 0; c < board.get(r).size(); c++) {
+                if (board.get(r).get(c).getType().equals("Bishop")) {//if the checker is black
+                    isBlack = board.get(r).get(c).isBlack();
+                    board.get(r).set(c, (new Bishop(isBlack, board.get(r).get(c).getRow(), board.get(r).get(c).getColumn())));
+
+                }
+                if (board.get(r).get(c).getType().equals("King")) {//if the checker is black
+                    isBlack = board.get(r).get(c).isBlack();
+                    board.get(r).set(c, (new King(isBlack, board.get(r).get(c).getRow(), board.get(r).get(c).getColumn())));
+                }
+                if (board.get(r).get(c).getType().equals("Knight")) {//if the checker is black
+                    isBlack = board.get(r).get(c).isBlack();
+                    board.get(r).set(c, (new Knight(isBlack, board.get(r).get(c).getRow(), board.get(r).get(c).getColumn())));
+                }
+                if (board.get(r).get(c).getType().equals("NullChess")) {//if the checker is red
+                    board.get(r).set(c, (new NullChess()));
+                }
+                if (board.get(r).get(c).getType().equals("Pawn")) {//if the checker is black
+                    isBlack = board.get(r).get(c).isBlack();
+                    firstMove =  board.get(r).get(c).isFirstMove();
+                    board.get(r).set(c, (new Pawn(isBlack, board.get(r).get(c).getRow(), board.get(r).get(c).getColumn(),firstMove)));
+                }
+                if (board.get(r).get(c).getType().equals("Queen")) {//if the checker is black
+                    isBlack = board.get(r).get(c).isBlack();
+                    board.get(r).set(c, (new Queen(isBlack, board.get(r).get(c).getRow(), board.get(r).get(c).getColumn())));
+                }
+                if (board.get(r).get(c).getType().equals("Rook")) {//if the checker is black
+                    isBlack = board.get(r).get(c).isBlack();
+                    board.get(r).set(c, (new Rook(isBlack, board.get(r).get(c).getRow(), board.get(r).get(c).getColumn())));
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if(player2Enter == true) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Leaving while in a game");
+            builder.setMessage("Leave now means surrender");
+            builder.setPositiveButton("Leave", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    clickSound.start();
+                    backPressed = true;
+                    refThisRoom.child("player1").removeValue();
+                    player.updateLoss();
+                    refSignUpPlayers.child(player.getUsername()).setValue(player);
+                    RedChessActivity.super.onBackPressed();
+                    finish();
+                }
+            });
+            builder.setNegativeButton("Stay", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    clickSound.start();
+                    dialog.cancel();
+                }
+            });
+            builder.show();
+        }
+        else{
+            backPressed = true;
+            refThisRoom.removeValue();
+            RedChessActivity.super.onBackPressed();
+            finish();
+        }
+    }
+
+    public boolean checkWin(){
+        boolean win = true;
+        for(int r = 0; r < board.size(); r++){
+            for(int c = 0; c < board.get(r).size(); c++){
+                if(board.get(r).get(c).isBlack() && board.get(r).get(c) instanceof King){
+                    win = false;
+                    break;
+                }
+            }
+        }
+        return win;
+    }
+
+    public boolean checkLose(){
+        boolean lose = true;
+        for(int r = 0; r < board.size(); r++){
+            for(int c = 0; c < board.get(r).size(); c++){
+                if(!board.get(r).get(c).isBlack() && board.get(r).get(c) instanceof King){
+                    lose = false;
+                    break;
+                }
+            }
+        }
+        return lose;
+    }
+
+    public void disableAllButton(){
+        for (int r = 0; r < imageButtonList.length; r++) {
+            for (int c = 0; c < imageButtonList[r].length; c++) {
+                imageButtonList[r][c].setClickable(false);
+            }
+        }
+    }
+
+    public void enableRedButton(){
+        for (int r = 0; r < imageButtonList.length; r++) {
+            for (int c = 0; c < imageButtonList[r].length; c++) {
+                if(!board.get(r).get(c).isBlack()) {
+                    imageButtonList[r][c].setClickable(true);
+                }
+            }
+        }
+    }
+
+    public void enablePossibleMoveButton(){
+        for(int i = 0; i < moves.size(); i++){
+            Point point = moves.get(i);
+            imageButtonList[point.getRow()][point.getColumn()].setClickable(true);
+        }
+    }
+
+
 
 
 }
