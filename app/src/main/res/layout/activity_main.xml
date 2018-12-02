@@ -30,10 +30,10 @@
             android:background="@drawable/outline"
             android:clickable="true"
             android:fontFamily="casual"
+            android:padding="5dp"
             android:textAllCaps="true"
             android:textColor="@color/common_google_signin_btn_text_light_pressed"
-            android:textSize="20sp"
-            android:textStyle="italic" />
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnSignUpID"

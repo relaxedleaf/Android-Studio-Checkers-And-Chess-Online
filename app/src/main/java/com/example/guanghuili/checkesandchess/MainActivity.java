@@ -170,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
                         tvGreeting.setText("Hello " + user.getDisplayName());
                         tvGreeting.setVisibility(View.VISIBLE);
                         ibtnCheckers.setEnabled(true);
+                        ibtnChess.setEnabled(true);
 
                     }
                     else{
@@ -181,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
                         tvGreeting.setVisibility(View.GONE);
                         tvGreeting.setVisibility(View.GONE);
                         ibtnCheckers.setEnabled(false);
+                        ibtnChess.setEnabled(false);
                     }
 
                 }
@@ -192,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
                     btnSignup.setVisibility(View.VISIBLE);
                     tvGreeting.setVisibility(View.GONE);
                     ibtnCheckers.setEnabled(false);
+                    ibtnChess.setEnabled(false);
                 }
             }
         };
