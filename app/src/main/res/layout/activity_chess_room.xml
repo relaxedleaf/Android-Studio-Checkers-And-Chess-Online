@@ -14,6 +14,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@drawable/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,12 +33,16 @@
 
         <Button
             android:id="@+id/btnCreateRoomID"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="@string/create_room" />
+            android:background="@drawable/outline"
+            android:fontFamily="casual"
+            android:text="@string/create_room"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etRoomID"
@@ -49,10 +54,14 @@
 
         <Button
             android:id="@+id/btnjoinID"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="@string/join" />
+            android:background="@drawable/outline"
+            android:fontFamily="casual"
+            android:text="@string/join"
+            android:textStyle="bold" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

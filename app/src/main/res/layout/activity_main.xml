@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#84c1ff"
+    android:background="@drawable/background"
     tools:context=".MainActivity">
 
     <RelativeLayout
@@ -27,31 +27,46 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:background="@drawable/outline"
             android:clickable="true"
             android:fontFamily="casual"
+            android:textAllCaps="true"
+            android:textColor="@color/common_google_signin_btn_text_light_pressed"
             android:textSize="20sp"
-            android:textStyle="bold|italic" />
+            android:textStyle="italic" />
 
         <Button
             android:id="@+id/btnSignUpID"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:text="@string/sign_up" />
+            android:background="@drawable/outline"
+            android:fontFamily="casual"
+            android:text="@string/sign_up"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnLoginID"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="@string/login" />
+            android:background="@drawable/outline"
+            android:fontFamily="casual"
+            android:text="@string/login"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnSignOutID"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:background="@drawable/outline"
+            android:fontFamily="casual"
             android:text="@string/sign_out"
+            android:textStyle="bold"
             android:visibility="invisible" />
 
     </RelativeLayout>
@@ -64,7 +79,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="#90B5C1"
+        android:background="@drawable/outline"
         android:cropToPadding="false"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -83,16 +98,17 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="#90B5C1"
+        android:background="@drawable/outline"
+        android:elevation="0dp"
         android:onClick="goChess"
-        android:scaleType="fitCenter"
+        android:scaleType="fitXY"
+        android:src="@drawable/chess"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvChessID"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/chess" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvCheckersID"
@@ -102,6 +118,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:fontFamily="casual"
         android:text="@string/play_checkers"
         android:textColor="@android:color/black"
         android:textSize="18sp"
@@ -120,6 +137,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:fontFamily="casual"
         android:text="@string/play_chess"
         android:textColor="@android:color/background_dark"
         android:textSize="18sp"

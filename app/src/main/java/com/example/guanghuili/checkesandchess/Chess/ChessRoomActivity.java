@@ -52,7 +52,7 @@ public class ChessRoomActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_checker_room);
+        setContentView(R.layout.activity_chess_room);
 
         clickSound = MediaPlayer.create(ChessRoomActivity.this, R.raw.click);
 

@@ -23,7 +23,9 @@
         <activity android:name=".CreditActivity" />
         <activity android:name=".Chess.ChessRoomActivity" />
         <activity android:name=".Chess.BlackChessActivity" />
-        <activity android:name=".Chess.RedChessActivity"></activity>
+        <activity android:name=".Chess.RedChessActivity" />
+        <activity android:name=".CheckerPractice.CheckerPracticeActivity"></activity>
+        <activity android:name=".ChessPractice.Chess"></activity>
     </application>
 
 </manifest>

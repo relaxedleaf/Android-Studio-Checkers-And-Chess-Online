@@ -11,7 +11,9 @@
         android:id="@+id/cardviewLayoutID"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="#B0C7C2">
+        android:background="@drawable/outline"
+        app:cardBackgroundColor="#32000000"
+        app:cardCornerRadius="20dp">
 
         <TableLayout
             android:layout_width="match_parent"

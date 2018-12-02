@@ -7,6 +7,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,9 +16,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.guanghuili.checkesandchess.CheckerPractice.CheckerPracticeActivity;
 import com.example.guanghuili.checkesandchess.Checkers.CheckerRoomActivity;
 import com.example.guanghuili.checkesandchess.Checkers.RoomManager;
 import com.example.guanghuili.checkesandchess.Chess.ChessRoomActivity;
+import com.example.guanghuili.checkesandchess.ChessPractice.Chess;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -363,5 +367,24 @@ public class MainActivity extends AppCompatActivity {
     public void goChess(View view){
         Intent intent = new Intent(MainActivity.this, ChessRoomActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.checkerMenuID){
+            Intent intent = new Intent(MainActivity.this,CheckerPracticeActivity.class);
+            startActivity(intent);
+        }
+        if(item.getItemId() == R.id.chessMenuID){
+            Intent intent = new Intent(MainActivity.this,Chess.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }
